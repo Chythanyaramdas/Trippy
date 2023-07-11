@@ -10,7 +10,7 @@ const createAxiosClient = (baseURL) => {
     })
     return client
   }
-  const attachToken = (req, tokenName = "usertoken") => {
+  const attachToken = (req,tokenName ="usertoken") => {
     let authToken = localStorage.getItem(tokenName)
     if (authToken) {
       // console.log(authToken,"authentication working...")
@@ -24,8 +24,9 @@ const createAxiosClient = (baseURL) => {
 const staffAxiosInstance = createAxiosClient(staffUrl)
 staffAxiosInstance.interceptors.request.use(async (req) => {
   const modifiedReq = attachToken(req, "stafftoken")
-  return modifiedReq
+  return modifiedReq;
 })
+
 const userAxiosInstance = createAxiosClient(baseUrl)
 
 userAxiosInstance.interceptors.request.use(async (req) => {

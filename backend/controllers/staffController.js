@@ -8,7 +8,7 @@ const session=require("express-session");
 const jwt=require('jsonwebtoken');
 
 const {USER_MAIL,USER_PASSWORD}=process.env
-console.log(process.env);
+
 
 
 const transporter = nodemailer.createTransport({

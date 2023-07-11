@@ -1,7 +1,11 @@
+
 const express = require('express');
 const userRoute = require('./routers/userRoute');
-const staffRoute=require('./routers/staffRoute')
+const staffRoute=require('./routers/staffRoute');
+const adminRoute = require('./routers/Route')
 const path=require('path')
+const dotenv = require('dotenv')
+dotenv.config()
 
 const mongoose = require('mongoose');
 
@@ -32,10 +36,18 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-const adminRoute = require('./routers/Route')
-app.use('/', userRoute);
-app.use('/staff',staffRoute);
-app.use('/admin',adminRoute);
+
+//=======================routes=============================
+
+
+app.use('/',require('./routers/userRoute'))
+// app.use('/', userRoute);
+app.use('/staff',require('./routers/staffRoute'));
+// app.use('/staff',staffRoute);
+app.use('/admin',require('./routers/Route'));
+// app.use('/admin',adminRoute);
+
+
 
 app.listen(3001, function () {
     console.log('Server running on port 3001');

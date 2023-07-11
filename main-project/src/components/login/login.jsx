@@ -5,6 +5,7 @@ import { Link} from 'react-router-dom';
 import axios from 'axios';
 
 
+
 import { setUserDetails } from '../../redux/userSlice';
 import { userOtp } from '../../services/userApi';
 import { userAuth } from '../../services/userApi';
@@ -33,28 +34,37 @@ const   UserLogin = () => {
     e.preventDefault();
 
     try {
-      const data = await userOtp({
-        email: email,
-        password: password
-      })
+      // const data = await userOtp({
+      //   email: email,
+      //   password: password
+      // })
       console.log("heiiiii");
       console.log(email,password);
-      await axios.post(`${userBaseApi}/userLogin`,{email,password}).then((response)=>{
+      console.log('token');
+      const token = localStorage.getItem('userToken')
+      console.log(token);
+      await UserApi.post(`/userLogin`,{email,password}).then((response)=>{
         console.log(response);
+
+       
+        localStorage.setItem("userToken",response.data.token);
+
+
         navigate("/")
       })
     
 
-      if (data) {
-        if (data.data.errors) {
-          const { email, password } = data.data.errors;
-          if (email) generateError(email);
-          else if (password) generateError(password);
-        } else {
+      // if (data) {
+      //   if (data.data.errors) {
+      //     const { email, password } = data.data.errors;
+      //     if (email) generateError(email);
+      //     else if (password) generateError(password);
+      //   } else {
           
-          console.log();
-        }
-      }
+      //     console.log("success login user");
+
+      //   }
+      // }
     } catch (error) {
       console.log(error);
     }

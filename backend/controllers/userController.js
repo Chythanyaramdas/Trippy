@@ -7,8 +7,11 @@ const randormstring=require("randomstring");
 const express=require("express");
 const session=require("express-session");
 const jwt=require('jsonwebtoken');
+const dotenv =require("dotenv")
+dotenv.config()
 
-const {USER_MAIL,USER_PASSWORD}=process.env
+
+const {USER_MAIL,USER_PASSWORD,JWT_SECRET_KEY}=process.env
 
 
 const transporter = nodemailer.createTransport({
@@ -174,7 +177,7 @@ module.exports.userLogin=async(req,res,next)=>{
     const password=req.body.password;
     console.log(email,password);
     const userData=await User.findOne({email:email})
-
+    console.log(userData._id);
     console.log("correct");
       console.log(userData,"oooo");
     if(userData){
@@ -183,9 +186,9 @@ module.exports.userLogin=async(req,res,next)=>{
       console.log(passwordMatch);
       
       if(passwordMatch){
-        
-        const token=jwt.sign({userId:userData._id},"secretkey",{expiresIn:30000})
-        console.log(token);
+        console.log(JWT_SECRET_KEY,"kkkk");
+        const token=jwt.sign({userId:userData._id,role:"client"},process.env.JWT_SECRET_KEY,{expiresIn:30000})
+        console.log(token,"token");
        
         res.status(200).json({token:token,message:"success token"})
 
@@ -242,6 +245,17 @@ module.exports.landPage=async(req,res)=>{
   }
   catch(error){
 
+    console.log(error.message);
+  }
+}
+module.exports.auth=async(req,res)=>{
+  try{
+
+    console.log("Augustine");
+
+  }
+
+  catch(error){
     console.log(error.message);
   }
 }

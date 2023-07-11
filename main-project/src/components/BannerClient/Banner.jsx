@@ -19,10 +19,12 @@ function Banner(){
     },[])
 
     return (
-        <div className='mt-0 flex justify-center w-full'>
-    
-            <div className=' md:h-auto w-full md:w-full'>
-                <img src={server_url+'images/'+ banner.image} alt="" className='w-full' />
+        <div className="mt-0 flex justify-center w-full ">
+                
+            
+            <div   className=' md:h-auto w-full md:w-full relative'>
+            <img src={server_url+'images/'+ banner.image} alt="" className='w-full ' />
+                <p className='absolute top-1/2 left-1/2 z-10' >jjj</p>
             </div>
         </div>
       )
