@@ -1,7 +1,23 @@
 import axios from 'axios'
 
 
- export const StaffApi = axios.create({
-    baseURL: 'http://localhost:3001/staff/',
+ export const AdminApi = axios.create({
+    baseURL: 'http://localhost:3001/admin/',
  })
- export const adminBaseApi="http://localhost:3001/admin/"
+
+ AdminApi.interceptors.request.use(
+   function (config) {
+      let token=localStorage.getItem("adminToken")
+      console.log(token);
+      config.headers.Authorization=`Bearer ${token}`
+      // Do something before request is sent
+      return config;
+    }, function (error) {
+      // Do something with request error
+      return Promise.reject(error);
+    }
+ )
+
+
+
+//  export const adminBaseApi="http://localhost:3001/admin/"

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 //  import {admin} from'../../services/adminApi';
  import { useNavigate } from 'react-router-dom';
- import { adminBaseApi } from '../../utils/admin/adminApi';
+ import { AdminApi } from '../../utils/admin/adminApi';
 import { useEffect, useState } from 'react';
 
 
@@ -33,10 +33,14 @@ const navigate = useNavigate();
       // })
       console.log("heiiiii");
       console.log(email,password);
-       axios.post(`http://localhost:3001/admin/adminLogin`,{email,password}).then((response)=>{
+      await AdminApi.post(`/adminLogin`,{email,password}).then((response)=>{
+      //  axios.post(`http://localhost:3001/admin/adminLogin`,{email,password}).then((response)=>{
         console.log(response);
         if(response.data.status){
           console.log("succes dashboard");
+
+          localStorage.setItem("adminToken",response.data.token);
+
           navigate("/admin/banner")
         }
         

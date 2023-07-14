@@ -11,7 +11,8 @@ import { userOtp } from '../../services/staffApi';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {  staffBaseApi } from '../../utils/staff/axiosStaff';
+ import {  staffBaseApi } from '../../utils/staff/axiosStaff';
+import { StaffApi} from '../../utils/staff/axiosStaff';
 
 
 
@@ -33,30 +34,41 @@ const StaffLogin = () => {
     e.preventDefault();
 
     try {
-      const data = await userOtp({
-        email: email,
-        password: password
-      })
+      // const data = await userOtp({
+      //   email: email,
+      //   password: password
+      // })
       console.log("heiiiii");
       console.log(email,password);
+      console.log('token');
+      const token=localStorage.getItem('staffToken')
+      console.log(token);
+      await StaffApi.post(`/staff_Login`,{email,password}).then((response)=>{
+        console.log(response);
+
+        localStorage.setItem("staffToken",response.data.token);
+
+        navigate("/");
+      }) 
+
       // await axios.post(`${staffBaseApi}staff_Login`,{email,password}).then((response)=>{
       //   console.log(response);
       //   navigate("/")
       // })
     
 
-      if (data) {
-        if (data.data.errors) {
-          const { email, password } = data.data.errors;
-          if (email) generateError(email);
-          else if (password) generateError(password);
-        } else {
-          console.log('hello');
-          console.log('chay');
-          navigate("/")
+      // if (data) {
+      //   if (data.data.errors) {
+      //     const { email, password } = data.data.errors;
+      //     if (email) generateError(email);
+      //     else if (password) generateError(password);
+      //   } else {
+      //     console.log('hello');
+      //     console.log('chay');
+      //     // navigate("/")
           
-        }
-      }
+      //   }
+      // }
     } catch (error) {
       console.log(error);
     }

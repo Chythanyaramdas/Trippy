@@ -5,6 +5,7 @@ import { adminApi } from "../../helper/axios/adminAxios";
 import {GrUpdate} from'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import{MdOutlineDelete} from'react-icons/md';
+import Button from '../Button/Button';
 
 function Banner(){
 
@@ -33,6 +34,7 @@ const [confirmation,setConfirmation] = useState(false)
   }
 
   const deleteClick = (id)=>{
+    console.log('1234567890-');
     setBannerId(id)
     setConfirmation(true)
   }
@@ -58,12 +60,18 @@ if(response.data.status){
 },[add]);
 return (
     <div className="flex flex-col bg-sky-50 w-full">
-      <button
+
+      {/* <button
         className="bg-gradient-to-r from-cyan-500 to-blue-500 p-2 rounded-2xl absolute right-20 top-20"
          onClick={() => navigate("/admin/create_banner")}
       >
         Create Banner
-      </button>
+      </button> */}
+
+
+< Button content='banner' path="/admin/create_banner"  />
+
+
       <div className="mt-36 ml-20 flex grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
         {banner.map((data, index) => {
           return (
@@ -80,8 +88,11 @@ return (
               <h1>{data.title}</h1>
               <p>{data.description}</p>
               <div className="flex justify-center flex-col w-full ">
-                <button className="bg-sky-500 p-2 rounded-lg mt-3 hidden sm:block" onClick={()=>deleteClick(data._id)}>Delete</button>
+                         {/* dynamic button with functinality */}
+                {/* <Button func={deleteClick} id={data._id}  content={'Delete'}    /> */}
+                <button className="bg-[#CE2625] p-2 rounded-lg mt-3 hidden sm:block" onClick={()=>deleteClick(data._id)}>Delete</button>
                 <button className="bg-sky-500 p-2 rounded-lg mt-3 hidden sm:block">Update</button>
+
                 <button  className="bg-sky-500 p-2 rounded-lg mt-3 block sm:hidden flex justify-center"><MdOutlineDelete /></button>
                 <button className="bg-sky-500 p-2 rounded-lg mt-3 block sm:hidden flex justify-center"> <GrUpdate /></button>
               </div>
@@ -101,7 +112,7 @@ return (
 
           <div className="mt-3">
             <button className="bg-red-600 text-white rounded-lg px-4 py-2" onClick={handleDelete}>Confirm</button>
-            <button className="bg-red-600 text-white rounded-lg px-4 py-2 ml-4" onClick={()=> setBannerId(false)} >Cancel</button>
+            <button className="bg-red-600 text-white rounded-lg px-4 py-2 ml-4" onClick={()=> setConfirmation(false)} >Cancel</button>
           </div>
           
         </div>

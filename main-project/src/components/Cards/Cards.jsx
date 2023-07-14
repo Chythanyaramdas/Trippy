@@ -1,78 +1,53 @@
 import React from "react";
-import "./Cards.css";
+import { MdOutlineDelete } from "react-icons/md";
+import { GrUpdate } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 
-function Cards() {
+
+function Card({ data , updatePath }) {
+  const navigate = useNavigate();
+  const truncateString = (string,length)=>{
+    if(string.length <= length){
+        return string
+    }else{
+        return string.substring(0,length)+'...'
+    }
+  }
   return (
-    <div>
-      <div  className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-20 mt-10 overflow-x-scroll ">
-        <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-          <div>
-            <img
-              src="https://c4.wallpaperflare.com/wallpaper/624/380/1000/life-resort-hotel-resort-hotel-wallpaper-preview.jpg"
-              alt=""
-              className=""
-            />
-          </div>
-          <div className="p-2">
-            <p className="mt-3">hello</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
-          </div>
-        </div>
-        <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-          <div>
-            <img
-              src="https://c4.wallpaperflare.com/wallpaper/624/380/1000/life-resort-hotel-resort-hotel-wallpaper-preview.jpg"
-              alt=""
-              className=""
-            />
-          </div>
-          <div className="p-2">
-            <p className="mt-3">hello</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
-          </div>
-        </div>
-        <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-          <div>
-            <img
-              src="https://c4.wallpaperflare.com/wallpaper/624/380/1000/life-resort-hotel-resort-hotel-wallpaper-preview.jpg"
-              alt=""
-              className=""
-            />
-          </div>
-          <div className="p-2">
-            <p className="mt-3">hello</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
-          </div>
-        </div>
-        <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-          <div>
-            <img
-              src="https://c4.wallpaperflare.com/wallpaper/624/380/1000/life-resort-hotel-resort-hotel-wallpaper-preview.jpg"
-              alt=""
-              className=""
-            />
-          </div>
-          <div className="p-2">
-            <p className="mt-3">hello</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
-          </div>
-        </div>
-        <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-          <div>
-            <img
-              src="https://c4.wallpaperflare.com/wallpaper/624/380/1000/life-resort-hotel-resort-hotel-wallpaper-preview.jpg"
-              alt=""
-              className=""
-            />
-          </div>
-          <div className="p-2">
-            <p className="mt-3">hello</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
-          </div>
+    <>
+      <div className="rounded-xl h-25 bg-white w-full  p-2 shadow-lg flex flex-col ">
+        <img
+          className=" bg-fit rounded-xl h-full object-cover "
+          src={`http://localhost:3001/images/${data.image}`}
+          alt=""
+        />
+
+        <h1>{data.name}</h1>
+        <p>{truncateString(data.description,28)}</p>
+        <div className="flex justify-center flex-col w-full ">
+          <button
+            className="bg-sky-500 p-2 rounded-lg mt-3 hidden sm:block text-white"
+            // onClick={() => deleteClick(data._id)}
+          >
+            Delete
+          </button>
+          <button
+            className="bg-sky-500 p-2 rounded-lg mt-3 hidden sm:block"
+            onClick={() => navigate(updatePath)}
+          >
+            Update
+          </button>
+          <button className="bg-sky-500 p-2 rounded-lg mt-3 block sm:hidden flex justify-center">
+            <MdOutlineDelete />
+          </button>
+          <button className="bg-sky-500 p-2 rounded-lg mt-3 block sm:hidden flex justify-center">
+            {" "}
+            <GrUpdate />
+          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default Cards;
+export default Card;

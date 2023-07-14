@@ -9,6 +9,7 @@ const session=require("express-session");
 const jwt=require('jsonwebtoken');
 const dotenv =require("dotenv")
 dotenv.config()
+const Category=require('../models/categoryModel');
 
 
 const {USER_MAIL,USER_PASSWORD,JWT_SECRET_KEY}=process.env
@@ -229,6 +230,7 @@ console.log("no auth");
   }
 }
 
+
 // ===================================================LandHome===================================
 
 module.exports.landPage=async(req,res)=>{
@@ -236,10 +238,12 @@ module.exports.landPage=async(req,res)=>{
   try{
 
     const bannerData = await banner.find({is_delete:false})
+    const categoryData=await Category.find({is_delete:false})
+    
     res.json({
       banners:bannerData,
-      status:true
-
+      status:true,
+      category:categoryData
 
     })
   }

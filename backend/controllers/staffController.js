@@ -6,8 +6,10 @@ const randormstring=require("randomstring");
 const express=require("express");
 const session=require("express-session");
 const jwt=require('jsonwebtoken');
+const dotenv=require("dotenv")
+dotenv.config()
 
-const {USER_MAIL,USER_PASSWORD}=process.env
+const {USER_MAIL,USER_PASSWORD,JWT_SECRET_KEY}=process.env
 
 
 
@@ -128,7 +130,7 @@ console.log("Staffil ethiii");
         
         if(passwordMatch){
           
-          const token=jwt.sign({userId:userData._id},"secretkey",{expiresIn:30000})
+          const token=jwt.sign({userId:userData._id,role:"staff"},process.env.JWT_SECRET_KEY,{expiresIn:30000})
           console.log(token);
          
           res.status(200).json({token:token,message:"success token"})

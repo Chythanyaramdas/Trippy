@@ -8,6 +8,9 @@ const session=require("express-session");
 const jwt=require('jsonwebtoken');
 const { admin } = require('../../main-project/src/services/adminApi');
 const banner = require('../models/bannerModel')
+const dotenv=require("dotenv")
+dotenv.config()
+
 
 
 module.exports.Admin_Login=async(req,res,next)=>{
@@ -18,13 +21,26 @@ module.exports.Admin_Login=async(req,res,next)=>{
         const email=req.body.email;
         const aa= req.body.password
         const adminData=await Admin.findOne({email})
-        
+        console.log(adminData);
         if(adminData){
         const password= await bcrypt.compare(aa,adminData.password)
+        const token=jwt.sign({userId:adminData._id,role:"admin"},process.env.JWT_SECRET_KEY,{expiresIn:30000})
+        console.log(token);
         if(password){
-            res.json({status:true})
+            res.status(200).json({status:true,token:token,message:"success token"})
+        }
+        else{
+
+          res.status(401).json({message:"invalid password"})
         }
        
+        }
+
+        else{
+
+          console.log("pottiii");
+          res.status(404).json({message:"admin not found"})
+  
         }
 
 
