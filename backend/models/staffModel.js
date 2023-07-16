@@ -19,12 +19,14 @@ mobileNumber:{
     type:Number,
     required:true
 },
-is_admin:{   
-    type:Number,
-    default:0,
-    required:true
+
+// is_admin:{   
+//     type:Number,
+//     default:0,
+//     required:true
    
-},
+// },
+
 is_varified:{
    type:Number,
    default:0

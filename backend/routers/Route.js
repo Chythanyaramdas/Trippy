@@ -38,5 +38,8 @@ admin_route.get('/categoryManagement',categoryController.categoreyManagement);
 admin_route.post('/categoreyUpload',upload.single("image"),categoryController.categoreyCreation);
 admin_route.post('/addLocation',locationController.locationCreation);
 admin_route.get('/location',locationController.location)
+admin_route.delete('/location',locationController.deleteLocation)
+
+
 
 module.exports = admin_route;

@@ -1,4 +1,4 @@
-const { response } = require('express');
+
 const Location=require('../models/locationModel')
 module.exports.locationCreation=async(req,res)=>{
 
@@ -63,7 +63,7 @@ module.exports.locationCreation=async(req,res)=>{
 
 module.exports.location=async(req,res)=>{
     try {
-      const locationData=await Location.find({})
+      const locationData=await Location.find({is_delete:false})
       console.log( locationData);
       res.json({
         status:true,
@@ -75,5 +75,33 @@ module.exports.location=async(req,res)=>{
         console.log(error.message);
         
     }
+}
+
+module.exports.deleteLocation=async(req,res)=>{
+    try{
+
+
+
+      console.log(req.body.id,"id");
+      const locationData = await Location .findByIdAndUpdate(req.body.id,{is_delete:true})
+      if(locationData){
+          res.json({
+              status:true,
+              message:'Successfully deleted'
+          })
+      }
+      
+
+    }
+
+    catch(error){
+
+        console.log(error.message);
+        res.json({
+          status:false,
+          message:"Can't find the data"
+      })
+      }
+
 }
 

@@ -1,17 +1,53 @@
 import React, { useEffect, useState } from "react";
+import{useNavigate} from'react-router-dom';
 import { AdminApi } from "../../utils/admin/adminApi";
 import './Location.css' ;
 function Location() {
+
+  const navigate=useNavigate();
   const [location, setLocation] = useState([]);
+  const[locationId,setLocationId]=useState('')
+  const [confirmation,setConfirmation] = useState(false)
+  const [add,setAdd]=useState(false); 
+
+
+  const handleDelete=()=>{
+
+    AdminApi.delete('/location',{data:{id:locationId}}).then((response)=>{
+
+      if(response.data.status){
+        alert(response.data.message)
+        navigate('/admin/location')
+        add ? setAdd(false): setAdd(true)
+      }
+
+    })
+
+    setConfirmation(false)
+  }
+
+
+  const deleteClick=(id)=>{
+
+    console.log('1234567890-');
+    setLocationId(id)
+    setConfirmation(true)
+
+  }
 
   useEffect(() => {
     AdminApi.get("/location").then((response) => {
       if (response.data.status) {
         let newData = response.data.Location.map((locationdoc) => locationdoc);
         setLocation([...newData]);
+        
+
       }
     });
-  }, []);
+
+  }, [add]);
+
+  
 
   return (
     <div>
@@ -84,7 +120,7 @@ function Location() {
                           </td>
 
                             <td>
-                            <button className="loc w-28 h-3"> Delete </button>
+                            <button className="loc w-28 h-3" onClick={()=>deleteClick(data._id)}> Delete </button>
                                         
                             </td>
 
@@ -103,6 +139,26 @@ function Location() {
           </div>
         </div>
       </>
+
+
+      {confirmation &&<div className="fixed inset-0 bg-transparent flex justify-center items-center flex-col ">
+        <div className="bg-white rounded-lg p-10 flex flex-col justify-center items-center  ">
+          <div >
+          <h1>Delete</h1>
+          </div>
+
+          <div className="mt-3">
+            <p>Are you Sure You want to delete</p>
+          </div>
+
+          <div className="mt-3">
+            <button className="bg-red-600 text-white rounded-lg px-4 py-2" onClick={handleDelete}>Confirm</button>
+            <button className="bg-red-600 text-white rounded-lg px-4 py-2 ml-4" onClick={()=> setConfirmation(false)} >Cancel</button>
+          </div>
+          
+        </div>
+      </div>}
+    
 
       {/*----------------------------------------------------------------------  */}
     </div>

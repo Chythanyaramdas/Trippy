@@ -7,6 +7,11 @@ const locationSchema = mongoose.Schema({
         required:true
     },
 
+    is_delete: { 
+        type: Boolean,
+        default: false
+    },
+
     places:[{
 
         place:{
@@ -21,6 +26,8 @@ const locationSchema = mongoose.Schema({
             
         }
     }]
+
+
 
 })
 

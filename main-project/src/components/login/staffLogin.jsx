@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link} from 'react-router-dom';
 import axios from 'axios';
+import {staffContext} from'../../helper/context/StaffContext';
 
 
 
@@ -21,6 +22,8 @@ const StaffLogin = () => {
   const navigate = useNavigate();
   const [email, setuseremail] = useState('');
   const [password, setuserpass] = useState('');
+
+  const{setStaff,setApproved,setId}=useContext(staffContext)
 
   
 
@@ -48,7 +51,12 @@ const StaffLogin = () => {
 
         localStorage.setItem("staffToken",response.data.token);
 
-        navigate("/");
+        const{name,_id,email,approved}=response.data.staff;
+        setStaff(name)
+        setApproved(approved)
+        setId(_id)
+
+        navigate("/staff/dashboard");
       }) 
 
       // await axios.post(`${staffBaseApi}staff_Login`,{email,password}).then((response)=>{
