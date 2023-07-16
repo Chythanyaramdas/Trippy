@@ -133,7 +133,7 @@ console.log("Staffil ethiii");
           const token=jwt.sign({userId:userData._id,role:"staff"},process.env.JWT_SECRET_KEY,{expiresIn:30000})
           console.log(token);
          
-          res.status(200).json({token:token, userData,message:"success token"})
+          res.status(200).json({token:token, staff:userData,message:"success token"})
   
         }
         

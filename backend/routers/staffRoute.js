@@ -32,7 +32,7 @@ const staffController= require('../controllers/staffController');
 const resortController=require('../controllers/resortController')
 
 staff_route.post('/register',staffController.signup)
-staff_route.post('/staff_Login',staffAuth,staffController.staff_Login)
+staff_route.post('/staff_Login',staffController.staff_Login)
 staff_route.post('/verify_staff',staffController.verification);
 staff_route.get('/resortRegister',resortController.resortLocation);
 staff_route.post('/resortRegister',upload.single('image'),resortController.resort);

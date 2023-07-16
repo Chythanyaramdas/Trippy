@@ -5,10 +5,11 @@ function ResortRegistration() {
 
     const[staff,setStaff]=useState({})
     const{id}=useContext(staffContext);
+    console.log(id,"id");
 
    const[adventure,setAdventure]=useState([{}]);
    const[place,setPlace]=useState([{}])
-   const[address,setAddress]=useState({})
+  //  const[address,setAddress]=useState({})
    const[location,setLocation]=useState([{}])
    const[store,setStore]=useState([{}])
    const[filter,setFilter]=useState({})
@@ -22,7 +23,8 @@ const initialValues={
     capacity:"",
     price:"",
     image:"",
-    placeId:""
+    placeId:"",
+    phone:""
 };
 
 const[formValues,setFormValues]=useState(initialValues);
@@ -81,12 +83,12 @@ const imageChange = (e)=>{
   console.log(formValues);
 }
 
-const onChangeAddress=(e,index)=>{
-    const{name,value}=e.target;
-    setAddress({...address,[name]:value})
-    console.log(setAddress);
-    // object
-}
+// const onChangeAddress=(e,index)=>{
+//     const{name,value}=e.target;
+//     setAddress({...address,[name]:value})
+//     console.log(setAddress);
+//     // object
+// }
 
 // const handleSubmit=()=>{
 //     alert("here is")
@@ -109,11 +111,11 @@ const handleSubmit = () => {
   alert("here is");
   const form = new FormData()
   form.append('formValues', JSON.stringify(formValues));
-  form.append('id', formValues.id);
-  form.append('placeId', formValues.placeId);
-  form.append('image', formValues.image);
-  // form.append('image',formValues.image)
-  // form.append('adventure',JSON.stringify(adventure))
+  // form.append('id', formValues.id);
+  // form.append('placeId', formValues.placeId);
+  // form.append('image', formValues.image);
+  form.append('image',formValues.image)
+  form.append('adventure',JSON.stringify(adventure))
   console.log(JSON.stringify(formValues));
   StaffApi.post('/resortRegister', form,{headers:{
     'Content-Type': 'multipart/form-data'
@@ -411,4 +413,4 @@ useEffect(()=>{
   )
 }
 
-export default ResortRegistration
+export default ResortRegistration;
