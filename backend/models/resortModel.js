@@ -18,10 +18,10 @@ const resortSchema= mongoose.Schema({
         type:Number,
     //     required:[true,"required"]
      },
-    address:{
-        type:String,
-        required:[true]
-    },
+    // address:{
+    //     type:String,
+    //     required:[true]
+    // },
   
     description:{
         type:String,

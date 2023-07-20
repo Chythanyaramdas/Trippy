@@ -42,4 +42,5 @@ admin_route.delete('/location',locationController.deleteLocation)
 
 
 
+
 module.exports = admin_route;

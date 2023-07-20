@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { StaffApi } from '../../utils/staff/axiosStaff'
 import {staffContext} from'../../helper/context/StaffContext';
+
 function ResortRegistration() {
 
     const[staff,setStaff]=useState({})
@@ -23,7 +24,7 @@ const initialValues={
     capacity:"",
     price:"",
     image:"",
-    placeId:"",
+    place:"",
     phone:""
 };
 
@@ -113,10 +114,11 @@ const handleSubmit = () => {
   form.append('formValues', JSON.stringify(formValues));
   // form.append('id', formValues.id);
   // form.append('placeId', formValues.placeId);
-  // form.append('image', formValues.image);
-  form.append('image',formValues.image)
-  form.append('adventure',JSON.stringify(adventure))
+  form.append('image', formValues.image);
+  // form.append('image',formValues.image)
+   form.append('adventure',JSON.stringify(adventure))
   console.log(JSON.stringify(formValues));
+
   StaffApi.post('/resortRegister', form,{headers:{
     'Content-Type': 'multipart/form-data'
   }}).then((response) => {
@@ -124,8 +126,14 @@ const handleSubmit = () => {
       alert(response.data.message);
     }
   });
-};
 
+//   StaffApi.post('/resortRegister',formValues).then((response)=>{
+//     if(response.data.status){
+//       alert(response.data.message)
+//     }
+//   })
+// };
+}
 
 
 useEffect(()=>{
@@ -355,6 +363,7 @@ useEffect(()=>{
                       name="name"
                       onChange={(e) => onChangeAdventure(e, index)}
                       className="border-2 p-1 mb-2 "
+                      value={adventure.name}
                     />
                   </div>
 
@@ -365,6 +374,7 @@ useEffect(()=>{
                       name="description"
                       onChange={(e) => onChangeAdventure(e, index)}
                       className="border-2 p-1 mb-2"
+                      value={adventure.description}
 
                     />
                   </div>
@@ -375,6 +385,7 @@ useEffect(()=>{
                       name="time"
                       onChange={(e) => onChangeAdventure(e, index)}
                       className="border-2 p-1 mb-2"
+                      value={adventure.time}
                     />
                   </div>
 
