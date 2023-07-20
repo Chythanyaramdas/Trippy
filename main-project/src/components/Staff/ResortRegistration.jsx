@@ -80,9 +80,19 @@ const onChangeAdventure=(e,index)=>{
 const imageChange = (e)=>{
   const {name} = e.target
   const image = e.target.files[0]
-  setFormValues({...formValues,[name]:image})
+  setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
   console.log(formValues);
 }
+
+
+
+// const imageChange = (e) => {
+//   const { name } = e.target;
+//   const image = e.target.files[0];
+//   setFormValues({ ...formValues, [name]: image });
+//   console.log(formValues);
+// };
+
 
 // const onChangeAddress=(e,index)=>{
 //     const{name,value}=e.target;
@@ -164,12 +174,15 @@ useEffect(()=>{
       <div className="grid grid-cols-[2fr_8fr]">
         <div className="rounded-full overflow-hidden relative h-60 w-auto flex justify-center">
           <img
-            src={formValues.image ? URL.createObjectURL(formValues.image) : ""}
+            src={formValues.image[0] ? URL.createObjectURL(formValues.image[0]) : ""}
             alt=""
             className="h-full  rounded-full w-full"
+           
           />
           <div className="absolute bottom-0 left-10 rounded-full overflow-hidden">
-          <input className="bg-amber-200 " name="image"  onChange={imageChange} type="file"/>
+          <input className="bg-amber-200 "   name="image"  onChange={imageChange} type="file"  
+          // defaultValue={formValues.image[0] ? formValues.image[0].name : ""}
+          />
 
           </div>
         </div>
@@ -399,6 +412,18 @@ useEffect(()=>{
                       className="border-2 p-1 mb-2"
                     />
                   </div> */}
+
+<div className="rounded-full overflow-hidden relative h-60 w-full flex justify-center">
+          <img
+            src={adventure.image ? URL.createObjectURL(adventure.image) : ""}
+            alt=""
+            className="h-full  rounded-full w-full"
+          />
+          <div className="absolute bottom-0 left-10 rounded-full overflow-hidden">
+          <input className="bg-amber-200 " name="image"  onChange={imageChange} type="file"/>
+
+          </div>
+        </div>
 
 
 

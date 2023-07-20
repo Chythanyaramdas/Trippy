@@ -8,12 +8,12 @@ const resortSchema= mongoose.Schema({
       },
     resortname:{
         type:String,
-        required:[true,'resort name is required']
+        // required:[true,'resort name is required']
     },
-    place:{
-        type:String,
-        required:[true,"location is specified"]
-    },
+    // place:{
+    //     type:String,
+    //     required:[true,"location is specified"]
+    // },
     room_capacity:{
         type:Number,
     //     required:[true,"required"]

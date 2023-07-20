@@ -35,6 +35,7 @@ staff_route.post('/register',staffController.signup)
 staff_route.post('/staff_Login',staffController.staff_Login)
 staff_route.post('/verify_staff',staffController.verification);
 staff_route.get('/resortRegister',resortController.resortLocation);
-staff_route.post('/resortRegister',upload.single('image'),resortController.resort);
+// staff_route.post('/resortRegister',upload.single('image'),resortController.resort);
+staff_route.post('/resortRegister',upload.array('image',10),resortController.resort);
 
 module.exports = staff_route;
