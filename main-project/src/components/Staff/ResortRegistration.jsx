@@ -14,6 +14,8 @@ function ResortRegistration() {
    const[location,setLocation]=useState([{}])
    const[store,setStore]=useState([{}])
    const[filter,setFilter]=useState({})
+
+  //  const[image,setImage]=useState([]);
   //  storing  the place when click on district 
 
 const initialValues={
@@ -23,7 +25,8 @@ const initialValues={
     description:"",
     capacity:"",
     price:"",
-    image:"",
+     image:"",
+    //  image:[],
     place:"",
     phone:""
 };
@@ -93,10 +96,24 @@ const imageChange = (e) => {
   // const image = e.target.files[0]
   const image = Array.from(e.target.files);
   console.log(image,"miiiiiii");
-  // setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
-  setFormValues({...formValues,[name]:image})
+   setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
+  // setFormValues({...formValues,[name]:image})
   console.log(formValues);
 }
+
+
+
+
+// const imageChange = (e) => {
+//   let image=e.target.files
+
+//   setImage([...image])
+
+// }
+
+
+
+
 
 // componentDidMount() {
 //   const input = document.querySelector("input[name='image']")
@@ -145,7 +162,9 @@ const handleSubmit = () => {
   form.append('formValues', JSON.stringify(formValues));
   // form.append('id', formValues.id);
   // form.append('placeId', formValues.placeId);
-  form.append('image', formValues.image);
+   form.append('image', formValues.image);
+  // form.append('image', image);
+  // console.log(image,"mikoooo");
   // form.append('image',formValues.image)
    form.append('adventure',JSON.stringify(adventure))
   console.log(JSON.stringify(formValues));
@@ -200,7 +219,8 @@ useEffect(()=>{
       <div className="grid grid-cols-[2fr_8fr]">
         <div className="rounded-full overflow-hidden relative h-60 w-auto flex justify-center">
           <img
-            src={formValues.image[0] ? URL.createObjectURL(formValues.image[0]) : ""}
+             src={formValues.image [0]? URL.createObjectURL(formValues.image[0]) : ""}
+            // src={image[0] ?URL.createObjectURL(image[0]):""}
             alt=""
             className="h-full  rounded-full w-full"
            
