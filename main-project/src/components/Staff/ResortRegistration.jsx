@@ -77,12 +77,33 @@ const onChangeAdventure=(e,index)=>{
 };
 
 
-const imageChange = (e)=>{
+// const imageChange = (e)=>{
+//   const {name} = e.target
+//   // const image = e.target.files[0]
+//   const image = Array.from(e.target.files);
+//   // setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
+//   setFormValues({...formValues,[name]:image})
+//   console.log(formValues);
+// }
+
+
+
+const imageChange = (e) => {
   const {name} = e.target
-  const image = e.target.files[0]
-  setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
+  // const image = e.target.files[0]
+  const image = Array.from(e.target.files);
+  console.log(image,"miiiiiii");
+  // setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
+  setFormValues({...formValues,[name]:image})
   console.log(formValues);
 }
+
+// componentDidMount() {
+//   const input = document.querySelector("input[name='image']")
+//   input.addEventListener("change", imageChange)
+// }
+
+
 
 
 
@@ -148,6 +169,8 @@ const handleSubmit = () => {
 
 useEffect(()=>{
 
+  
+
     StaffApi.get('/resortRegister/?id=${id}').then((response)=>{
 
         if(response.data.status){
@@ -162,9 +185,12 @@ useEffect(()=>{
 
             console.log(setPlace);
         }
+
+
+        
     })
 
-
+    
 },[])
 
   return (
@@ -180,12 +206,13 @@ useEffect(()=>{
            
           />
           <div className="absolute bottom-0 left-10 rounded-full overflow-hidden">
-          <input className="bg-amber-200 "   name="image"  onChange={imageChange} type="file"  
-          // defaultValue={formValues.image[0] ? formValues.image[0].name : ""}
+          <input className="bg-amber-200 "   name="image"  onChange={imageChange} type="file" multiple  
+         defaultValue={formValues.image[0] ? formValues.image[0].name : ""}
           />
 
           </div>
         </div>
+
         <div className="flex flex-col  ml-40 w-1/2">
           <div className="flex grid grid-cols-3">
             <p>Full Name</p>
