@@ -15,7 +15,8 @@ function ResortRegistration() {
    const[store,setStore]=useState([{}])
    const[filter,setFilter]=useState({})
 
-  //  const[image,setImage]=useState([]);
+    const[images,setImage]=useState("");
+     const[imager,setImager]=React.useState(false)
   //  storing  the place when click on district 
 
 const initialValues={
@@ -67,7 +68,7 @@ const filterFinding=(e)=>{
 const addMore=()=>{
     setAdventure([...adventure,{}]);
 };
-
+// ==================================================
 
 const onChangeAdventure=(e,index)=>{
     const{name,value}=e.target;
@@ -78,7 +79,7 @@ const onChangeAdventure=(e,index)=>{
     // array
 
 };
-
+// ==================================================
 
 // const imageChange = (e)=>{
 //   const {name} = e.target
@@ -93,67 +94,36 @@ const onChangeAdventure=(e,index)=>{
 
 const imageChange = (e) => {
   const {name} = e.target
-  // const image = e.target.files[0]
-  const image = Array.from(e.target.files);
+   const image = e.target.files[0]
+  // const image = Array.from(e.target.files);
   console.log(image,"miiiiiii");
-   setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
-  // setFormValues({...formValues,[name]:image})
+  //  setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
+   setFormValues({...formValues,[name]:image})
   console.log(formValues);
 }
 
 
 
 
-// const imageChange = (e) => {
-//   let image=e.target.files
+const adventureImage = (e) => {
+  const {name} = e.target
+  let images=e.target.files[0]
+  console.log("adv",images);
+  // setImage([...image])
+  setImage({...images,[name]:images})
+  setImager(true)
 
-//   setImage([...image])
-
-// }
-
-
-
-
-
-// componentDidMount() {
-//   const input = document.querySelector("input[name='image']")
-//   input.addEventListener("change", imageChange)
-// }
+}
 
 
 
 
 
-// const imageChange = (e) => {
-//   const { name } = e.target;
-//   const image = e.target.files[0];
-//   setFormValues({ ...formValues, [name]: image });
-//   console.log(formValues);
-// };
 
 
-// const onChangeAddress=(e,index)=>{
-//     const{name,value}=e.target;
-//     setAddress({...address,[name]:value})
-//     console.log(setAddress);
-//     // object
-// }
 
-// const handleSubmit=()=>{
-//     alert("here is")
-//     const form = new FormData()
-//     form.append('formValues',formValues)
-   
-//     // form.append('image',formValues.image)
-//     // form.append('adventure',JSON.stringify(adventure))
-//     console.log(JSON.stringify(formValues));
-//     StaffApi.post('/resortRegister',form).then((response)=>{
 
-//         if(response.data.status){
-//             alert(response.data.message);
-//         }
-//     });
-// };
+
 
 
 const handleSubmit = () => {
@@ -162,12 +132,16 @@ const handleSubmit = () => {
   form.append('formValues', JSON.stringify(formValues));
   // form.append('id', formValues.id);
   // form.append('placeId', formValues.placeId);
-   form.append('image', formValues.image);
+   form.append('image1', formValues.image);
+   form.append('image2',images)
+  //  form.append('images',images)
+  //  console.log("images",images);
   // form.append('image', image);
   // console.log(image,"mikoooo");
   // form.append('image',formValues.image)
    form.append('adventure',JSON.stringify(adventure))
   console.log(JSON.stringify(formValues));
+  
 
   StaffApi.post('/resortRegister', form,{headers:{
     'Content-Type': 'multipart/form-data'
@@ -219,15 +193,18 @@ useEffect(()=>{
       <div className="grid grid-cols-[2fr_8fr]">
         <div className="rounded-full overflow-hidden relative h-60 w-auto flex justify-center">
           <img
-             src={formValues.image [0]? URL.createObjectURL(formValues.image[0]) : ""}
+             src={formValues.image? URL.createObjectURL(formValues.image) : ""}
             // src={image[0] ?URL.createObjectURL(image[0]):""}
+
             alt=""
             className="h-full  rounded-full w-full"
            
           />
           <div className="absolute bottom-0 left-10 rounded-full overflow-hidden">
-          <input className="bg-amber-200 "   name="image"  onChange={imageChange} type="file" multiple  
-         defaultValue={formValues.image[0] ? formValues.image[0].name : ""}
+
+          <input className="bg-amber-200 "   name="image"  onChange={imageChange} type="file"
+
+          // defaultValue={formValues.image ? formValues.image[0].name : ""}
           />
 
           </div>
@@ -460,14 +437,20 @@ useEffect(()=>{
                     />
                   </div> */}
 
-<div className="rounded-full overflow-hidden relative h-60 w-full flex justify-center">
+        <div className="rounded-full overflow-hidden relative h-60 w-full flex justify-center">
+          
           <img
-            src={adventure.image ? URL.createObjectURL(adventure.image) : ""}
+            src={adventure.images? URL.createObjectURL(adventure.images): ""}
             alt=""
             className="h-full  rounded-full w-full"
           />
+
+
           <div className="absolute bottom-0 left-10 rounded-full overflow-hidden">
-          <input className="bg-amber-200 " name="image"  onChange={imageChange} type="file"/>
+           <input className="bg-amber-200 " name="images"  onChange={adventureImage} type="file"/> 
+          {/* <input className="bg-amber-200 " name="images"  onChange={(e)=>setImage(e.target.files[0])} type="file"/> */}
+         
+         
 
           </div>
         </div>

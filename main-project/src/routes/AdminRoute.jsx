@@ -7,6 +7,8 @@ import CategoreyCreation from'../pages/Admin/CategoreyCreation';
 import CategoreyPage from'../pages/Admin/CategoryPage';
 import AddLocation from '../pages/Admin/AddLocation';
 import Location from'../pages/Admin/LocationManagement';
+import ResortApplications from '../components/Adminforms/ResortApplication';
+import ResortApproval from '../pages/Admin/ResortApproval';
 
 
 // import CategoreyManagement 
@@ -21,7 +23,8 @@ const AdminRoute=()=>{
         <Route path='/categoryManagement' element={<CategoreyPage/>}/>
         <Route path='/addLocation' element={<AddLocation/>}/>
         <Route path='/location' element={<Location/>}/>
-       
+        <Route path='/resortApplications' element={<ResortApplications/>}/>
+        <Route path='/resortApproval' element={<ResortApproval/>}/>
     </Routes>
     
 
