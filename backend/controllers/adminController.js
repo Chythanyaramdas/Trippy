@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const Admin = require('../models/adminModel');
+const Resort=require('../models/resortModel');
 const nodemailer = require("nodemailer");
 const config=require('../config/config');
 const randormstring=require("randomstring");
@@ -117,5 +118,78 @@ module.exports.Admin_Login=async(req,res,next)=>{
       }
     }
       
+  module.exports.resortList=async(req,res)=>{
+    try {
+
+      const resortList=await Resort.find({$and:[{verify:false}],
+
+      })
+
+      if(resortList){
+        res.json({
+          status:true,
+          resort:resortList
+        });
+       } else{
+
+        res.json({
+          status:false,
+          message:"no application "
+        })
+
+        }
+      
+      
+    } catch (error) {
+
+      console.log(error.message);
+      
+    }
+  }
+  
+  module.exports.resortApproval=async(req,res)=>{
+    try {
+
+      const{ id }=req.params;
+      await Resort.findByIdAndUpdate({_id:id}).then((response)=>{
+        res.json({
+          status: true,
+            message: "Successfully Done",
+        })
+
+        .catch((err) => {
+          console.log(err.message);
+        });
+      });
+      
+    } catch (error) {
+
+      console.log(error.message);
+      
+    }
+  }
      
-    
+  module.exports.resortDetails=async(req,res)=>{
+
+    try {
+
+      const id=req.query.id
+      const resortData=await Resort.findById({_id:id})
+      if(resortData){
+        res.json({
+          status:true,
+          resort:resortData
+        })
+      }
+      else{
+        res.json({
+          status:false,
+          message:"cant find id"
+        })
+      }
+      
+    } catch (error) {
+      console.log(error.message);
+      
+    }
+  }  

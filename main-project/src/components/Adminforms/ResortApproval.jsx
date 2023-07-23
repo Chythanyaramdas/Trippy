@@ -8,7 +8,7 @@ function ResortDetalis() {
   const { id } = useParams();
   const server_url=process.env.REACT_APP_BASE_URL;
   const [resort, setResort] = useState({});
-  const [adventure,setAdventure] = useState([])
+  // const [adventure,setAdventure] = useState([])
 
 //   const timeConvertion = (time)=>{
 //     const Time = new Date(time)
@@ -21,7 +21,7 @@ function ResortDetalis() {
 
   const handleSubmit = ()=>{
     
-    AdminApi.post(`dr_register/${id}`).then((responses)=>{
+    AdminApi.post(`resortRegister/${id}`).then((responses)=>{
       if(responses.data.status){
         alert('successfull')
       }
@@ -29,11 +29,11 @@ function ResortDetalis() {
   }
   
   useEffect(() => {
-    AdminApi.get(`/dr_data?id=${id}`).then((response) => {
+    AdminApi.get(`/resortDetails?id=${id}`).then((response) => {
       if (response.data.status) {
         console.log(response.data.resort);
         setResort({ ...response.data.resort});
-        setAdventure([...response.data.resort.adventure])
+        // setAdventure([...response.data.resort.adventure])
       }
     });
   }, []);
@@ -77,17 +77,17 @@ function ResortDetalis() {
         </div>
         <div className="flex flex-col">
           <p>Adventure</p>
-          <div>
+          {/* <div>
             {
             adventure.map((obj)=>{
                 return <div className="flex ">
                   <h1>{obj.hospital}</h1>
-                  {/* <h1>{timeConvertion(obj.from)}</h1>
-                  <h1>{ timeConvertion(obj.to)}</h1> */}
+                  <h1>{timeConvertion(obj.from)}</h1>
+                  <h1>{ timeConvertion(obj.to)}</h1>
                 </div>
               })
             }
-          </div>
+          </div> */}
         </div>
 
 

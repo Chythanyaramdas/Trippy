@@ -178,7 +178,7 @@ module.exports.resortLocation=async(req,res)=>{
   
 // let imageId = [];
 // let imagePath
-module.exports.resort = async (req, res,next) => {
+module.exports.resort = async (req, res) => {
   // console.log("jeee");
 
   // if (req.files && req.files.length > 0) {
@@ -224,7 +224,7 @@ module.exports.resort = async (req, res,next) => {
       const{formValues,adventure}=req.body;
 
 
-      let newAdventure=JSON.parse(adventure)
+      // let newAdventure=JSON.parse(adventure)
       let newFormValues=JSON.parse(formValues)
       console.log('formValues:',newFormValues.ownerName);
       console.log("image"+req.file.filename);
@@ -247,12 +247,17 @@ module.exports.resort = async (req, res,next) => {
       newUser.save().then((data)=>{
         console.log(data,"miiiioo");
         req.adventureId=data._id
-        next();
-        // res.status(200).json({message:"Authenticated"})
+     
+        res.status(200).json({message:"Authenticated"})
       });
       
     } catch (error) {
       console.log(error.message);
     }
   };
+
+ 
+
+ 
+
   

@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 function ResortApplications() {
   const navigate = useNavigate();
-  const [resort, setresort] = useState([{}]);
+  const [resort, setResort] = useState([{}]);
   useEffect(() => {
     AdminApi.get("/resortApplications").then((response) => {
       if (response.data.status) {
         console.log(response.data.resort);
-        setresort([...response.data.resort]);
+        setResort([...response.data.resort]);
       }
     });
   }, []);

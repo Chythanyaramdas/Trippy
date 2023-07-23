@@ -39,6 +39,9 @@ admin_route.post('/categoreyUpload',upload.single("image"),categoryController.ca
 admin_route.post('/addLocation',locationController.locationCreation);
 admin_route.get('/location',locationController.location)
 admin_route.delete('/location',locationController.deleteLocation)
+admin_route.get('/resortApplications',adminController.resortList)
+admin_route.post('/resortRegister/:id',adminController.resortApproval)
+admin_route.get('/resortDetails',adminController.resortDetails)
 
 
 
