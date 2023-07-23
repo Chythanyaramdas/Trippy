@@ -122,8 +122,10 @@ module.exports.Admin_Login=async(req,res,next)=>{
     try {
 
       const resortList=await Resort.find({$and:[{verify:false}],
+       
 
       })
+      console.log(resortList,"rl");
 
       if(resortList){
         res.json({

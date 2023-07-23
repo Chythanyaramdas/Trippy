@@ -231,8 +231,8 @@ module.exports.resort = async (req, res) => {
       console.log("update value");
 
       let newUser=new  resort({
-        ownerName:newFormValues.ownerName,
-          resortName:newFormValues.resortName,
+        ownerName:newFormValues.resortowner,
+          resortName:newFormValues.resortname,
           description:newFormValues.description,
           capacity:parseInt(newFormValues.capacity),
           price:parseInt(newFormValues.price),

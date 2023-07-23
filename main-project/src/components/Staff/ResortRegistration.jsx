@@ -21,8 +21,8 @@ function ResortRegistration() {
 
 const initialValues={
     id:id,
-    ownerName:"",
-    resortName:"",
+    resortowner:"",
+    resortname:"",
     description:"",
     capacity:"",
     price:"",
@@ -38,7 +38,7 @@ const inputChange=(e)=>{
     const{name,value}=e.target;
 
     setFormValues({...formValues,[name]:value});
-    console.log(formValues);
+
 };
 
 
@@ -99,7 +99,7 @@ const imageChange = (e) => {
   console.log(image,"miiiiiii");
   //  setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
    setFormValues({...formValues,[name]:image})
-  console.log(formValues);
+ 
 }
 
 
@@ -129,11 +129,12 @@ const adventureImage = (e) => {
 const handleSubmit = () => {
   alert("here is");
   const form = new FormData()
+  console.log(formValues,"loook");
   form.append('formValues', JSON.stringify(formValues));
   // form.append('id', formValues.id);
   // form.append('placeId', formValues.placeId);
-   form.append('image1', formValues.image);
-   form.append('image2',images)
+   form.append('image', formValues.image);
+  //  form.append('image',images)
   //  form.append('images',images)
   //  console.log("images",images);
   // form.append('image', image);
@@ -244,8 +245,8 @@ useEffect(()=>{
                 <input
                   type="text"
                   onChange={(e) => inputChange(e)}
-                  value={formValues.ownerName}
-                  name="ownerName"
+                  value={formValues.resortowner}
+                  name="resortowner"
                   className="border-2 p-1 mb-2"
                 />
               </div>
@@ -255,8 +256,8 @@ useEffect(()=>{
               <input
                 type="text"
                 onChange={(e) => inputChange(e)}
-                value={formValues.resortName}
-                name="resortName"
+                value={formValues.resortname}
+                name="resortname"
                 className="border-2 p-1 mb-2"
               />
             </div>
