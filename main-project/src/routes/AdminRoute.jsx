@@ -24,7 +24,7 @@ const AdminRoute=()=>{
         <Route path='/addLocation' element={<AddLocation/>}/>
         <Route path='/location' element={<Location/>}/>
         <Route path='/resortApplications' element={<ResortApplications/>}/>
-        <Route path='/resortApproval' element={<ResortApproval/>}/>
+        <Route path='/resortApproval/:id' element={<ResortApproval/>}/>
     </Routes>
     
 

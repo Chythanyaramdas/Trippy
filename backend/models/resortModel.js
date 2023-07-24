@@ -1,10 +1,12 @@
 const mongoose=require('mongoose')
+// const { ObjectId } = require('mongodb');
 const resortSchema= mongoose.Schema({
     
     resortowner:{
         type: mongoose.Schema.Types.ObjectId,
+        // type : ObjectId,
         require:true,
-        ref: "Staff"
+        ref: "staffModel"
       },
     resortname:{
         type:String,

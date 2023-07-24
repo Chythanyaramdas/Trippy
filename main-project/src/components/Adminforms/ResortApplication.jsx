@@ -6,12 +6,17 @@ function ResortApplications() {
   const navigate = useNavigate();
   const [resort, setResort] = useState([{}]);
   useEffect(() => {
-    AdminApi.get("/resortApplications").then((response) => {
-      if (response.data.status) {
-        console.log(response.data.resort);
-        setResort([...response.data.resort]);
-      }
-    });
+    
+
+      AdminApi.get("/resortApplications").then((response) => {
+        if (response.data.status) {
+          console.log(response.data.resort);
+          setResort([...response.data.resort]);
+        }
+      });
+
+    
+    
   }, []);
   return (
     <div className="p-4 mt-10">
@@ -42,12 +47,12 @@ function ResortApplications() {
                 <>
                   <tr className="bg-white border-b bg-[#a0d6db] dark:border-gray-700 " key={index}>
                     <td className="px-6 py-4">{index+1}</td>
-                    <td className="px-6 py-4">{resorts.descrip}</td>
+                    <td className="px-6 py-4">{resorts.resortowner?.name}</td>
                     <td className="px-6 py-4">{resorts.resortname}</td>
                     {/* <td className="px-6 py-4">{}</td> */}
                     <td
                       className="px-6 py-4 cursor-pointer underline underline-offset-2"
-                      onClick={() => navigate(`/admin/resortApproval/${resort._id}`)}
+                      onClick={() => navigate(`/admin/resortApproval/${resorts._id}`)}
                     >
                       More
                     </td>

@@ -226,13 +226,13 @@ module.exports.resort = async (req, res) => {
 
       // let newAdventure=JSON.parse(adventure)
       let newFormValues=JSON.parse(formValues)
-      console.log('formValues:',newFormValues.ownerName);
+      console.log('formValues:',newFormValues.resortowner);
       console.log("image"+req.file.filename);
       console.log("update value");
 
       let newUser=new  resort({
-        ownerName:newFormValues.resortowner,
-          resortName:newFormValues.resortname,
+        resortowner:newFormValues.id,
+          resortname:newFormValues.resortname,
           description:newFormValues.description,
           capacity:parseInt(newFormValues.capacity),
           price:parseInt(newFormValues.price),

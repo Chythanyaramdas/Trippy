@@ -1,4 +1,4 @@
-const mongoose=require("mongoose")
+const mongoose=require('mongoose')
 const staffSchema= mongoose.Schema({
 name:{
     type:String,

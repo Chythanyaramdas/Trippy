@@ -29,14 +29,20 @@ function ResortDetalis() {
   }
   
   useEffect(() => {
-    AdminApi.get(`/resortDetails?id=${id}`).then((response) => {
-      if (response.data.status) {
-        console.log(response.data.resort);
-        setResort({ ...response.data.resort});
-        // setAdventure([...response.data.resort.adventure])
-      }
-    });
-  }, []);
+    if(id){
+    alert("ukio")
+      AdminApi.get(`/resortDetails?id=${id}`).then((response) => {
+        if (response.data.status) {
+          console.log(response.data.resort);
+          setResort({ ...response.data.resort});
+          // setAdventure([...response.data.resort.adventure])
+        }
+      });
+
+
+    }
+    
+  }, [id]);
 
   return (
     <div className="w-10/12 h-5/6 shadow-lg bg-white rounded-2xl">
@@ -52,7 +58,7 @@ function ResortDetalis() {
       <div className="w-full flex flex-col">
         <div className=" w-full flex  ">
           <p>owner Name</p>
-          <h2>{resort.ownerName}</h2>
+          <h2>{resort.resortowner}</h2>
         </div>
         <div className=" flex  ">
           <p>resortName</p>
@@ -67,10 +73,10 @@ function ResortDetalis() {
           <h2>{resort.capacity}</h2>
         </div>
         
-        <div className="flex">
+        {/* <div className="flex">
            <p>Counsil Name</p>
            <h2>{resort.councilName}</h2>
-        </div>
+        </div> */}
         <div className="flex" >
           <p>price</p>
           <h2>{resort.price}</h2>
