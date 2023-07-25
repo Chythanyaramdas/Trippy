@@ -3,63 +3,67 @@ import { useParams } from 'react-router-dom';
 import { UserApi } from '../../utils/user/axiosUser';
 
 
-function ResortPage() {
+function Resorters() {
 
-const {id}=useParams();
-const server_url=process.env.REACT_APP_BASE_URL;
-const[resort,setResort]=useState({})
-
-useEffect(()=>{
-
-    if(id){
-      console.log("arunn");
-        UserApi.get(`/singlePage?id=${id}`).then((response)=>{
-
-            if(response.data.status){
-              console.log("arunn");
-                console.log(response.data.resort);
-                setResort({...response.data.resort})
-            }
-        });
-
-    }
-
+    const {id}=useParams();
+    const server_url=process.env.REACT_APP_BASE_URL;
+    const[resort,setResort]=useState({})
+    const[images,setImages]=useState([{}])
     
+    useEffect(()=>{
+    
+        if(id){
+          console.log("arunnbhai");
+            UserApi.get(`/singlePage?id=${id}`).then((response)=>{
+    
+                if(response.data.status){
 
-},[id])
+                    setImages([...response.data.resort[0]?.image?.map((image, index) => ({
+                        id: index + 1,
+                        src: `${server_url}images/${image}`,
+                        isLarge: index === 0,
+                      }))])
+
+                  console.log("arunn");
+                    console.log(response.data.resort);
+                    setResort({...response.data.resort[0]})
+                }
+            });
+    
+        }
+    
+        
+    
+    },[])
 
 
-const images = resort?.image?.map((image, index) => ({
-  id: index + 1,
-  src: `${image}`,
-  isLarge: index === 0,
-}));
+    // const images = resort?.image?.map((image, index) => ({
+    //     id: index + 1,
+    //     src: `${server_url}+images/+ ${image}`,
+    //     isLarge: index === 0,
+    //   }));
 
-  return (
-    <div>
-      {/* <Header /> */}
-      <div className="container mx-auto min-h-[800px] mb-14">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            {/* <h2 className="text-2xl font-semibold">{resort.resortname}</h2> */}
-            {/* <h2 className="text-2xl font-semibold">Arun</h2> */}
-
-
-            <p>arun</p>
+    return(
+        
+       
             
-            {/* <h3 className="text-lg mb-4">{resort.location}</h3> */}
+        <div className="container mx-auto  mt-44 mb-14 flex justify-center ">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between bg-red ">
+          <div>
+            <h2 className="text-2xl  font-semibold bg-white mt-0 ml-0 ">{resort.resortname}</h2>
+            {/* <h3 className="text-lg mb-4">{resortdata.address}</h3> */}
           </div>
-          <div className="mb-4 lg:mb-0 flex gap-x-2 text-sm">
-            {/* <button
+          {/* <div className="mb-4 lg:mb-0 flex gap-x-2 text-sm">
+            <button
               className="btn btn-info"
               onClick={() => {
                 handleSendIds(users.id, resortdata?.resortowner?._id);
               }}
             >
               Chat
-            </button> */}
+            </button>
 
-            {/* <div className="text-2xl font-semibold text-sky-300">
+            <div className="text-2xl font-semibold text-sky-300">
               <span>
                 <FaRupeeSign className="inline" />
               </span>
@@ -70,15 +74,20 @@ const images = resort?.image?.map((image, index) => ({
 
               <button
                 className="btn btn-info ml-4 text-black"
+                disabled={resortdata.number_room===0}
                 onClick={(e) => {
+                  
                   handleBookView(resortdata,price);
+                 
                   console.log(price, "full detials..");
                 }}
               >
                 Book Now
               </button>
-            </div> */}
-          </div>
+            </div>
+          </div> */}
+
+
         </div>
         {/* <div className="flex flex-col items-start  lg:flex-col ">
           <div className="max-w-[768px]">
@@ -107,9 +116,10 @@ const images = resort?.image?.map((image, index) => ({
             </div>
           </div>
         </div> */}
-        <div className="flex flex-col items-start lg:flex-row">
-          <div className="max-w-full">
-            <div className="carousel">
+
+        <div className="flex flex-col items-start lg:flex-row max-h-full bg-white w-full justify-center ">
+          <div className="max-w-full  ">
+            <div className="carousel w-full">
               {images?.map((image) => (
                 <div
                   id={`slide${image?.id}`}
@@ -170,10 +180,8 @@ const images = resort?.image?.map((image, index) => ({
                   <FaBed className="text-2xl" />
                   <div>{resortdata.number_room}</div>
                 </div>
-                <div className="font-bold">how many rooms you need?</div> */}
-
-
-                {/* <div>
+                <div className="font-bold">how many rooms you need?</div>
+                <div>
                   <button
                     onClick={decrement}
                     className=" btn-info btn-md rounded-3xl mr-2"
@@ -187,16 +195,14 @@ const images = resort?.image?.map((image, index) => ({
                   >
                     +
                   </button>
-                </div> */}
-                {/* <div className="font-semibold">
+                </div>
+                <div className="font-semibold">
                   Services:{" "}
                   {resortdata.service ? resortdata.service.join(", ") : ""}
                 </div>
                 <div className="text-justify font-serif">
                   {resortdata.description}
                 </div> */}
-
-
                 {/* <div>
                   <h3 className="text-2xl">Hotel Policies</h3>
                   <ul>
@@ -206,8 +212,10 @@ const images = resort?.image?.map((image, index) => ({
                   </ul>
 
                 </div> */}
-              </div>
-            </div>
+              {/* </div>
+            </div> */}
+
+            
           </div>
 
           {/* <div className="flex-1 bg-sky-100 w-full mb-8 border border-gray-300 rounded-lg px-6 py-8">
@@ -230,24 +238,20 @@ const images = resort?.image?.map((image, index) => ({
             <button className="btn btn-outline btn-info">Chat</button>
             <button className="btn btn-outline btn-info ml-4">Video Call</button>
           </div> */}
-
-{/*           
         </div>
-      </div> */}
 
-      {/* <div className="container mt-5">
-        <div className="card lg:card-side bg-sky-300 mt-9 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Resort Owner Details</h2>
-            <p>{resortdata?.resortowner?.name}</p>
-            <p>{resortdata?.resortowner?.email}</p>
-            <p>{resortdata?.resortowner?.phone}</p>
-          </div>
+
+        
         </div>
-      </div> */}
-      {/* <Footer /> */}
-    </div>
-  )
-}
 
-export default ResortPage
+        
+
+    )
+      
+
+    
+        
+    
+} 
+
+export default Resorters;

@@ -15,7 +15,7 @@ const UserRoute=()=>{
             <Route exact path='/login' element={<LoginPage/>} />
             <Route exact path='/otp' element={<OtpPage/>}/>
             <Route exact path='/' element={<UserPage/>} />
-            <Route exact path='/resort' element={<ResortPage/>} />
+            <Route exact path='/resort/:id' element={<ResortPage/>} />
 
         </Routes>
     )

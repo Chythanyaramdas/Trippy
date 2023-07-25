@@ -272,7 +272,9 @@ module.exports.resortPage=async(req,res)=>{
 
     // const{ id }=req.params;
     const id=req.query.id;
+    console.log("sahrdya");
    await resort.find({$and:[{_id:id},{verify:true}]}).then((response)=>{
+    console.log(response,"responn");
     res.json({
       status:true,
       message:"successfully done",
