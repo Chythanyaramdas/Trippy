@@ -12,18 +12,12 @@ const resortSchema= mongoose.Schema({
         type:String,
         // required:[true,'resort name is required']
     },
-    // place:{
-    //     type:String,
-    //     required:[true,"location is specified"]
-    // },
+    
     room_capacity:{
         type:Number,
     //     required:[true,"required"]
      },
-    // address:{
-    //     type:String,
-    //     required:[true]
-    // },
+    
   
     description:{
         type:String,
@@ -35,10 +29,7 @@ const resortSchema= mongoose.Schema({
         required:[true,'image is required']
 
     },
-    // document:{
-    //     type:String,
-    //     required:[true,'certificate is needed']
-    // },
+    
      price:{
         type:Number,
         required:[true,'price is required']
@@ -54,18 +45,11 @@ const resortSchema= mongoose.Schema({
         type:String,
         default:'Enable',   
     },
-    // service:{
-    //     type:[String],
-    //     required: [true, 'services are required'],
-
-    // },
-    // reject_reason:{
-    //     type:String,
-        
-    // }
+    
 
     category:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        require:true,
         ref:"categoryModel"
     },
 

@@ -172,28 +172,56 @@ module.exports.Admin_Login=async(req,res,next)=>{
     }
   }
      
-  module.exports.resortDetails=async(req,res)=>{
+  // module.exports.resortDetails=async(req,res)=>{
 
-    try {
+  //   try {
 
-      const id=req.query.id
-      const resortData=await Resort.findById({_id:id})
-      console.log(resortData,"vanilaaa");
-      if(resortData){
-        res.json({
-          status:true,
-          resort:resortData
-        })
-      }
-      else{
-        res.json({
-          status:false,
-          message:"cant find id"
-        })
-      }
+  //     const id=req.query.id
+  //     const resortData=await Resort.findById({_id:id})
+  //     console.log(resortData,"vanilaaa");
+  //     if(resortData){
+  //       res.json({
+  //         status:true,
+  //         resort:resortData
+  //       })
+  //     }
+  //     else{
+  //       res.json({
+  //         status:false,
+  //         message:"cant find id"
+  //       })
+  //     }
       
+  //   } catch (error) {
+  //     console.log(error.message);
+      
+  //   }
+  // }  
+
+
+
+  module.exports.resortDetails = async (req, res) => {
+    try {
+      const id = req.query.id;
+      const resortData = await Resort.findById({ _id: id });
+      console.log(resortData, "vanilaaa");
+      if (resortData) {
+        res.json({
+          status: true,
+          resort: resortData,
+        });
+      } else {
+        res.json({
+          status: false,
+          message: "cant find id",
+        });
+      }
     } catch (error) {
       console.log(error.message);
-      
+      res.json({
+        status: false,
+        message: error.message,
+      });
     }
-  }  
+  };
+  

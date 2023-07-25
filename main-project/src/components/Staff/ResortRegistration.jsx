@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { StaffApi } from '../../utils/staff/axiosStaff'
 import {staffContext} from'../../helper/context/StaffContext';
+import { useNavigate } from 'react-router-dom';
 
 function ResortRegistration() {
-
+    const navigate=useNavigate()
     const[staff,setStaff]=useState({})
     const{id}=useContext(staffContext);
     console.log(id,"id");
@@ -17,6 +18,7 @@ function ResortRegistration() {
 
     const[images,setImage]=useState("");
      const[imager,setImager]=React.useState(false)
+     const[category,setCategory]=useState([{}]);
   //  storing  the place when click on district 
 
 const initialValues={
@@ -29,7 +31,8 @@ const initialValues={
      image:"",
     //  image:[],
     place:"",
-    phone:""
+    phone:"",
+    category:""
 };
 
 const[formValues,setFormValues]=useState(initialValues);
@@ -38,6 +41,7 @@ const inputChange=(e)=>{
     const{name,value}=e.target;
 
     setFormValues({...formValues,[name]:value});
+    console.log(formValues);
 
 };
 
@@ -149,6 +153,7 @@ const handleSubmit = () => {
   }}).then((response) => {
     if (response.data.status) {
       alert(response.data.message);
+      navigate('/staff/dashboard');
     }
   });
 
@@ -174,7 +179,7 @@ useEffect(()=>{
           //   console.log(newData);
           //  setPlace([...newData])
           setPlace([...response.data.place]);
-
+          setCategory([...response.data.category])
 
 
             console.log(setPlace);
@@ -327,6 +332,28 @@ useEffect(()=>{
                 )
               })}
             </select>:" "}
+          </div>
+
+
+          <div className="grid grid-cols-3" >
+            <label htmlFor="">Category<span className="text-red-600">*</span></label>
+            <select
+              name="category"
+              onChange={(e) => inputChange(e)}
+              id=""
+              className="border-2 p-1 mb-2 "
+              required
+            >
+              <option value="">Category</option>
+              {category.map((Category) => {
+                return (
+                  <option  value={Category._id}>
+
+                    {Category.name}
+                  </option>
+                );
+              })}
+            </select>
           </div>
 
 

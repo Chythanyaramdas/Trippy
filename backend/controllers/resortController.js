@@ -1,26 +1,27 @@
-const Location=require('../models/locationModel')
-const resort=require('../models/resortModel')
+const Location = require("../models/locationModel");
+const resort = require("../models/resortModel");
+const category = require("../models/categoryModel");
 // const sharp=require('sharp')
 
 // const fs = require('fs')
 // const path = require('path')
 
-module.exports.resortLocation=async(req,res)=>{
-   
-    try {
-        console.log("niiiii");
-        const locationData=await Location.find({is_delete:false}) 
-        const resortData=await resort.find({})
-        res.json({status:true,place:locationData,resort:resortData})
-        
-    } catch (error) {
-
-        console.log(error.message);
-        
-    }
-}
-
-
+module.exports.resortLocation = async (req, res) => {
+  try {
+    console.log("niiiii");
+    const locationData = await Location.find({ is_delete: false });
+    const resortData = await resort.find({});
+    const categoreyData = await category.find({ is_delete: false });
+    res.json({
+      status: true,
+      place: locationData,
+      resort: resortData,
+      category: categoreyData,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 // module.exports.resort = async (req, res) => {
 //   console.log("jeee");
@@ -41,7 +42,6 @@ module.exports.resortLocation=async(req,res)=>{
 //             console.log("lllll");
 
 //             try{
-             
 
 //             // Load the image using sharp
 //             const image = sharp(imagePath);
@@ -56,7 +56,7 @@ module.exports.resortLocation=async(req,res)=>{
 //               } catch (error) {
 //                 console.log('Error processing image:', error.message);
 //               }
-              
+
 //     try {
 //       // const formValues = req.body.form;
 //       // console.log('formValues:', formValues);
@@ -66,7 +66,6 @@ module.exports.resortLocation=async(req,res)=>{
 //       fs.unlinkSync(imagePath);
 
 //       const{formValues,adventure}=req.body;
-
 
 //       let newAdventure=JSON.parse(adventure)
 //       let newFormValues=JSON.parse(formValues)
@@ -91,12 +90,12 @@ module.exports.resortLocation=async(req,res)=>{
 //         console.log(data,"miiiioo");
 //         res.status(200).json({message:"Authenticated"})
 //       });
-      
+
 //     } catch (error) {
 //       console.log(error.message);
 //     }
 //   };
-  
+
 // }
 // }
 // module.exports.resort = async (req, res) => {
@@ -114,7 +113,6 @@ module.exports.resortLocation=async(req,res)=>{
 //   for (let i = 0; i < req.files.length; i++) {
 //     console.log("lllll");
 //     let imagePath = path.join(__dirname, '../public/images', req.files[i].filename);
-   
 
 //     try {
 //       // Load the image using sharp
@@ -129,8 +127,6 @@ module.exports.resortLocation=async(req,res)=>{
 //         imageId.push(i); // You might want to use something more meaningful as the image ID
 //       }
 
-      
-      
 //       catch (error) {
 //         console.log('Error processing image:', error.message);
 //       }
@@ -145,7 +141,6 @@ module.exports.resortLocation=async(req,res)=>{
 //       fs.unlinkSync(imagePath);
 
 //       const{formValues,adventure}=req.body;
-
 
 //       let newAdventure=JSON.parse(adventure)
 //       let newFormValues=JSON.parse(formValues)
@@ -170,12 +165,12 @@ module.exports.resortLocation=async(req,res)=>{
 //         console.log(data,"miiiioo");
 //         res.status(200).json({message:"Authenticated"})
 //       });
-      
+
 //     } catch (error) {
 //       console.log(error.message);
 //     }
 //   };
-  
+
 // let imageId = [];
 // let imagePath
 module.exports.resort = async (req, res) => {
@@ -186,7 +181,6 @@ module.exports.resort = async (req, res) => {
   // for (let i = 0; i <= req.files.length; i++) {
   //   console.log("lllll",req.files.filename);
   //    imagePath = path.join(__dirname, '../public/images', req.files[i].filename);
-   
 
   //   try {
   //     // Load the image using sharp
@@ -201,8 +195,6 @@ module.exports.resort = async (req, res) => {
   //       imageId.push(i); // You might want to use something more meaningful as the image ID
   //     }
 
-      
-      
   //     catch (error) {
   //       console.log('Error processing image:', error.message);
   //     }
@@ -213,51 +205,44 @@ module.exports.resort = async (req, res) => {
   //   console.log("no uploads");
   // }
 
-    try {
-      // const formValues = req.body.form;
-      // console.log('formValues:', formValues);
+  try {
+    // const formValues = req.body.form;
+    // console.log('formValues:', formValues);
 
-      // fs.chmodSync(imagePath, 0o777);
+    // fs.chmodSync(imagePath, 0o777);
 
-      // fs.unlinkSync(imagePath);
+    // fs.unlinkSync(imagePath);
 
-      const{formValues,adventure}=req.body;
+    const { formValues, adventure } = req.body;
 
+    // let newAdventure=JSON.parse(adventure)
+    let newFormValues = JSON.parse(formValues);
+    console.log("formValues:", newFormValues.resortowner);
+    console.log("image" + req.file.filename);
+    console.log("update value");
 
-      // let newAdventure=JSON.parse(adventure)
-      let newFormValues=JSON.parse(formValues)
-      console.log('formValues:',newFormValues.resortowner);
-      console.log("image"+req.file.filename);
-      console.log("update value");
+    let newUser = new resort({
+      resortowner: newFormValues.id,
+      resortname: newFormValues.resortname,
+      description: newFormValues.description,
+      category:newFormValues.category,
+      capacity: parseInt(newFormValues.capacity),
+      price: parseInt(newFormValues.price),
+      // adventure:newAdventure,
+      image: req.file.filename,
 
-      let newUser=new  resort({
-        resortowner:newFormValues.id,
-          resortname:newFormValues.resortname,
-          description:newFormValues.description,
-          capacity:parseInt(newFormValues.capacity),
-          price:parseInt(newFormValues.price),
-          // adventure:newAdventure,
-           image:req.file.filename,
+      // image: imageId,
+      phone: newFormValues.phone,
+    });
 
-          // image: imageId,
-          phone:newFormValues.phone
-      })
+    console.log(newUser, "staff come");
+    newUser.save().then((data) => {
+      console.log(data, "miiiioo");
+      req.adventureId = data._id;
 
-      console.log(newUser,"staff come");
-      newUser.save().then((data)=>{
-        console.log(data,"miiiioo");
-        req.adventureId=data._id
-     
-        res.status(200).json({message:"Authenticated"})
-      });
-      
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
- 
-
- 
-
-  
+      res.status(200).json({ message: "Authenticated" });
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

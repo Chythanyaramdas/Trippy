@@ -10,6 +10,7 @@ const jwt=require('jsonwebtoken');
 const dotenv =require("dotenv")
 dotenv.config()
 const Category=require('../models/categoryModel');
+const resort=require('../models/resortModel')
 
 
 const {USER_MAIL,USER_PASSWORD,JWT_SECRET_KEY}=process.env
@@ -239,11 +240,13 @@ module.exports.landPage=async(req,res)=>{
 
     const bannerData = await banner.find({is_delete:false})
     const categoryData=await Category.find({is_delete:false})
+    const resortData=await resort.find({ verify:true})
     
     res.json({
       banners:bannerData,
       status:true,
-      category:categoryData
+      category:categoryData,
+      resort:resortData
 
     })
   }
@@ -261,5 +264,29 @@ module.exports.auth=async(req,res)=>{
 
   catch(error){
     console.log(error.message);
+  }
+}
+
+module.exports.resortPage=async(req,res)=>{
+  try {
+
+    // const{ id }=req.params;
+    const id=req.query.id;
+   await resort.find({$and:[{_id:id},{verify:true}]}).then((response)=>{
+    res.json({
+      status:true,
+      message:"successfully done",
+      resort:response
+    })
+    .catch((err)=>{
+      console.log(err.message);
+    });
+   });
+
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
   }
 }
