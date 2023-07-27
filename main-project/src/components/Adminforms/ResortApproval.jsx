@@ -45,7 +45,8 @@ function ResortDetalis() {
   }, [id]);
 
   return (
-    <div className="w-10/12 h-5/6 shadow-lg bg-white rounded-2xl">
+    <div className="w-full h-5/6 shadow-lg bg-white rounded-2xl px-6	padding-left: px-4px">
+
       <div className="w-full flex justify-center items-center h-44 ">
         <img
           src={server_url+'images/'+ resort.image}
@@ -55,34 +56,74 @@ function ResortDetalis() {
           className="h-full rounded-full"
         />
       </div>
-      <div className="w-full flex flex-col">
+
+
+      <div className="w-full flex flex-col mt-5">
         <div className=" w-full flex  ">
-          <p>owner Name</p>
+          <p className="text-1xl font-bold"> Owner of Resort's:</p>
           <h2>{resort.resortowner}</h2>
         </div>
-        <div className=" flex  ">
-          <p>resortName</p>
-          <h2>{resort.resortName}</h2>
+
         </div>
-        <div className=" flex ">
-          <p> Description</p>
+
+
+
+        <div className="w-full flex flex-col mt-5" >
+        <div className=" w-full-flex  ">
+          <p className="text-1xl font-bold">ResortName:</p>
+          <h2>{resort.resortname}</h2>
+        </div>
+        </div>
+
+        <div className="w-full flex flex-col mt-5">
+        <div className=" w-full-flex ">
+          <p className="text-1xl font-bold"> Description:</p>
           <h2>{resort. description}</h2>
         </div>
-        <div className=" flex ">
-          <p>capacity</p>
+        </div>
+
+        <div className="w-full flex flex-col mt-5">
+
+        <div className=" w-full-flex ">
+          <p className="text-1xl font-bold">Capacity:</p>
           <h2>{resort.capacity}</h2>
         </div>
+
+        </div>
+        
+        
         
         {/* <div className="flex">
            <p>Counsil Name</p>
            <h2>{resort.councilName}</h2>
         </div> */}
-        <div className="flex" >
-          <p>price</p>
+        <div className="w-full flex flex-col mt-5">
+        <div className="w-full-flex" >
+          <p className="text-1xl font-bold">Price  per Day:</p>
           <h2>{resort.price}</h2>
         </div>
+        </div>
+
+
+        <div className="w-full flex flex-col mt-5">
+        <div className="w-full-flex" >
+          <p className="text-1xl font-bold">Category:</p>
+          <h2>{resort.category}</h2>
+        </div>
+        </div>
+        
+
+        <div className="w-full flex flex-col mt-5">
+        <div className="w-full-flex" >
+          <p className="text-1xl font-bold"> Location</p>
+          <h2>{resort.location.district}</h2>
+          <h2>{resort.location.place}</h2>
+        </div>
+        </div>
+
+
         <div className="flex flex-col">
-          <p>Adventure</p>
+          {/* <p>Adventure</p> */}
           {/* <div>
             {
             adventure.map((obj)=>{
@@ -97,7 +138,7 @@ function ResortDetalis() {
         </div>
 
 
-      </div>
+      
       <button className="bg-black text-white " onClick={handleSubmit} >APPROVE</button>
     </div>
   );

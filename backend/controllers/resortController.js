@@ -213,13 +213,15 @@ module.exports.resort = async (req, res) => {
 
     // fs.unlinkSync(imagePath);
 
-    const { formValues, adventure } = req.body;
+    const { formValues, adventure ,location} = req.body;
 
     // let newAdventure=JSON.parse(adventure)
+    let newLocation=JSON.parse(location);
     let newFormValues = JSON.parse(formValues);
     console.log("formValues:", newFormValues.resortowner);
     console.log("image" + req.file.filename);
     console.log("update value");
+    console.log(req.body);
 
     let newUser = new resort({
       resortowner: newFormValues.id,
@@ -230,10 +232,13 @@ module.exports.resort = async (req, res) => {
       price: parseInt(newFormValues.price),
       // adventure:newAdventure,
       image: req.file.filename,
-
+      location:newLocation,
+     
+     
       // image: imageId,
       phone: newFormValues.phone,
     });
+    console.log(location,"locationss");
 
     console.log(newUser, "staff come");
     newUser.save().then((data) => {

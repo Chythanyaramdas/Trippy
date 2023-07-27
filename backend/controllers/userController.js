@@ -11,7 +11,7 @@ const dotenv =require("dotenv")
 dotenv.config()
 const Category=require('../models/categoryModel');
 const resort=require('../models/resortModel')
-
+const Location = require("../models/locationModel");
 
 const {USER_MAIL,USER_PASSWORD,JWT_SECRET_KEY}=process.env
 
@@ -267,23 +267,60 @@ module.exports.auth=async(req,res)=>{
   }
 }
 
+// module.exports.resortPage=async(req,res)=>{
+//   try {
+
+//     // const{ id }=req.params;
+//     const id=req.query.id;
+//     console.log("sahrdya");
+//    await resort.findOne({$and:[{_id:id},{verify:true}]}).populate({path:'location',populate:'district'}).then(async(response)=>{
+//     const districtId=response.location.district
+//     console.log(districtId);
+//     const district=await Location.findById({_id:districtId})
+//     // console.log(district,"the dis");
+//     // console.log(response,"responn");
+//     res.json({
+//       status:true,
+//       message:"successfully done",
+//       resort:response,
+
+
+//     })
+//     .catch((err)=>{
+//       console.log(err.message);
+//     });
+//    });
+
+    
+//   } catch (error) {
+
+//     console.log(error.message);
+    
+//   }
+// }
+
+
 module.exports.resortPage=async(req,res)=>{
   try {
 
     // const{ id }=req.params;
     const id=req.query.id;
     console.log("sahrdya");
-   await resort.find({$and:[{_id:id},{verify:true}]}).then((response)=>{
-    console.log(response,"responn");
+   await resort.findOne({$and:[{_id:id},{verify:true}]}).populate({path:'location',populate:'district'}).then((response)=>{
+    // const districtId=response.location.district
+    // console.log(districtId);
+    // const district=await Location.findById({_id:districtId})
+    // console.log(district,"the dis");
+    // console.log(response,"responn");
     res.json({
       status:true,
       message:"successfully done",
-      resort:response
+      resort:response,
+
+
     })
-    .catch((err)=>{
-      console.log(err.message);
-    });
-   });
+  //   
+   })
 
     
   } catch (error) {

@@ -12,7 +12,7 @@ function ResortRegistration() {
    const[adventure,setAdventure]=useState([{}]);
    const[place,setPlace]=useState([{}])
   //  const[address,setAddress]=useState({})
-   const[location,setLocation]=useState([{}])
+   const[location,setLocation]=useState({})
    const[store,setStore]=useState([{}])
    const[filter,setFilter]=useState({})
 
@@ -32,7 +32,8 @@ const initialValues={
     //  image:[],
     place:"",
     phone:"",
-    category:""
+    category:"",
+   
 };
 
 const[formValues,setFormValues]=useState(initialValues);
@@ -48,9 +49,14 @@ const inputChange=(e)=>{
 
 const placeFinding=(e)=>{
 const {name,value}=e.target
-
-  let newData=place.filter((obj)=> obj.district===value)
+  console.log(place,"rj");
+  console.log(value,"rjs");
+  let newData=place.filter((obj)=> obj._id===value)
+  console.log(newData,"fisat");
   setStore([...newData[0].places])
+  setLocation(prev=>{
+    return  {...prev,[name]:value}
+    })
   
   console.log(newData[0].places,"issssyyyy");
   console.log(store);
@@ -62,6 +68,10 @@ const filterFinding=(e)=>{
   const {name,value}=e.target
   console.log(name,value);
   setFilter({...filter,[name]:value})
+  // setLocation(prev=> {...prev,[name]:value})
+  setLocation(prev=>{
+    return  {...prev,[name]:value}
+    })
   
 
 }
@@ -138,6 +148,7 @@ const handleSubmit = () => {
   // form.append('id', formValues.id);
   // form.append('placeId', formValues.placeId);
    form.append('image', formValues.image);
+   form.append('location', JSON.stringify(location));
   //  form.append('image',images)
   //  form.append('images',images)
   //  console.log("images",images);
@@ -301,11 +312,12 @@ useEffect(()=>{
               onChange={(e) => placeFinding(e)}
               id=""
               className="border-2 p-1 mb-2 "
+              
             >
               <option value="">Location</option>
               {place.map((Location,index) => {
                 return (
-                  <option key={index} value={Location.district}>
+                  <option key={index} value={Location._id}>
 
                     {Location.district}
                   </option>

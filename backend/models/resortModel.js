@@ -13,7 +13,7 @@ const resortSchema= mongoose.Schema({
         // required:[true,'resort name is required']
     },
     
-    room_capacity:{
+    capacity:{
         type:Number,
     //     required:[true,"required"]
      },
@@ -56,7 +56,8 @@ const resortSchema= mongoose.Schema({
     location:{
         district:
         {
-            type:String
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"locationModel"
 
         },
 

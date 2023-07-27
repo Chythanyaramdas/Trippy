@@ -1,8 +1,10 @@
 import React from "react";
 import "./Cards.css";
+import { useNavigate } from "react-router-dom";
 
 function Cards({data}) {
   const server_url=process.env.REACT_APP_BASE_URL;
+  const navigate=useNavigate()
   return (
     <div>
       <div  className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-20 mt-10 overflow-x-scroll  ">
@@ -23,7 +25,7 @@ function Cards({data}) {
           </div>
           <div className="p-2">
             <p className="mt-3">{data.name}</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
+            <button className="mt-2  bg-green-400" onClick={()=>navigate(`/categoryPage/${data._id}`)}>Book Now</button>
           </div>
         </div>
 
