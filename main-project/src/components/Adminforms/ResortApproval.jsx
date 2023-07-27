@@ -58,7 +58,7 @@ function ResortDetalis() {
       </div>
 
 
-      <div className="w-full flex flex-col mt-5">
+      <div className="w-full flex flex-col mt-2">
         <div className=" w-full flex  ">
           <p className="text-1xl font-bold"> Owner of Resort's:</p>
           <h2>{resort.resortowner}</h2>
@@ -68,21 +68,21 @@ function ResortDetalis() {
 
 
 
-        <div className="w-full flex flex-col mt-5" >
+        <div className="w-full flex flex-col mt-2" >
         <div className=" w-full-flex  ">
           <p className="text-1xl font-bold">ResortName:</p>
           <h2>{resort.resortname}</h2>
         </div>
         </div>
 
-        <div className="w-full flex flex-col mt-5">
+        <div className="w-full flex flex-col mt-2">
         <div className=" w-full-flex ">
           <p className="text-1xl font-bold"> Description:</p>
           <h2>{resort. description}</h2>
         </div>
         </div>
 
-        <div className="w-full flex flex-col mt-5">
+        <div className="w-full flex flex-col mt-2">
 
         <div className=" w-full-flex ">
           <p className="text-1xl font-bold">Capacity:</p>
@@ -97,7 +97,7 @@ function ResortDetalis() {
            <p>Counsil Name</p>
            <h2>{resort.councilName}</h2>
         </div> */}
-        <div className="w-full flex flex-col mt-5">
+        <div className="w-full flex flex-col mt-2">
         <div className="w-full-flex" >
           <p className="text-1xl font-bold">Price  per Day:</p>
           <h2>{resort.price}</h2>
@@ -105,7 +105,7 @@ function ResortDetalis() {
         </div>
 
 
-        <div className="w-full flex flex-col mt-5">
+        <div className="w-full flex flex-col mt-2">
         <div className="w-full-flex" >
           <p className="text-1xl font-bold">Category:</p>
           <h2>{resort.category}</h2>
@@ -113,13 +113,13 @@ function ResortDetalis() {
         </div>
         
 
-        <div className="w-full flex flex-col mt-5">
+        {/* <div className="w-full flex flex-col mt-2">
         <div className="w-full-flex" >
           <p className="text-1xl font-bold"> Location</p>
           <h2>{resort.location.district}</h2>
           <h2>{resort.location.place}</h2>
         </div>
-        </div>
+        </div> */}
 
 
         <div className="flex flex-col">

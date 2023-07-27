@@ -229,22 +229,23 @@ useEffect(()=>{
 
         <div className="flex flex-col  ml-40 w-1/2">
           <div className="flex grid grid-cols-3">
-            <p>Full Name</p>
+            {/* <p>Full Name</p> */}
             <span>:</span>
-            <p className="mb-4">
-              {" "}
-              {staff?.name + " " }
+            <p className="mb-4 text-2xl font-bold">
+              {/* {" "} */}
+              Resort Registration 
+              {/* {staff?.name + " " } */}
             </p>
           </div>
           <div className="flex grid grid-cols-3">
-            <p>Phone Number</p>
-            <span>:</span>
-            <p className="mb-4"> {staff?.phone}</p>
+            {/* <p>Phone Number</p> */}
+            {/* <span>:</span> */}
+            {/* <p className="mb-4"> {staff?.phone}</p> */}
           </div>
           <div className="flex grid grid-cols-3">
-            <p>Email </p>
-            <span>:</span>
-            <p className="mb-4"> {staff?.email}</p>
+            {/* <p>Email </p> */}
+            {/* <span>:</span> */}
+            {/* <p className="mb-4"> {staff?.email}</p> */}
           </div>
         </div>
       </div>

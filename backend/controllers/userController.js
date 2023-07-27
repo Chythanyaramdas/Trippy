@@ -329,3 +329,33 @@ module.exports.resortPage=async(req,res)=>{
     
   }
 }
+
+
+module.exports.categoryPage=async(req,res)=>{
+
+try {
+
+
+  const id=req.params.id;
+  console.log(id);
+  console.log("params come");
+  await resort.find({$and:[{verify:true},{is_delete:false},{category:id}]}).then((response)=>{
+    console.log(response,"rp");
+    res.json({
+
+      status:true,
+      message:"successfully done it",
+      category:response
+    })
+
+  })
+
+  
+  
+} catch (error) {
+
+  console.log(error.message);
+  
+}
+
+}

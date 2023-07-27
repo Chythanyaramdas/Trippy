@@ -5,7 +5,7 @@ import LoginPage from'../pages/user/LoginPage';
 import  OtpPage from'../pages/user/otppage';
 import  UserPage from '../pages/user/UserHome';
 import ResortPage from'../pages/user/ResortPage'
-
+import CategoryPages from '../components/User/CategoryPage';
 
 const UserRoute=()=>{
     return(
@@ -16,6 +16,7 @@ const UserRoute=()=>{
             <Route exact path='/otp' element={<OtpPage/>}/>
             <Route exact path='/' element={<UserPage/>} />
             <Route exact path='/resort/:id' element={<ResortPage/>} />
+            <Route exact path='/categoryPage/:id' element={<CategoryPages/>} />
 
         </Routes>
     )

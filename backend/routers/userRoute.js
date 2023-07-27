@@ -11,6 +11,7 @@ user_route.post('/verify_otp',userControllerRegistration.verification)
 user_route.post('/userLogin',authJWT,userControllerRegistration.userLogin)
 user_route.post('/auth',authJWT,userControllerRegistration.authUser)
 user_route.get('/singlePage',userControllerRegistration.resortPage)
+user_route.get('/categoryPage/:id',userControllerRegistration.categoryPage)
 
 
 // user_route.post('/authUser',userControllerRegistration.authUser)

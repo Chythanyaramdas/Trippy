@@ -53,6 +53,11 @@ const resortSchema= mongoose.Schema({
         ref:"categoryModel"
     },
 
+    is_delete: { 
+        type: Boolean,
+        default: false
+    },
+
     location:{
         district:
         {
@@ -96,6 +101,7 @@ const resortSchema= mongoose.Schema({
             type:[String],
             required:[true]
         }
+
        
 
     }]
