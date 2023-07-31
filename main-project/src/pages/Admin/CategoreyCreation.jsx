@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../../components/Sidebar/sidebar";
+import Sidebar from "../../components/Sidebar/AdminSidebar";
 import Navbar from '../../components/navbar/navbar';
 import CategoreyCreate from "../../components/Categorey/CategoreyUpload";
 

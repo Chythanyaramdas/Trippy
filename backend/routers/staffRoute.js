@@ -51,6 +51,9 @@ staff_route.post('/staff_Login',staffController.staff_Login)
 staff_route.post('/verify_staff',staffController.verification);
 staff_route.get('/resortRegister',resortController.resortLocation);
  staff_route.post('/resortRegister',upload.single('image'),resortController.resort);
+ staff_route.get('/adventureManagement',staffController.adventureManagement);
+ staff_route.post('/adventureManagement/:id',upload.single('image'),staffController.addAdventure);
+ staff_route.delete('/adventureManagement',staffController.deleteAdventure)
 // staff_route.post('/resortRegister',upload.array('image',10),resortController.resort);
 // staff_route.post('/resortRegister',upload.single('image2'),resortController.resort);
 module.exports = staff_route;

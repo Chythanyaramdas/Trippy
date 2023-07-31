@@ -1,7 +1,8 @@
 import React from "react";
 import Banner from'../../components/Banner/Banner';
 import Navbar from '../../components/navbar/navbar';
-import Sidebar from "../../components/Sidebar/sidebar";
+// import Sidebar from "../../components/Sidebar/sidebar";
+import Sidebar from"../../components/Sidebar/AdminSidebar";
 function BannerPage(){
     return(
         <div>

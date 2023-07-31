@@ -34,14 +34,21 @@ admin_route.post('/adminLogin',adminController.Admin_Login)
 admin_route.post('/banner',upload.single('image'),adminController.bannerUpload)
 admin_route.get('/banner',adminController.banners)
 admin_route.delete('/banner',adminController.deleteBanner);
+
 admin_route.get('/categoryManagement',categoryController.categoreyManagement);
 admin_route.post('/categoreyUpload',upload.single("image"),categoryController.categoreyCreation);
+admin_route.post('/categoreyManagement_ud/:id',upload.single("image"),categoryController.updateCategory);
+admin_route.get('/categoryManagement_u/:id',categoryController.getCategory)
+
 admin_route.post('/addLocation',locationController.locationCreation);
 admin_route.get('/location',locationController.location)
 admin_route.delete('/location',locationController.deleteLocation)
+
 admin_route.get('/resortApplications',adminController.resortList)
 admin_route.post('/resortRegister/:id',adminController.resortApproval)
 admin_route.get('/resortDetails',adminController.resortDetails)
+
+admin_route.delete('/categoryManagement',categoryController.deleteCategory);
 
 
 

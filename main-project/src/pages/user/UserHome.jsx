@@ -5,7 +5,7 @@ import Banner from '../../components/BannerClient/Banner';
 import CardsClient from '../../components/Cards/CardsClient';
 import CardsResort from'../../components/Cards/CardsResort';
 import {UserApi} from'../../utils/user/axiosUser';
-
+import Footer from"../../components/Footer/UserFooter"
 
 
 
@@ -47,6 +47,8 @@ useEffect(()=>{
   <CardsResort data={resort}/>
 
 </div>
+
+<Footer/>
 
 </div>
   )

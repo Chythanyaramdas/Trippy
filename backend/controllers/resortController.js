@@ -8,7 +8,7 @@ const category = require("../models/categoryModel");
 
 module.exports.resortLocation = async (req, res) => {
   try {
-    console.log("niiiii");
+    console.log("niiiiiyoooo");
     const locationData = await Location.find({ is_delete: false });
     const resortData = await resort.find({});
     const categoreyData = await category.find({ is_delete: false });

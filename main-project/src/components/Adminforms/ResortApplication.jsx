@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {AdminApi} from'../../utils/admin/adminApi';
 import { useNavigate } from "react-router-dom";
+import Navbar from"../navbar/navbar"
+import AdminSidebar from "../Sidebar/AdminSidebar"; 
 
 function ResortApplications() {
   const navigate = useNavigate();
@@ -19,10 +21,20 @@ function ResortApplications() {
     
   }, []);
   return (
-    <div className="p-4 mt-10">
-      <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow-xl ">
-          <thead className="text-xs text-white uppercase bg-[#05445E] dark:text-gray-400">
+
+
+    <div className="w-full h-full">
+      <div className="w-full">
+        <Navbar/>
+      </div>
+
+      <div className="grid grid-cols-[1fr_7fr] sm:grid-cols-[1.5fr_8.5fr] w-full" >
+      <AdminSidebar/>
+        <div className="w-full ">
+     
+      <div className="relative overflow-x-auto w-full ">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 bg-red-500 shadow-xl ">
+          <thead className="text-xs text-white uppercase  bg-sky-600 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
                 SI No
@@ -63,6 +75,9 @@ function ResortApplications() {
           </tbody>
         </table>
       </div>
+    </div>
+      </div>
+    
     </div>
   );
 }

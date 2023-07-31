@@ -21,7 +21,7 @@ const resortSchema= mongoose.Schema({
   
     description:{
         type:String,
-        required:[true,'description is required']
+        // required:[true,'description is required']
     },
    
     image:{
@@ -32,7 +32,7 @@ const resortSchema= mongoose.Schema({
     
      price:{
         type:Number,
-        required:[true,'price is required']
+        // required:[true,'price is required']
     },
     verify:{
         type:Boolean,
@@ -77,7 +77,7 @@ const resortSchema= mongoose.Schema({
 
         name:{
             type:String,
-            required:[true,'adventure name is required']
+            // required:[true,'adventure name is required']
 
         },
 
@@ -92,10 +92,16 @@ const resortSchema= mongoose.Schema({
 
         },
 
-        verify:{
-            type:Boolean,
-            default:false
+        // verify:{
+        //     type:Boolean,
+        //     default:false
+        // },
+
+        is_delete: { 
+            type: Boolean,
+            default: false
         },
+    
 
         image:{
             type:[String],

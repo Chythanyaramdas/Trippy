@@ -29,7 +29,7 @@ function CreateButton({content,path}) {
         className="bg-gradient-to-r from-cyan-500 to-blue-500 p-2 rounded-2xl absolute right-20  top-10"
         onClick={()=> navigate(path) }
       >
-        Create {content}
+         {content}
       </button>
     </div>
   );

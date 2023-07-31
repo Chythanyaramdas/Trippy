@@ -7,6 +7,9 @@ function CardsResort({data}) {
   const navigate=useNavigate()
   return (
     <div>
+      <div className="mt-10 ms-20">
+        <p className="text-2xl text-black font-bold italic"> Our Resorts</p>
+      </div>
       <div  className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-20 mt-10 overflow-x-scroll  ">
 
       {data.map((data)=>{
@@ -14,18 +17,20 @@ function CardsResort({data}) {
             return(
               
         
-        <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
+        <div className=" rounded-lg shadow-2xl overflow-hidden  bg-sky-300 bg-opacity-20  text-center " style={{boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px'}} >
           
-          <div className="h-72">
+          <div className="h-72 bg-green-300 bg-opacity-25  flex justify-center items-center">
+          <div className="w-[90%] h-[90%] bg-violet-700 relative">
             <img
               src={server_url + "images/" + data.image}
               alt=""
-              className="h-full w-full "
+              className="h-full w-full w-full hover:transform transform scale-100 hover:scale-125 transition-transform duration-300"
             />
+          </div>
           </div>
           <div className="p-2">
             <p className="mt-3">{data.resortname}</p>
-            <button className="mt-2  bg-green-400" onClick={()=>navigate(`/resort/${data._id}`)}>Book Now</button>
+            <button className="mt-2  bg-green-400 w-28 h-10 text-sm" onClick={()=>navigate(`/resort/${data._id}`)}>Book Now</button>
           </div>
         </div>
 

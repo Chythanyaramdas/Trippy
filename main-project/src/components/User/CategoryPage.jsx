@@ -1,80 +1,70 @@
-import React,{useState,useEffect} from 'react'
-import { useParams,useNavigate } from "react-router-dom";
+// test
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { UserApi } from "../../utils/user/axiosUser";
-import Navbar from '../../components/navbar/navbar';
-import Footer from"../Footer/UserFooter";
+import Navbar from "../../components/navbar/navbar";
+import Footer from "../Footer/UserFooter";
+
 function CategoryPage() {
+  const { id } = useParams();
+  const server_url = process.env.REACT_APP_BASE_URL;
+  const navigate = useNavigate();
+  const [category, setCategory] = useState([{}]);
 
-    const { id } = useParams();
-    const server_url = process.env.REACT_APP_BASE_URL;
-    const navigate=useNavigate()
-    const[category,setCategory]=useState([{}]);
+  useEffect(() => {
+    if (id) {
+      console.log("categoryPage single");
+      UserApi.get(`/categoryPage/${id}`).then((response) => {
+        if (response.data.status) {
+          console.log("cat");
 
-    useEffect(()=>{
+          console.log(response.data.category);
 
-        if(id){
-
-            console.log("categoryPage single");
-            UserApi.get(`/categoryPage/${id}`).then((response)=>{
-
-                if(response.data.status){
-
-                    console.log("cat");
-
-                    console.log(response.data.category);
-
-                    setCategory([...response.data.category])
-                }
-            })
+          setCategory([...response.data.category]);
         }
+      });
+    }
+  }, [id]);
 
-    },[id])
   return (
-    <div>
+    <div className="">
+      <div className="">
+        <Navbar />
+      </div>
 
-        <div>
-        <Navbar/>
-        </div>
-        <div className='flex justify-center'>
-        <p className='text-2xl font-serif'>Choose Your Stay</p>
-        </div>
+      <div className="flex justify-center">
+        <p className="text-2xl font-serif">Choose Your Stay</p>
+      </div>
 
-<div  className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-20 mt-10 overflow-x-scroll  ">
-
-{category?.map((data)=>{
-
-      return(
-        
-  
-  <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-    
-    <div className="h-72">
-      <img
-        src={server_url + "images/" + data.image}
-        alt=""
-        className="h-full w-full "
-      />
+      <div className="flex  flex-wrap gap-8 mt-12 ps-6">
+        {category?.map((data) => {
+          return (
+            <div className="w-1/4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  flex-wrap">
+              <div className="w-[90%] h-[60%]  relative">
+                <img
+                  className="rounded-t-lg overflow-hidden"
+                  src={server_url + "images/" + data.image}
+                  alt=""
+                />
+              </div>
+              <div className="p-5">
+                <div className="p-2">
+                  <p className="mt-3 text-2xl font-bold text-black">
+                    {data.resortname}
+                  </p>
+                </div>
+                <button
+                  className="mt-2 bg-green-400 w-28 h-10 text-sm"
+                  onClick={() => navigate(`/resort/${data._id}`)}
+                >
+                  Book Now
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
-    <div className="p-2">
-      <p className="mt-3">{data.name}</p>
-      <button className="mt-2  bg-green-400" onClick={()=>navigate(`/resort/${data._id}`)}>Book Now</button>
-    </div>
-  </div>
-
-  
-
-      );
-
-})}
-
-</div>
-
-<div  className="mt-64">
-    <Footer/>
-</div>
-      
-    </div>
-  )
+  );
 }
-
-export default CategoryPage
+export default CategoryPage;

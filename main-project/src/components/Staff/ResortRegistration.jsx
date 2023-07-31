@@ -164,8 +164,10 @@ const handleSubmit = () => {
   }}).then((response) => {
     if (response.data.status) {
       alert(response.data.message);
-      navigate('/staff/dashboard');
+     
     }
+
+    navigate('/staff/dashboard');
   });
 
 //   StaffApi.post('/resortRegister',formValues).then((response)=>{
@@ -196,7 +198,7 @@ useEffect(()=>{
             console.log(setPlace);
         }
 
-
+        
         
     })
 

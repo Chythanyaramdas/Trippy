@@ -240,7 +240,7 @@ module.exports.landPage=async(req,res)=>{
 
     const bannerData = await banner.find({is_delete:false})
     const categoryData=await Category.find({is_delete:false})
-    const resortData=await resort.find({ verify:true})
+    const resortData=await resort.find({is_delete:false, verify:true})
     
     res.json({
       banners:bannerData,

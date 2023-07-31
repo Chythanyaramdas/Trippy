@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const Staff = require('../models/staffModel');
+const resort=require('../models/resortModel');
+
 const nodemailer = require("nodemailer");
 const config=require('../config/config');
 const randormstring=require("randomstring");
@@ -159,8 +161,129 @@ console.log("Staffil ethiii");
   
      }
   }
+
+  module.exports.adventureManagement=async(req,res)=>{
+
+    try {
+
+      // const id=req.params.id;
+      // console.log(id,"idt");
+      // console.log("paramss");
+      await resort.find({resortowner:'64ad9f37972741f1f7b2f4e0'}).then((response)=>{
+        // console.log(response,"rps");
+        res.json({
+          status:true,
+          message:"successfully done it",
+          resort:response
+        })
+      })
+      
+    } catch (error) {
+
+      console.log(error.message);
+      
+    }
+  }
+
+//   module.exports.addAdventure=async(req,res)=>{
+//     try {
+
+     
+//       const{names,description,time,image}=req.body;
+//       const id=req.params.id;
+//       console.log(req.body,"bodyyy");
+      
+// const obj={
+//   name:names,
+//   description:description,
+//   time:time,
+//   image:image
+// }
+
+// const adventureData=await resort.findByIdAndUpdate({_id:id},{$push:{adventure:obj}})
+// console.log(adventureData,"adventure came");
+// if(adventureData) res.status(201).json({status:true,message:"successfully created it"})
+
+//     } catch (error) {
+
+//       console.log(error.message);
+      
+//     }
+//   }
+
+// module.exports.addAdventure = async (req, res) => {
+//   try {
+//     const { names, description, time, image } = req.body;
+//     const id = req.params.id;
+
+//     const obj = {
+//       name: names,
+//       description: description,
+//       time: time,
+//       image: image,
+//     };
+
+//     const adventureData = await resort.findByIdAndUpdate(
+//       { _id: id },
+//       { $push: { adventure: obj } } // Add the obj directly to the 'adventure' array
+//     );
+
+//     console.log(adventureData, "adventure came");
+//     if (adventureData) res.status(201).json({ status: true, message: "successfully created it" });
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
   
  
 
   
-  
+module.exports.addAdventure = async (req, res) => {
+  try {
+    const { names, description, time } = req.body;
+    const image=req.file.filename;
+    console.log("req.body",req.body);
+    console.log("req.bodys",image);
+    const id = req.params.id;
+
+    const obj = {
+      name: names,
+      description: description,
+      time: time,
+      image: image,
+    };
+
+    const adventureData = await resort.findByIdAndUpdate(
+      { _id: id },
+      { $push: { adventure: obj } } // Add the obj directly to the 'adventure' array
+    );
+
+    console.log(adventureData, "adventure came");
+    if (adventureData) res.status(201).json({ status: true, message: "successfully created it",adventure:adventureData });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+module.exports.deleteAdventure=async(req,res)=>{
+  try {
+
+    console.log(req.body.id);
+    const resortData=await resort.find({_id:id})
+    if(deleteData){
+      res.json({
+        status:true,
+        message:"successfully deleted"
+      })
+    }
+    
+  } catch (error) {
+
+    console.log(error.message);
+        res.json({
+          status:false,
+          message:"Can't find the data"
+      })
+    
+  }
+}

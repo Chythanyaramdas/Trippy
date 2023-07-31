@@ -1,15 +1,15 @@
 import React from 'react';
 import Navbar from '../../components/navbar/navbar';
-import Sidebar from'../../components/Sidebar/sidebar';
+import AdminSidebar from'../../components/Sidebar/AdminSidebar'
 import ResortApplications from '../../components/Adminforms/ResortApplication'
 
 function ResortApplication() {
   return (
 
-    <div>
+    <div className='w-full h-full bg-green-500'>
     <Navbar/>
-    <div className=" w-full">
-      <Sidebar/> 
+    <div className=" w-full h-[93.1vh] bg-red-500">
+     <AdminSidebar/>
       <ResortApplications/>
     </div>
      </div>
