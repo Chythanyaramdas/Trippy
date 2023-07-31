@@ -64,7 +64,7 @@ module.exports.locationCreation=async(req,res)=>{
 module.exports.location=async(req,res)=>{
     try {
       const locationData=await Location.find({is_delete:false})
-      console.log( locationData);
+    //   console.log( locationData);
       res.json({
         status:true,
         Location:locationData
@@ -103,5 +103,56 @@ module.exports.deleteLocation=async(req,res)=>{
       })
       }
 
+}
+module.exports.getLocation=async(req,res)=>{
+    try {
+
+        const id=req.params.id;
+        console.log(id,"locationId");
+        const locationData=await Location.findById(id)
+        if(locationData){
+            res.json({
+                status:true,
+                location:locationData
+            })
+        }
+        
+    } catch (error) {
+
+        console.log(error.message);
+        
+    }
+}
+module.exports.updateLocation=async(req,res)=>{
+    try {
+
+        console.log("update loccc");
+        const id=req.params.id;
+        console.log(req.body);
+        const locationData=await Location.findOneAndUpdate(
+
+            {_id:id},
+            {
+                $set:{
+                    district:req.body.district,
+                    places:req.body.places
+
+                }
+            }
+
+        )
+
+        if(locationData){
+            res.json({
+                status:true,
+                location:locationData
+            })
+        }
+        
+    } catch (error) {
+
+        console.log(error.message);
+        
+    }
 }
 

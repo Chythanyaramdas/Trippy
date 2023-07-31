@@ -125,7 +125,7 @@ function Location() {
                             </td>
 
                             <td>
-                            <button className="loc w-28 h-3"> Edit </button>
+                            <button className="loc w-28 h-3" onClick={()=>navigate(`/admin/location_u/${data._id}`)}> Edit </button>
                                         
                             </td>
 

@@ -100,6 +100,8 @@ function CategoryUpdation() {
           Update
         </button>
       </div>
+
+      
       <div className="flex flex-col md:col-span-2 ">
         <div className="flex flex-col text-center justify-center border-2 mx-20 h-72 px-10 py-6 ">
         {banner && <img
