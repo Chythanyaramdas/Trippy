@@ -8,7 +8,7 @@ function CardsResort({data}) {
   return (
     <div>
       <div className="mt-10 ms-20">
-        <p className="text-2xl text-black font-bold italic"> Our Resorts</p>
+        <p className="text-2xl text-black font-bold italic"> Our Stay...</p>
       </div>
       <div  className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-20 mt-10 overflow-x-scroll  ">
 

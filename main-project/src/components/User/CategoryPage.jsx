@@ -36,13 +36,13 @@ function CategoryPage() {
         <p className="text-2xl font-serif">Choose Your Stay</p>
       </div>
 
-      <div className="flex  flex-wrap gap-8 mt-12 ps-6">
+      <div className="flex  flex-wrap gap-16 mt-12 ps-6 ">
         {category?.map((data) => {
           return (
-            <div className="w-1/4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  flex-wrap">
-              <div className="w-[90%] h-[60%]  relative">
+            <div className="w-1/4 bg-sky-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex justify-center   flex-wrap  ">
+              <div className="w-[90%] h-[60%]   relative">
                 <img
-                  className="rounded-t-lg overflow-hidden"
+                  className="rounded-t-lg overflow-hidden hover:transform transform scale-100 hover:scale-110 transition-transform duration-300 "
                   src={server_url + "images/" + data.image}
                   alt=""
                 />

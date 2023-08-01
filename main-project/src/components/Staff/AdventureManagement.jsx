@@ -83,8 +83,8 @@ useEffect(()=>{
   return (
     <div>
 
-<div className="flex flex-col items-center justify-center gap-4">
-<div className="flex flex-col items-center mt-56">
+<div className="flex flex-col items-center justify-center gap-4 w-full">
+<div className="flex flex-col items-center mt-56 w-full">
     <label htmlFor="">Resort<span className="text-red-600">*</span></label>
     <select
       name="district"
@@ -102,7 +102,7 @@ useEffect(()=>{
       })}
 
 </select>
-<div className="flex justify-center">
+<div className="flex justify-center w-full">
     {/* <Button content="Adventure" path="/staff/adventureCreation/${resort._id" /> */}
     <Button content="Adventure" path={`/staff/adventureCreation/${singleResort._id}`}></Button>
   </div>
@@ -111,7 +111,7 @@ useEffect(()=>{
 </div>
 
 
- <div className="mt-36 ml-20 flex grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+ <div className="mt-36 ml-20 flex grid grid-cols-2 md:grid-cols-4 gap-4 text-center w-full">
         {singleResort?.adventure?.map((data, index) => {
           return (
             <div
