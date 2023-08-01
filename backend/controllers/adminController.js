@@ -118,6 +118,84 @@ module.exports.Admin_Login=async(req,res,next)=>{
       })
       }
     }
+
+
+    module.exports.getBanner=async(req,res)=>{
+      try {
+
+        console.log("banner geting");
+        const bannerData=await banner.findOne({_id:req.params.id});
+        console.log(bannerData);
+        if( bannerData){
+
+          res.json({
+            status: true,
+            banner:bannerData,
+          });
+
+        }
+    
+
+        
+      } catch (error) {
+
+
+        console.log(error.message);
+        
+      }
+    }
+
+
+    module.exports.updateBanner=async(req,res)=>{
+      try {
+
+
+        console.log("bannerUpdateszz");
+
+        if (req.file) {
+          const categoryData = await banner.updateOne(
+            { name: req.body.id },
+            {
+              $set: {
+                name: req.body.name,
+                description: req.body.description,
+                image: req.file.filename,
+              },
+            }
+          );
+          if (categoryData) {
+            console.log("done");
+            res.json({
+                status: true,
+                banner: categoryData,
+            });
+          }
+        } else {
+          const categoryData = await banner.updateOne(
+            { name: req.body.id },
+            {
+                $set: {
+                name: req.body.name,
+                description: req.body.description,
+            },
+        }
+        );
+        if (categoryData) {
+            console.log("done");
+            res.json({
+              status: true,
+              banner: categoryData,
+            });
+          }
+        }
+
+        
+      } catch (error) {
+
+        console.log(error.message);
+        
+      }
+    }
       
   module.exports.resortList=async(req,res)=>{
     try {
@@ -224,4 +302,6 @@ module.exports.Admin_Login=async(req,res,next)=>{
       });
     }
   };
+
+  
   

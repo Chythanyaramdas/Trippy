@@ -79,7 +79,7 @@ return (
               className="rounded-xl bg-white w-full truncate p-2"
               key={index}
             >
-              <p>hhhhhhh</p>
+              <p></p>
               <img
                 className=" bg-fit rounded-xl"
                  src={`http://localhost:3001/images/${data.image}`}
@@ -91,7 +91,7 @@ return (
                          {/* dynamic button with functinality */}
                 {/* <Button func={deleteClick} id={data._id}  content={'Delete'}    /> */}
                 <button className="bg-[#CE2625] p-2 rounded-lg mt-3 hidden sm:block" onClick={()=>deleteClick(data._id)}>Delete</button>
-                <button className="bg-sky-500 p-2 rounded-lg mt-3 hidden sm:block">Update</button>
+                <button className="bg-sky-500 p-2 rounded-lg mt-3 hidden sm:block" onClick={()=>navigate(`/admin/banner_u/${data._id}`)}>Update</button>
 
                 <button  className="bg-sky-500 p-2 rounded-lg mt-3 block sm:hidden flex justify-center"><MdOutlineDelete /></button>
                 <button className="bg-sky-500 p-2 rounded-lg mt-3 block sm:hidden flex justify-center"> <GrUpdate /></button>

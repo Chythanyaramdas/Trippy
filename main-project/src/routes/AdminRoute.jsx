@@ -12,6 +12,7 @@ import ResortApproval from '../pages/Admin/ResortApproval';
 import CategoryUpdate from"../pages/Admin/CategoryUpdate";
 import UpdateLocation from '../components/Adminforms/UpdateLocation';
 import LocationUpdation from '../pages/Admin/LocationUpdation';
+import BannerUpdate from"../pages/Admin/BannerUpdation";
 
 // import CategoreyManagement 
 const AdminRoute=()=>{
@@ -21,6 +22,7 @@ const AdminRoute=()=>{
         <Route path='/adminLogin' element={<AdminLoginPage/>}/>
         <Route path='/banner' element={<BannerPage/>}/>
         <Route path='/create_banner' element={<BannerCreation/>}/>
+        <Route path='/banner_u/:id' element={<BannerUpdate/>}/>
 
         <Route path='/categoreyUpload' element={<CategoreyCreation/>}/>
         <Route path='/categoryManagement' element={<CategoreyPage/>}/>
@@ -29,6 +31,7 @@ const AdminRoute=()=>{
         <Route path='/addLocation' element={<AddLocation/>}/>
         <Route path='/location' element={<Location/>}/>
         <Route path='/location_u/:id' element={<LocationUpdation />}/>
+
 
         <Route path='/resortApplications' element={<ResortApplications/>}/>
         <Route path='/resortApproval/:id' element={<ResortApproval/>}/>
