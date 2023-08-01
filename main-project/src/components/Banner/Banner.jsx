@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import React ,{useState,useEffect} from'react';
-import { adminApi } from "../../helper/axios/adminAxios";
+import { AdminApi } from "../../utils/admin/adminApi";
 import {GrUpdate} from'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import{MdOutlineDelete} from'react-icons/md';
@@ -18,7 +18,7 @@ const [confirmation,setConfirmation] = useState(false)
 
   const handleDelete = ()=>{
     
-    adminApi.delete('/banner',{data:{id:bannerId}}).then((response)=>{
+    AdminApi.delete('/banner',{data:{id:bannerId}}).then((response)=>{
       console.log(response.data);
       if(response.data.status){
         alert(response.data.message)
@@ -44,7 +44,7 @@ const [confirmation,setConfirmation] = useState(false)
 
 useEffect(()=>{
 
-   axios.get(`http://localhost:3001/admin/banner`).then((response)=>{
+  AdminApi.get(`/banner`).then((response)=>{
 
  
 if(response.data.status){

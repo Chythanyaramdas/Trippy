@@ -55,16 +55,17 @@ function BannerUpdation() {
         form.append('description',description)
         if(newImage===''){
           console.log("newImage is not here");
+          
         }
         else{
           form.append('image',newImage)
         }
-        
+        console.log(form,"kgkgkgk");
           form.append('id',id)
           console.log(form.get("image"),"image");
-          await AdminApi.post(`banner_ud/:${id}`, form, {
+          await AdminApi.post(`banner_ud/${id}`,form,{
             headers: {
-              "content-type": "multipart/form-data",
+              "content-Type": "multipart/form-data",
             },
           }).then((response)=>{
             if(response.data.status){

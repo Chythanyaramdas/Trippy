@@ -10,7 +10,8 @@ const session=require("express-session");
 const jwt=require('jsonwebtoken');
 const { admin } = require('../../main-project/src/services/adminApi');
 const banner = require('../models/bannerModel')
-const dotenv=require("dotenv")
+const dotenv=require("dotenv");
+const { ObjectId } = require('mongodb');
 dotenv.config()
 
 
@@ -150,16 +151,20 @@ module.exports.Admin_Login=async(req,res,next)=>{
       try {
 
 
+        console.log(req.body,"kkkk");
         console.log("bannerUpdateszz");
-
+        console.log(req.params);
+        const id= req.params.id
+        console.log(req.file,"filesss");
         if (req.file) {
+
           const categoryData = await banner.updateOne(
-            { name: req.body.id },
+            { _id:id },
             {
               $set: {
-                name: req.body.name,
+                title: req.body.name,
                 description: req.body.description,
-                image: req.file.filename,
+                // image: req.file.filename,
               },
             }
           );
@@ -171,11 +176,12 @@ module.exports.Admin_Login=async(req,res,next)=>{
             });
           }
         } else {
+          console.log("ividde");
           const categoryData = await banner.updateOne(
-            { name: req.body.id },
+            { _id:id},
             {
                 $set: {
-                name: req.body.name,
+                title: req.body.name,
                 description: req.body.description,
             },
         }

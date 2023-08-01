@@ -86,11 +86,11 @@ const resortSchema= mongoose.Schema({
             required:[true,'description is required']
         },
 
-        time:{
-            type:Number,
-            required:[true]
+        // time:{
+        //     type:Number,
+        //     required:[true]
 
-        },
+        // },
 
         // verify:{
         //     type:Boolean,

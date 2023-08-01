@@ -9,9 +9,9 @@ const Admin=require("../models/adminModel")
 
 const adminJwt=async(req,res,next)=>{
     try{
-        console.log(req.header,"headers");
-        const token=req.header("Authorization").replace("Bearer ","");
-        console.log(token,"toooo");
+        
+        const token=req.headers["authorization"].replace("Bearer ","");
+        // console.log(token,"toooo");
         if(!token){
             throw new Error("Authentication failed:Token missing");
         }
