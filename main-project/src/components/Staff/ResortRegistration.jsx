@@ -210,7 +210,7 @@ useEffect(()=>{
     <div className="p-10 bg-slate-200">
     <div className="mx-auto bg-white rounded-lg p-5 ">
       <div className="grid grid-cols-[2fr_8fr]">
-        <div className="rounded-full overflow-hidden relative h-60 w-auto flex justify-center">
+        {/* <div className="rounded-full overflow-hidden relative h-60 w-full flex justify-center  ">
           <img
              src={formValues.image? URL.createObjectURL(formValues.image) : ""}
             // src={image[0] ?URL.createObjectURL(image[0]):""}
@@ -227,7 +227,28 @@ useEffect(()=>{
           />
 
           </div>
-        </div>
+        </div> */}
+
+<div className="rounded-full overflow-hidden relative h-60 w-full flex justify-center">
+  <img
+    src={formValues.image ? URL.createObjectURL(formValues.image) : ""}
+    alt=""
+    className="h-full w-full rounded-full border border-white"
+  />
+  <div className="absolute bottom-0 left-10 w-full"> 
+    <input
+      className="bg-amber-200 w-full" 
+      name="image"
+      onChange={imageChange}
+      type="file"
+    />
+  </div>
+</div>
+
+
+
+
+
 
         <div className="flex flex-col  ml-40 w-1/2">
           <div className="flex grid grid-cols-3">
@@ -259,16 +280,16 @@ useEffect(()=>{
             <div>
               <h2 className=" mb-4 underline underline-offset-8 " >Registeraton Details</h2>
               
-              <div className="grid grid-cols-3">
+              {/* <div className="grid grid-cols-3">
                 <label htmlFor="">Resort Owner <span className="text-red-600">*</span> </label>
                 <input
                   type="text"
                   onChange={(e) => inputChange(e)}
                   value={formValues.resortowner}
                   name="resortowner"
-                  className="border-2 p-1 mb-2"
+                  className="border-2 p-1 mb-2 w-60"
                 />
-              </div>
+              </div> */}
             
             <div className="grid grid-cols-3">
               <label htmlFor="">Resort  Name <span className="text-red-600">*</span></label>
@@ -277,7 +298,7 @@ useEffect(()=>{
                 onChange={(e) => inputChange(e)}
                 value={formValues.resortname}
                 name="resortname"
-                className="border-2 p-1 mb-2"
+                className="border-2 p-1 mb-2 w-60"
               />
             </div>
             <div className="grid grid-cols-3">
@@ -287,7 +308,7 @@ useEffect(()=>{
                 onChange={(e) => inputChange(e)}
                 value={formValues.description}
                 name="description"
-                className="border-2 p-1 mb-2 "
+                className="border-2 p-1 mb-2 w-60 "
               />
             </div>
 
@@ -299,7 +320,7 @@ useEffect(()=>{
                 onChange={(e) => inputChange(e)}
                 value={formValues.phone}
                 name="phone"
-                className="border-2 p-1 mb-2 "
+                className="border-2 p-1 mb-2 w-60"
               />
             </div>
 
@@ -314,7 +335,7 @@ useEffect(()=>{
               name="district"
               onChange={(e) => placeFinding(e)}
               id=""
-              className="border-2 p-1 mb-2 "
+              className="border-2 p-1 mb-2  w-60"
               
             >
               <option value="">Location</option>
@@ -335,7 +356,7 @@ useEffect(()=>{
               name="place"
               onChange={(e) => filterFinding(e)}
               id=""
-              className="border-2 p-1 mb-2 "
+              className="border-2 p-1 mb-2 w-60 "
             >
               <option value="place">Place</option>
               {store.map((places,index) => {
@@ -356,7 +377,7 @@ useEffect(()=>{
               name="category"
               onChange={(e) => inputChange(e)}
               id=""
-              className="border-2 p-1 mb-2 "
+              className="border-2 p-1 mb-2 w-60 "
               required
             >
               <option value="">Category</option>
@@ -380,7 +401,7 @@ useEffect(()=>{
               onChange={(e) => inputChange(e)}
               value={formValues.capacity}
               name="capacity"
-              className="border-2 p-1 mb-2 "
+              className="border-2 p-1 mb-2 w-60"
             />
           </div>
 
@@ -391,7 +412,7 @@ useEffect(()=>{
               onChange={(e) => inputChange(e)}
               value={formValues.price}
               name="price"
-              className="border-2 p-1 mb-2 "
+              className="border-2 p-1 mb-2 w-60"
             />
           </div>
 
@@ -425,7 +446,7 @@ useEffect(()=>{
           </div> */}
 
 
-          <div>
+          {/* <div>
             <div>
               <h2 className="mb-4 underline underline-offset-8" >Adventure</h2>
             </div>
@@ -442,7 +463,7 @@ useEffect(()=>{
                       type="text"
                       name="name"
                       onChange={(e) => onChangeAdventure(e, index)}
-                      className="border-2 p-1 mb-2 "
+                      className="border-2 p-1 mb-2 w-60 "
                       value={adventure.name}
                     />
                   </div>
@@ -453,7 +474,7 @@ useEffect(()=>{
                       type="text"
                       name="description"
                       onChange={(e) => onChangeAdventure(e, index)}
-                      className="border-2 p-1 mb-2"
+                      className="border-2 p-1 mb-2 w-60"
                       value={adventure.description}
 
                     />
@@ -464,21 +485,13 @@ useEffect(()=>{
                       type="number"
                       name="time"
                       onChange={(e) => onChangeAdventure(e, index)}
-                      className="border-2 p-1 mb-2"
+                      className="border-2 p-1 mb-2 w-60"
                       value={adventure.time}
                     />
                   </div>
 
 
-                  {/* <div className="" >
-                    <label htmlFor="">Time <span className="text-red-600">*</span></label>
-                    <input
-                      type="number"
-                      name="time"
-                      onChange={(e) => onChangeAdventure(e, index)}
-                      className="border-2 p-1 mb-2"
-                    />
-                  </div> */}
+                 
 
         <div className="rounded-full overflow-hidden relative h-60 w-full flex justify-center">
           
@@ -491,7 +504,7 @@ useEffect(()=>{
 
           <div className="absolute bottom-0 left-10 rounded-full overflow-hidden">
            <input className="bg-amber-200 " name="images"  onChange={adventureImage} type="file"/> 
-          {/* <input className="bg-amber-200 " name="images"  onChange={(e)=>setImage(e.target.files[0])} type="file"/> */}
+         
          
          
 
@@ -503,8 +516,10 @@ useEffect(()=>{
                 </div>
               );
             })}
-          </div>
-        <button onClick={addMore} className="bg-lime-500 p-2" >Add More</button>
+          </div> */}
+
+          
+        {/* <button onClick={addMore} className="bg-lime-500 p-2" >Add More</button> */}
 
         </div>
         

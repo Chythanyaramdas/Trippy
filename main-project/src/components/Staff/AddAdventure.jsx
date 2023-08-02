@@ -73,14 +73,15 @@ function AddAdventure() {
             Image <span className="text-red-600">*</span>
           </label>
           <div className="rounded-full overflow-hidden relative h-60 w-full flex justify-center">
+            
             <img
               src={image ? URL.createObjectURL(image) : ""}
               alt=""
-              className="h-full  rounded-full w-auto"
+              className="h-full  rounded-full w-96"
             />
             <div className="absolute bottom-0 left-10 rounded-full overflow-hidden">
               <input
-                className="bg-amber-200"
+                className="bg-amber-200 w-full"
                 name="image"
                 onChange={(e) => setImage(e.target.files[0])}
                 type="file"

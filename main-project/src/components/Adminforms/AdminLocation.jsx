@@ -52,7 +52,7 @@ import { AdminApi }from "../../utils/admin/adminApi";
     return (
     
 
-<div className="card mt-0 flex justify-center bg-sky-100 ">
+<div className="card mt-0 flex justify-center ">
   <div className="card-header flex justify-center items-center">
     <h5 className="text-xl font-semibold">Add Location</h5>
   </div>
@@ -60,7 +60,7 @@ import { AdminApi }from "../../utils/admin/adminApi";
     <form id="product_form" onSubmit={handleSubmit}>
       <div className="mb-4 ">
         <label className="block font-semibold">District</label>
-        <input type="text" className="form-input w-48" placeholder="Enter district" value={district} onChange={(e)=>setDistrict(e.target.value)}  />
+        <input type="text" className="form-input w-60" placeholder="Enter district" value={district} onChange={(e)=>setDistrict(e.target.value)}  />
       </div>
       {fields.map((field, index) => (
         <React.Fragment key={index}>
@@ -74,7 +74,7 @@ import { AdminApi }from "../../utils/admin/adminApi";
                 
                   type="text"
                   name={`place`}
-                  className="form-input w-36"
+                  className="form-input w-60"
                   placeholder="place"
                   value={field.place}
                   onChange={(e) => handleInputChange(index, e)}
@@ -82,12 +82,12 @@ import { AdminApi }from "../../utils/admin/adminApi";
               </div>
             </div>
             <div className="w-full px-2">
-              <div className="mb-4 ">
+              <div className="mb-4 w-60">
                 <label className="block font-semibold">Pincode</label>
                 <input
                   type="number"
                   name={`pinCode`}
-                  className="form-input"
+                  className="form-input w-60"
                   placeholder="pincode"
                   value={field.pincode}
                   onChange={(e) => handleInputChange(index, e)}

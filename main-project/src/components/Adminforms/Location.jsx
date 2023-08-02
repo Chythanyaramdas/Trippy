@@ -66,18 +66,21 @@ function Location() {
                         #
                       </th>
                       <th scope="col" className="px-6  py-4">
-                        District
+                          Cities
                       </th>
+
                       <th scope="col" className="px-6  py-4">
-                        Place
+                          Places
                       </th>
+
                       <th scope="col" className="px-6  py-4">
-                        Pincode
+                          Pincode
                       </th>
+                      
                       <th scope="col" className="px-6  py-4">
                         Actions
                       </th>
-                      <th scope="col" className="px-6  py-4">
+                      <th scope="col" className="px-6  py-4 gap-96" >
                         Actions
                       </th>
                     </tr>
@@ -95,6 +98,9 @@ function Location() {
                           <td className="whitespace-nowrap px-6 py-4">
                             {data.district}
                           </td>
+
+
+
                           <td>
                             {data.places.map((places,i) => {
                               return (
@@ -105,11 +111,12 @@ function Location() {
                             })}
                           </td>
 
-                          {/* <td className="whitespace-nowrap px-6 py-4">
+                           {/* <td className="whitespace-nowrap px-6 py-4">
                             {data.pinCode}
-                          </td> */}
+                          </td>  */}
+                         
 
-                          <td className="flex flex-col">
+                         <td className="flex flex-col">
                             {data.places.map((places,i) => {
                               return (
                                 <p className="whitespace-nowrap px-6 py-4" key={i}>
@@ -117,15 +124,18 @@ function Location() {
                                 </p>
                               );
                             })}
-                          </td>
+                          </td> 
+
+                           <td className="">
+
+                           <button className="mt-2 bg-green-400 w-28 h-10 text-sm" onClick={()=>deleteClick(data._id)}> Delete </button>
+                            
+                          </td> 
+
+                            
 
                             <td>
-                            <button className="loc w-28 h-3" onClick={()=>deleteClick(data._id)}> Delete </button>
-                                        
-                            </td>
-
-                            <td>
-                            <button className="loc w-28 h-3" onClick={()=>navigate(`/admin/location_u/${data._id}`)}> Edit </button>
+                            <button className="mt-2 bg-green-400 w-28 h-10 text-sm" onClick={()=>navigate(`/admin/location_u/${data._id}`)}> Edit </button>
                                         
                             </td>
 
@@ -139,6 +149,7 @@ function Location() {
           </div>
         </div>
       </>
+
 
 
       {confirmation &&<div className="fixed inset-0 bg-transparent flex justify-center items-center flex-col ">

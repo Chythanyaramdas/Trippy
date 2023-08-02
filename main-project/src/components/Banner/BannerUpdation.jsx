@@ -78,12 +78,13 @@ function BannerUpdation() {
 
   return (
     
-    <div className="w-3/4 bg-white p-11 rounded-3xl h-3/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4 ">
-      <div className="flex flex-col h-full ps-5">
+    <div className='w-full h-full flex justify-center items-center'>
+    <div className="w-3/4 bg-white p-11 rounded-3xl h-3/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4  ">
+      <div className="flex flex-col justify-center items-center h-full ps-5">
         <input
           type="text"
           placeholder="name"
-          className="p-4 mt-4 shadow-lg rounded-lg w-32 "
+          className="p-4 mt-4 shadow-lg rounded-lg w-60 "
           value={name}
           onChange={(e)=> setname(e.target.value)}
        
@@ -91,14 +92,14 @@ function BannerUpdation() {
         <input
           type="file"
           name="image"
-          className="p-2 mt-4 shadow-lg rounded-lg w-40 "
+          className="p-2 mt-4 shadow-lg rounded-lg w-60 "
           onChange={uploadImage}
           
         />
         <textarea
           type="text"
           placeholder="Description"
-          className="p-2 mt-4 shadow-lg h-1/3 rounded-lg w-56"
+          className="p-2 mt-4 shadow-lg h-1/3 rounded-lg w-60"
           value={description}
           onChange={(e)=> setDescription(e.target.value)}
         />
@@ -111,7 +112,7 @@ function BannerUpdation() {
       </div>
 
       
-      <div className="flex flex-col md:col-span-2 ">
+      <div className="flex flex-col justify-center items-center md:col-span-2 ">
         <div className="flex flex-col text-center justify-center border-2 mx-20 h-72 px-10 py-6 ">
         {banner && <img
           className="w-full h-full    rounded-lg  "
@@ -129,6 +130,7 @@ function BannerUpdation() {
         </div>
        
       </div>
+    </div>
     </div>
   )
 }

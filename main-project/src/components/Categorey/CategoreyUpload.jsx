@@ -37,7 +37,8 @@ function CategoreyCreation(){
 };
 
 return (
-    <div className="w-full h-full bg-sky-100 p-11 rounded-3xl h-3/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4  ">
+  <div className="w-full h-full flex justify-center items-center bg-white">
+    <div className="  bg-sky-100 p-11 rounded-3xl h-3/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4  ">
       <div className="flex flex-col h-full justify-center items-start">
         <input
           type="text"
@@ -60,7 +61,7 @@ return (
           value={description}
         />
         <button
-          className="p-2 mt-4 bg-sky-400 w-2/4 rounded-3xl mx-auto w-full"
+          className="p-2 mt-4 bg-sky-400 w-2/4 rounded-3xl mx-auto w-40"
           onClick={handleSubmit}
         >
           Upload
@@ -84,6 +85,7 @@ return (
         </div>
        
       </div> */}
+    </div>
     </div>
   );
 }

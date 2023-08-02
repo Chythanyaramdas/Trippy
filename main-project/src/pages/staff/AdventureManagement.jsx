@@ -1,7 +1,7 @@
 import React from 'react';
 import Adventure from"../../components/Staff/AdventureManagement";
-import Navbar from"../../components/navbar/navbar";
-import Sidebar from '../../components/Sidebar/sidebar';
+import Navbar from"../../components/navbar/StaffNavbar";
+import Sidebar from '../../components/Sidebar/StaffSidebar';
 function AdventureManagement() {
   return (
     <div>

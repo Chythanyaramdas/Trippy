@@ -55,25 +55,24 @@ function UpdateLocation() {
 
   return (
     <div>
-      <div>
-        <Navbar />
-      </div>
-
+     
       <div>
         <div className="grid grid-cols-[1fr_7fr] sm:grid-cols-[1.5fr_8.5fr] w-full">
           <Sidebar />
 
-          <div className="w-full  flex justify-center  bg-sky-200 p-11 rounded-3xl h-3/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4 ">
-          <div className="flex flex-col h-full">
+          <div className="w-full  flex justify-center items-center  ">
+            <div className="w-3/4  bg-white p-11 rounded-3xl h-2/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="flex flex-col h-full justify-start bg-sky-200">
+            <div className="flex items-center p-16 ">
             <input
               type="text"
               placeholder="name"
-              className="p-4 mt-4 shadow-lg rounded-lg w-full "
+              className="p-4 mt-2 shadow-lg rounded-lg w-52 flex   "
               value={district}
               onChange={(e) => setDistrict(e.target.value)}
             />
 
-            {places.map((location, index) => {
+            {/* {places.map((location, index) => {
               return (
                 <>
                   <input
@@ -95,15 +94,24 @@ function UpdateLocation() {
                   />
                 </>
               );
-            })}
+            })} */}
+
+            {/* <div className="flex justify-start bg-red-700"> */}
+
+            </div>
+            <div className="flex justify-center mt-4">
 
             <button
-              className="p-2 mt-4 bg-sky-400 w-2/4 rounded-3xl mx-auto"
+              className= "p-4   bg-sky-400 w-32 rounded-2xl flex justify-center items-center"
+              
               onClick={handleSubmit}
             >
               Update
             </button>
-          </div>
+          {/* </div> */}
+        </div>
+        </div>
+        </div>
         </div>
         </div>
 

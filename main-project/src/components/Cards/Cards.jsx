@@ -53,7 +53,7 @@ function Card({ data , updatePath,deleteClick  }) {
         />
 
         <h1>{data.name}</h1>
-        <p>{truncateString(data.description,28)}</p>
+        <p>{truncateString(data.name,28)}</p>
         <div className="flex justify-center flex-col w-full ">
           <button
             className="bg-sky-500 p-2 rounded-lg mt-3 hidden sm:block text-white"

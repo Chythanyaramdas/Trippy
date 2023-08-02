@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {AdminApi} from'../../utils/admin/adminApi';
 import { useNavigate } from "react-router-dom";
-import Navbar from"../navbar/navbar"
+// import Navbar from"../navbar/navbar"
+import AdminNavbar from"../../components/navbar/AdminNavbar";
 import AdminSidebar from "../Sidebar/AdminSidebar"; 
 
 function ResortApplications() {
@@ -25,7 +26,7 @@ function ResortApplications() {
 
     <div className="w-full h-full">
       <div className="w-full">
-        <Navbar/>
+      <AdminNavbar/>
       </div>
 
       <div className="grid grid-cols-[1fr_7fr] sm:grid-cols-[1.5fr_8.5fr] w-full" >
