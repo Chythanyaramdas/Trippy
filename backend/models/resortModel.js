@@ -73,6 +73,13 @@ const resortSchema= mongoose.Schema({
 
     },
 
+    is_blocked:{
+
+        type:Boolean,
+        default:false
+
+    },
+
     adventure:[{
 
         name:{

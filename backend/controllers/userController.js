@@ -240,7 +240,7 @@ module.exports.landPage=async(req,res)=>{
 
     const bannerData = await banner.find({is_delete:false})
     const categoryData=await Category.find({is_delete:false})
-    const resortData=await resort.find({is_delete:false, verify:true})
+    const resortData=await resort.find({is_delete:false, verify:true,is_blocked:false})
     
     res.json({
       banners:bannerData,
@@ -358,4 +358,22 @@ try {
   
 }
 
+}
+
+module.exports.staylocation=async(req,res)=>{
+  try {
+
+    const placeData=await Location.find({is_delete:false})
+    res.json({
+
+      status:true,
+      message:"successfully  done it",
+      place:placeData
+    })
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
 }

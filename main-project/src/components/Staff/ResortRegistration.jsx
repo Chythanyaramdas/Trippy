@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { StaffApi } from '../../utils/staff/axiosStaff'
 import {staffContext} from'../../helper/context/StaffContext';
 import { useNavigate } from 'react-router-dom';
@@ -131,7 +131,12 @@ const adventureImage = (e) => {
 
 
 
+const fileInputRef = useRef();
 
+
+  const handlePlusButtonClick = () => {
+    fileInputRef.current.click();
+  };
 
 
 
@@ -229,20 +234,27 @@ useEffect(()=>{
           </div>
         </div> */}
 
-<div className="rounded-full overflow-hidden relative h-60 w-full flex justify-center">
+<div className="h-60 w-60 rounded-full overflow-hidden relative flex justify-center">
   <img
     src={formValues.image ? URL.createObjectURL(formValues.image) : ""}
     alt=""
-    className="h-full w-full rounded-full border border-white"
+    className="h-full w-full rounded-full object-cover border border-spacing-9  border-yellow-500"
   />
-  <div className="absolute bottom-0 left-10 w-full"> 
-    <input
-      className="bg-amber-200 w-full" 
-      name="image"
-      onChange={imageChange}
-      type="file"
-    />
-  </div>
+   <div className="absolute bottom-9 left-1 w-full">
+        <input
+          ref={fileInputRef}
+          className="hidden" // Hide the actual file input
+          name="image"
+          onChange={imageChange}
+          type="file"
+        />
+        <button
+          className="bg-black rounded-full w-8 h-8 flex items-center justify-center absolute -bottom-4 left-1/2 transform -translate-x-1/2"
+          onClick={handlePlusButtonClick}
+        >
+          +
+        </button>
+      </div>
 </div>
 
 

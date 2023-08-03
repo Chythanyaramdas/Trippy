@@ -1,6 +1,7 @@
 const Location = require("../models/locationModel");
 const resort = require("../models/resortModel");
 const category = require("../models/categoryModel");
+const { response } = require("express");
 // const sharp=require('sharp')
 
 // const fs = require('fs')
@@ -251,3 +252,82 @@ module.exports.resort = async (req, res) => {
     console.log(error.message);
   }
 };
+module.exports.resortManagement=async(req,res)=>{
+  try {
+
+ await resort.find({$and:[{is_delete:false},{verify:true}]}).populate('resortowner').then((response)=>{
+  console.log(response,"espp");
+    res.json({
+      status:true,
+      message:"successfully done",
+      resort:response
+    })
+   }) 
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+ }
+ 
+ module.exports.singleResort=async(req,res)=>{
+  try {
+
+    const id = req.query.id;
+    const resortData = await resort.findById({ _id: id });
+    console.log(resortData, "vanilaaa");
+    if (resortData) {
+      res.json({
+        status: true,
+        resort: resortData,
+      });
+    } else {
+      res.json({
+        status: false,
+        message: "cant find id",
+      });
+    }
+    
+  } catch (error) {
+    console.log(error.message);
+    res.json({
+      status: false,
+      message: error.message,
+    });
+  }
+    
+  }
+
+  module.exports.singleResortInfo=async(req,res)=>{
+    try {
+
+      const {id,action}=req.params;
+      let data;
+      if(action==='block'){
+        data=true
+      }
+
+      else{
+
+        data=false
+      }
+   
+      
+      await resort.findByIdAndUpdate({_id:id},{is_blocked:data}).then((response)=>{
+        res.json({
+          status:true,
+          message:"successfully Done"
+        })
+        .catch((error)=>{
+          console.log(error.message);
+        })
+      })
+      
+    } catch (error) {
+
+      console.log(error.message);
+      
+    }
+  }
+  

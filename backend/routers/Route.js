@@ -3,6 +3,7 @@ const admin_route = express.Router();
 const adminController= require('../controllers/adminController');
 const categoryController=require('../controllers/categoreyController')
 const locationController=require('../controllers/locationController')
+const resortController=require('../controllers/resortController')
 const adminAuth=require('../middlewares/adminAuth')
 const multer=require('multer')
 const path=require('path')
@@ -42,6 +43,7 @@ admin_route.get('/categoryManagement',categoryController.categoreyManagement);
 admin_route.post('/categoreyUpload',upload.single("image"),categoryController.categoreyCreation);
 admin_route.post('/categoreyManagement_ud/:id',upload.single("image"),categoryController.updateCategory);
 admin_route.get('/categoryManagement_u/:id',categoryController.getCategory)
+admin_route.delete('/categoryManagement',categoryController.deleteCategory);
 
 admin_route.post('/addLocation',locationController.locationCreation);
 admin_route.get('/location',locationController.location)
@@ -52,8 +54,10 @@ admin_route.post('/location_ud/:id',locationController.updateLocation)
 admin_route.get('/resortApplications',adminController.resortList)
 admin_route.post('/resortRegister/:id',adminController.resortApproval)
 admin_route.get('/resortDetails',adminController.resortDetails)
+admin_route.get('/resortList',resortController.resortManagement)
+admin_route.get('/singleResort',resortController.singleResort)
+admin_route.post('/resortPage/:id/:action',resortController.singleResortInfo)
 
-admin_route.delete('/categoryManagement',categoryController.deleteCategory);
 
 
 

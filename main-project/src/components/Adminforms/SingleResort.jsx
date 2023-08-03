@@ -3,28 +3,28 @@ import { useParams } from "react-router-dom";
 // import { adminApi } from "../../../helper/axios/adminAxios";
 import { AdminApi } from "../../utils/admin/adminApi";
 
-function ResortDetalis() {
+function SingleResort() {
 
   const { id } = useParams();
   const server_url=process.env.REACT_APP_BASE_URL;
   const [resort, setResort] = useState({});
+  const[block,setBlock]=useState(false)
   // const [adventure,setAdventure] = useState([])
 
 
 
-  const handleSubmit = ()=>{
+  const handleSubmit = (action)=>{
     
-    AdminApi.post(`resortRegister/${id}`).then((responses)=>{
+    AdminApi.post(`resortPage/${id}/${action}`).then((responses)=>{
       if(responses.data.status){
-        alert('successfull')
+       setBlock(prev=> !prev)
       }
     })
   }
   
   useEffect(() => {
     if(id){
-    alert("ukio")
-      AdminApi.get(`/resortDetails?id=${id}`).then((response) => {
+      AdminApi.get(`/singleResort?id=${id}`).then((response) => {
         if (response.data.status) {
           console.log(response.data.resort);
           setResort({ ...response.data.resort});
@@ -35,14 +35,14 @@ function ResortDetalis() {
 
     }
     
-  }, [id]);
+  }, [id,block]);
 
   return (
-    <div className="w-full h-5/6 shadow-lg bg-white rounded-2xl px-6	padding-left: px-4px">
+    <div className="w-full h-full shadow-lg bg-sky-100 rounded-2xl px-6	padding-left: px-4px  ">
 
-      <div className="w-full flex justify-center items-center h-44 ">
+      <div className="w-full flex justify-center items-center h-52 ">
         <img
-          src={server_url+'images/'+ resort.image}
+          src={server_url+'images/'+ resort.image} 
         
           
           alt=""
@@ -132,9 +132,21 @@ function ResortDetalis() {
 
 
       
-      <button className="bg-black text-white " onClick={handleSubmit} >APPROVE</button>
+      
+        <div>
+      {resort.is_blocked ? (
+        <button className="bg-red-500 text-white" onClick={()=>handleSubmit("unblock")}>
+          Unblock
+        </button>
+      ) : (
+        <button className="bg-black text-white" onClick={()=>handleSubmit("block")}>
+          Block
+        </button>
+      )}
+    </div>
+
     </div>
   );
 }
 
-export default ResortDetalis;
+export default SingleResort;

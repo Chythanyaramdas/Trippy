@@ -13,8 +13,11 @@ import CategoryUpdate from"../pages/Admin/CategoryUpdate";
 import UpdateLocation from '../components/Adminforms/UpdateLocation';
 import LocationUpdation from '../pages/Admin/LocationUpdation';
 import BannerUpdate from"../pages/Admin/BannerUpdation";
+import ResortManagement from '../pages/Admin/ResortManagement';
+import SingleResort from '../components/Adminforms/SingleResort';
+import UserManagement from '../pages/Admin/UserManagement';
 
-// import CategoreyManagement 
+
 const AdminRoute=()=>{
     return(
         
@@ -35,6 +38,11 @@ const AdminRoute=()=>{
 
         <Route path='/resortApplications' element={<ResortApplications/>}/>
         <Route path='/resortApproval/:id' element={<ResortApproval/>}/>
+        <Route path='/resortManagement' element={<ResortManagement/>}/>
+        <Route path='/singleResort/:id' element={< SingleResort/>}/>
+
+        <Route path='/userInfo' element={<UserManagement/>}/>
+
     </Routes>
     
 
