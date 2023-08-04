@@ -7,7 +7,8 @@ import  UserPage from '../pages/user/UserHome';
 import ResortPage from'../pages/user/ResortPage'
 import CategoryPages from '../components/User/CategoryPage';
 import Checkavaliablitys from"../pages/user/Checkavaliablity";
-
+import Booking from"../pages/user/ResortBooking";
+import {ProtectedRoute} from"../ProtectedRoute/userProtected";
 const UserRoute=()=>{
     return(
         <Routes>
@@ -19,6 +20,7 @@ const UserRoute=()=>{
             <Route exact path='/resort/:id' element={<ResortPage/>} />
             <Route exact path='/categoryPage/:id' element={<CategoryPages/>} />
             <Route exact path='/avalibility' element={<Checkavaliablitys/>} />
+            <Route exact path='/Booking/:id' element={< ProtectedRoute accessBy = {"Authorized"}><Booking/></ ProtectedRoute>}/>
 
         </Routes>
     )

@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const Admin = require('../models/adminModel');
 const Resort=require('../models/resortModel');
 const Staff=require('../models/staffModel')
+const User=require('../models/userModel')
 const nodemailer = require("nodemailer");
 const config=require('../config/config');
 const randormstring=require("randomstring");
@@ -308,6 +309,38 @@ module.exports.Admin_Login=async(req,res,next)=>{
       });
     }
   };
- 
+ module.exports.userInfo=async(req,res)=>{
+  try {
+
+   const response= await User.find({isBlocked:false}) 
+    console.log(response,"USER");
+    res.json({
+      status:true,
+      message:"successfully done",
+      user:response
+    })
+    
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+ }
+ module.exports.userAction=async(req,res)=>{
+  try {
+
+    const responseData=await User.find({isBlocked:true})
+    res.json({
+      status:true,
+      message:"successfully done it",
+      user:responseData
+
+    })
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+ }
 
   

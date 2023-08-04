@@ -42,6 +42,7 @@ const AdminRoute=()=>{
         <Route path='/singleResort/:id' element={< SingleResort/>}/>
 
         <Route path='/userInfo' element={<UserManagement/>}/>
+        
 
     </Routes>
     

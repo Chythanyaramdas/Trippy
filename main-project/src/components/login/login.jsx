@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 
-import { setUserDetails } from '../../redux/userSlice';
+import { userLogin } from '../../redux/userSlice';
 import { userOtp } from '../../services/userApi';
 import { userAuth } from '../../services/userApi';
 
@@ -46,6 +46,11 @@ const   UserLogin = () => {
       await UserApi.post(`/userLogin`,{email,password}).then((response)=>{
         console.log(response);
 
+        const{name,_id,email}=response.data.user;
+
+        dispatch(userLogin({name,_id,email}));
+        
+        navigate('/')
        
         localStorage.setItem("userToken",response.data.token);
 

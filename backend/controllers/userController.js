@@ -192,7 +192,7 @@ module.exports.userLogin=async(req,res,next)=>{
         const token=jwt.sign({userId:userData._id,role:"client"},process.env.JWT_SECRET_KEY,{expiresIn:30000})
         console.log(token,"token");
        
-        res.status(200).json({token:token,message:"success token"})
+        res.status(200).json({token:token,message:"success token",user:userData})
 
       }
       
@@ -222,7 +222,7 @@ module.exports.userLogin=async(req,res,next)=>{
 module.exports.authUser=async(req,res)=>{
 
   try{
-console.log("authuser");
+    res.json({ status: true, user: req.user});
 
   }
   catch(error){
@@ -364,11 +364,15 @@ module.exports.staylocation=async(req,res)=>{
   try {
 
     const placeData=await Location.find({is_delete:false})
+    const recordData=await resort.find({is_delete:false,verify:true}).populate('location.district')
+    console.log(recordData,"RDD");
+
     res.json({
 
       status:true,
       message:"successfully  done it",
-      place:placeData
+      place:placeData,
+      record:recordData
     })
     
   } catch (error) {

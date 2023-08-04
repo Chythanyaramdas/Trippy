@@ -27,7 +27,7 @@ const clientJwt=async(req,res,next)=>{
 
             }
 
-            req.userID=decodedToken.userId;
+            req.user=user;
             next();
         }
         else{

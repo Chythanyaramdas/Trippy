@@ -13,6 +13,7 @@ function Checkavalibility() {
     const server_url = process.env.REACT_APP_BASE_URL;
   const [resort, setResort] = useState([]);
   const[place,setPlace]=useState([])
+  const[record,setRecord]=useState([])
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState("");
@@ -26,6 +27,7 @@ function Checkavalibility() {
         UserApi.get('/resortInfo').then((response)=>{
             if(response.data.status){
                 setPlace([...response.data.place])
+                setRecord([...response.data.record])
             }
         })
 
@@ -65,7 +67,7 @@ function Checkavalibility() {
   return (
     <div>
       <div className="mx-auto max-w-screen-2xl">
-        <div className="px-[30px] py-4 max-w-[1170px] mx-auto flex flex-col lg:flex-row justify-between gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-md rounded-lg ">
+        <div className="px-[30px] py-4 w-full  mx-auto flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-md rounded-lg ">
           <select
             className="w-64 h-10 max-w-xs"
             name="place"
@@ -103,7 +105,7 @@ function Checkavalibility() {
           </div>
 
           <button
-            className="btn join-item"
+            className="btn join-item my-1"
               onClick={() => {
                 // console.log("searching working....");
                 handleSearch();
@@ -113,104 +115,204 @@ function Checkavalibility() {
           </button>
         </div>
 
-        <div className="flex flex-wrap">
-        
-            {filteredResorts.map((item) => (
-              <div
-                className="bg-white shadow-1 p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
-                key={item.resortname}
-              >
-                <figure>
-                  <img
-                    src={server_url + "images/" + item.image}
-                    alt="images_resort"
-                    className="rounded-tl-[20px] mb-8"
-                  />
-                </figure>
-                <div className="mb-4 flex flex-col">
-                  <div className="flex items-center mb-2">
-                    <BiHomeAlt className="text-lg mr-2" />
-                    <div className="text-lg font-semibold">
-                      {item.resortname}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <MdPlace className="text-lg mr-2" />
-                    <div className="text-black">{item.location.district?.district}</div>
-                  </div>
-
-                  <div className="flex items-center">
-                    <FaBed className="text-lg mr-2" />
-                    <div className="text-lg font-semibold">
-                      {item.capacity}
-                    </div>
-                  </div>
-
-                  <button
-                    // onClick={() => handleView(item._id)}
-                    className="btn btn-primary"
-                  >
-                    View Details
-                  </button>
-                </div>
-              </div>
-            ))}
-          
-            <div className="text-2xl mx-auto">
+        <div className='flex gap-4'>
+              {checkInDate && checkOutDate && selectedPlace ?  filteredResorts.length > 0 ? (
+        filteredResorts.map((item) => (
+          <div
+            className="bg-white shadow-1 p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
+            key={item.resortname}
+          >
+            <figure>
               <img
-                src="https://res.cloudinary.com/dsyln8j3g/image/upload/v1689588227/new_nf8utw.gif"
+                src={server_url + "images/" + item.image}
                 alt="images_resort"
+                className="rounded-tl-[20px] mb-8"
               />
+            </figure>
+            <div className="mb-4 flex flex-col">
+              <div className="flex items-center mb-2">
+                <BiHomeAlt className="text-lg mr-2" />
+                <div className="text-lg font-semibold">
+                  {item.resortname}
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <MdPlace className="text-lg mr-2" />
+                <div className="text-black">
+                  {item.location.district?.district}
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <FaBed className="text-lg mr-2" />
+                <div className="text-lg font-semibold">
+                  {item.capacity}
+                </div>
+              </div>
+
+              <button
+                // onClick={() => handleView(item._id)}
+                className="btn btn-primary"
+              >
+                View Details
+              </button>
             </div>
-          
-        {/* ) : (
-          records.map((item) => (
-            <div
-              className="bg-gray-950 shadow-1 p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
-              key={item.resortname}
-            >
-              <figure>
-                <img
-                  src={`${item.image[0]}`}
-                  alt="images_resort"
-                  className="rounded-tl-[20px] mb-8"
-                />
-              </figure>
-              <div className="mb-4 flex flex-col">
-                <div className="flex items-center mb-2">
-                  <BiHomeAlt className="text-lg mr-2" />
-                  <div className="text-lg font-semibold">{item.resortname}</div>
-                </div>
-
-                <div className="flex items-center">
-                  <MdPlace className="text-lg mr-2" />
-                  <div className="text-black">{item.place}</div>
-                </div>
-
-                <div className="flex items-center">
-                  <FaBed className="text-lg mr-2" />
-                  <div className="text-lg font-semibold">
-                    {item.number_room}
-                  </div>
-                </div>
-
-                <button
-                //   onClick={() => handleView(item._id)}
-                  className="btn btn-primary"
-                >
-                  View Details
-                </button>
+          </div>
+        ))
+      ) : (
+        <div className="text-2xl mx-auto">
+          <img
+            src="https://res.cloudinary.com/dsyln8j3g/image/upload/v1689588227/new_nf8utw.gif"
+            alt="images_resort"
+          />
+        </div>
+      ) :record.map((item) => (
+        <div
+          className="shadow-2xl p-5 rounded-tl-[20px] w-full max-w-[384px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
+          key={item.resortname}
+        >
+          <figure>
+            <img
+              src={server_url + "images/" + item.image}
+              alt="images_resort"
+              className="rounded-tl-[20px] mb-8"
+            />
+          </figure>
+          <div className="mb-4 flex flex-col">
+            <div className="flex items-center mb-2">
+              <BiHomeAlt className="text-lg mr-2" />
+              <div className="text-lg font-semibold">
+                {item.resortname}
               </div>
             </div>
-          ))
-        )}
-      </div> */}
+
+            <div className="flex items-center">
+              <MdPlace className="text-lg mr-2" />
+              <div className="text-black">
+                {item.location.district?.district}
+              </div>
+            </div>
+
+            <div className="flex items-center">
+              <FaBed className="text-lg mr-2" />
+              <div className="text-lg font-semibold">
+                {item.capacity}
+              </div>
+            </div>
+
+            <button
+              // onClick={() => handleView(item._id)}
+              className="btn btn-primary"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+      )) }
+
+      {/* {filteredResorts.length > 0 ? (
+        filteredResorts.map((item) => (
+          <div
+            className="bg-white shadow-1 p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
+            key={item.resortname}
+          >
+            <figure>
+              <img
+                src={server_url + "images/" + item.image}
+                alt="images_resort"
+                className="rounded-tl-[20px] mb-8"
+              />
+            </figure>
+            <div className="mb-4 flex flex-col">
+              <div className="flex items-center mb-2">
+                <BiHomeAlt className="text-lg mr-2" />
+                <div className="text-lg font-semibold">
+                  {item.resortname}
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <MdPlace className="text-lg mr-2" />
+                <div className="text-black">
+                  {item.location.district?.district}
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <FaBed className="text-lg mr-2" />
+                <div className="text-lg font-semibold">
+                  {item.capacity}
+                </div>
+              </div>
+
+              <button
+                // onClick={() => handleView(item._id)}
+                className="btn btn-primary"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="text-2xl mx-auto">
+          <img
+            src="https://res.cloudinary.com/dsyln8j3g/image/upload/v1689588227/new_nf8utw.gif"
+            alt="images_resort"
+          />
+        </div>
+      )} */}
+
+      {/* { !filteredResorts && record.map((item) => (
+        <div
+          className="shadow-2xl p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
+          key={item.resortname}
+        >
+          <figure>
+            <img
+              src={server_url + "images/" + item.image}
+              alt="images_resort"
+              className="rounded-tl-[20px] mb-8"
+            />
+          </figure>
+          <div className="mb-4 flex flex-col">
+            <div className="flex items-center mb-2">
+              <BiHomeAlt className="text-lg mr-2" />
+              <div className="text-lg font-semibold">
+                {item.resortname}
+              </div>
+            </div>
+
+            <div className="flex items-center">
+              <MdPlace className="text-lg mr-2" />
+              <div className="text-black">
+                {item.location.district?.district}
+              </div>
+            </div>
+
+            <div className="flex items-center">
+              <FaBed className="text-lg mr-2" />
+              <div className="text-lg font-semibold">
+                {item.capacity}
+              </div>
+            </div>
+
+            <button
+              // onClick={() => handleView(item._id)}
+              className="btn btn-primary"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+      ))} */}
+    </div>
 
 
     </div>
     </div>
-    </div>
+    
   );
 }
 

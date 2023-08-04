@@ -6,9 +6,11 @@ import { FaBed } from "react-icons/fa";
 import {AiFillDollarCircle} from"react-icons/ai"
 import {FaRupeeSign } from"react-icons/fa";
 import Footer from"../Footer/UserFooter";
+import { useNavigate } from "react-router-dom";
 
 function Resorters() {
   const { id } = useParams();
+  const navigate=useNavigate()
   const server_url = process.env.REACT_APP_BASE_URL;
   const [resort, setResort] = useState({});
   const [images, setImages] = useState([{}]);
@@ -83,7 +85,7 @@ function Resorters() {
 
 <div>
       
-    <button className=" bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% gap-6">Book Now</button>
+    <button className=" bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% gap-6" onClick={()=>navigate(`/booking/${resort._id}`)}>Book Now</button>
     <button className=" bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ml-20">Chat</button>
     </div>
   </div>

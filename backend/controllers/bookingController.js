@@ -45,17 +45,17 @@ module.exports.searchDate=async(req,res)=>{
       })
 }
 
-module.exports.resortRecord=async(req,res)=>{
-  try {
-    const recordData=await resort.find({is_delete:false,verify:true})
-    console.log(recordData,"RDD");
-    res.json({
-      status:true,
-      message:"successfully  done it",
-      record:recordData
-    })
-  } catch (error) {
-    console.log(error.message);
+// module.exports.resortRecord=async(req,res)=>{
+//   try {
+//     const recordData=await resort.find({is_delete:false,verify:true})
+//     console.log(recordData,"RDD");
+//     res.json({
+//       status:true,
+//       message:"successfully  done it",
+//       record:recordData
+//     })
+//   } catch (error) {
+//     console.log(error.message);
     
-  }
-}
+//   }
+// }

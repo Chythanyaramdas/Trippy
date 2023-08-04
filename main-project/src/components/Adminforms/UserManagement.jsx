@@ -10,6 +10,15 @@ function UserManagement() {
     const[user,setUser]=useState([{}])
 
 
+    const handleSubmit=()=>{
+      AdminApi.post('/userBlock').then((response)=>{
+        if(response.data.status){
+          alert("success")
+        }
+      })
+    }
+
+
     useEffect(()=>{
         AdminApi.get('/userInfo').then((response)=>{
             if(response.data.status){
@@ -55,9 +64,10 @@ function UserManagement() {
                    <td className="px-6 py-4">{users.mobileNumber}</td>
                    <td
                      className="px-6 py-4 cursor-pointer underline underline-offset-2"
-                    //  onClick={() => navigate(`/admin/singleResort/${resorts._id}`)}
+                     
+                    //  onClick={() => navigate(`/admin/singleResort/${users._id}`)}
                    >
-                     More
+                     <button className="bg-black text-white " onClick={handleSubmit}>Block</button>
                    </td>
                  </tr>
                </>

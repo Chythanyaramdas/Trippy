@@ -4,35 +4,27 @@ const initialState={
     id:'',
     email:'',
     phone:'',
-    image:'',
-    token:''
+    
 
 }
 const userSlice=createSlice({
-    name:'userz',
+    name:'user',
     initialState,
     reducers:{
-        setUserDetails:(state,action)=>{
-            state.id=action.payload.id;
-            state.name=action.payload.name;
-            state.email=action.payload.email;
-            state.phone=action.payload.phone;
-            // state.image=action.payload.image;
-            state.token=action.payload.token;
+       
+        userLogin(state,actions){
+            const userDetails=actions.payload
+            state.name=userDetails.name
+            state.id=userDetails._id
+            state.email=userDetails.email
         },
-        userlogin:(state,action)=>{
-            // console.log(action.payload,"mmmmm")
-            state.value={...action.payload,
-            isUserAuth:true}
-        },
-        userlogout:(state)=>{
-            state.value={
-                isUserAuth:false,
-                userz:null
-            }
+        userLogout(state,actions){
+            state.name=""
+            state.id=""
+            state.email=""
         }
     
     }
 })
-export const {setUserDetails,userlogin,userlogout}=userSlice.actions;
+export const {userLogin,userLogout}=userSlice.actions;
 export default userSlice.reducer;
