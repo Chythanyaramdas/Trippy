@@ -327,8 +327,9 @@ module.exports.Admin_Login=async(req,res,next)=>{
  }
  module.exports.userAction=async(req,res)=>{
   try {
-
-    const responseData=await User.find({isBlocked:true})
+    const{ id }=req.params;
+    const responseData=await User.findByIdAndUpdate({_id:id},{isBlocked:true})
+    console.log( responseData,"RD");
     res.json({
       status:true,
       message:"successfully done it",

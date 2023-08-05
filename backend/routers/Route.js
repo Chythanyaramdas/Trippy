@@ -59,7 +59,7 @@ admin_route.get('/singleResort',resortController.singleResort)
 admin_route.post('/resortPage/:id/:action',resortController.singleResortInfo)
 
 admin_route.get('/userInfo',adminController.userInfo)
-admin_route.post('/userBlock',adminController.userAction)
+admin_route.post('/userBlock/:id',adminController.userAction)
 
 
 

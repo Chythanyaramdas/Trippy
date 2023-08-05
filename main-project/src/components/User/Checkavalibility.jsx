@@ -11,6 +11,7 @@ import{UserApi} from"../../utils/user/axiosUser";
 
 function Checkavalibility() {
     const server_url = process.env.REACT_APP_BASE_URL;
+    const navigate=useNavigate()
   const [resort, setResort] = useState([]);
   const[place,setPlace]=useState([])
   const[record,setRecord]=useState([])
@@ -36,6 +37,7 @@ function Checkavalibility() {
     
 
   const handleCheckInDateChange = (date) => {
+    alert(date)
     setCheckInDate(date);
   };
 
@@ -47,11 +49,41 @@ function Checkavalibility() {
     }
   };
 
-  
+  useEffect(() => {
+    if (checkInDate) {
+      console.log(checkInDate,"CD");
+      // localStorage.setItem("checkinDate", checkInDate.toISOString());
+      localStorage.setItem("checkinDate", checkInDate);
+    } else {
+      localStorage.removeItem("checkinDate");
+    }
+  }, [checkInDate]);
+
+  useEffect(() => {
+    if (checkOutDate) {
+      // localStorage.setItem("checkoutDate", checkOutDate.toISOString());
+      localStorage.setItem("checkoutDate", checkOutDate);
+      const dddd = checkOutDate.toISOString()
+      console.log("checkOutDate normal", checkOutDate);
+      console.log("checkOutDate with iso log",dddd);
+    } else {
+      localStorage.removeItem("checkoutDate");
+    }
+  }, [checkOutDate]);
+
+
+  const handleView = async (item) => {
+    try {
+      navigate(`/resort/${item}`, { state: { item } });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
 
   const handleSearch=()=>{
-
+alert(checkInDate)
     UserApi.post('/search',{selectedPlace,checkOutDate,checkInDate}).then((response)=>{
         if(response.data.status){
             setFilteredResorts([...response.data.date]) 
@@ -152,7 +184,8 @@ function Checkavalibility() {
               </div>
 
               <button
-                // onClick={() => handleView(item._id)}
+                onClick={() => handleView(item._id)}
+                // onClick={()=>navigate(`/resort/${item._id}`)}
                 className="btn btn-primary"
               >
                 View Details
@@ -202,7 +235,8 @@ function Checkavalibility() {
             </div>
 
             <button
-              // onClick={() => handleView(item._id)}
+              onClick={() => handleView(item._id)}
+              // onClick={()=>navigate(`/resort/${item._id}`)}
               className="btn btn-primary"
             >
               View Details

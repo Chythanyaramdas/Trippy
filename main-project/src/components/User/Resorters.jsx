@@ -85,7 +85,7 @@ function Resorters() {
 
 <div>
       
-    <button className=" bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% gap-6" onClick={()=>navigate(`/booking/${resort._id}`)}>Book Now</button>
+    <button className=" bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% gap-6" onClick={()=>navigate(`/booking/${resort._id}`)}>Book Nowm</button>
     <button className=" bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ml-20">Chat</button>
     </div>
   </div>

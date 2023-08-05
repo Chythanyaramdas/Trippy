@@ -45,7 +45,7 @@ export const ProtectedRoute = ({ children, accessBy }) => {
         //   return children;
         // }
         if(user){
-            alert('login')
+          
             setLoading(false)
         }
          else if ( jwtToken ) {
@@ -70,7 +70,7 @@ export const ProtectedRoute = ({ children, accessBy }) => {
       else if(!loading && accessBy === "non-Authorized"){
         console.log(!!loading);
         console.log(accessBy === "non-Authorized");
-        alert('hiibbib')
+        
         navigate('/')
       } else if(loading && accessBy === "non-Authorized"){
         return children

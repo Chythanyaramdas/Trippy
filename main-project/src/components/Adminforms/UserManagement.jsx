@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from"react";
 import { useNavigate } from "react-router-dom";
 import { AdminApi } from "../../utils/admin/adminApi";
+import { useParams } from "react-router-dom";
 
 
 
@@ -8,10 +9,11 @@ function UserManagement() {
 
     const navigate=useNavigate()
     const[user,setUser]=useState([{}])
+    const {id}=useParams()
 
-
-    const handleSubmit=()=>{
-      AdminApi.post('/userBlock').then((response)=>{
+    const handleSubmit=(id)=>{
+      alert(id)
+      AdminApi.post(`/userBlock/${id}`).then((response)=>{
         if(response.data.status){
           alert("success")
         }
@@ -55,6 +57,7 @@ function UserManagement() {
          </thead>
          <tbody>
            {user.map((users,index) => {
+            // console.log(user);
              return (
                <>
                  <tr className="bg-white border-b bg-[#a0d6db] dark:border-gray-700 " key={index}>
@@ -67,7 +70,7 @@ function UserManagement() {
                      
                     //  onClick={() => navigate(`/admin/singleResort/${users._id}`)}
                    >
-                     <button className="bg-black text-white " onClick={handleSubmit}>Block</button>
+                     <button className="bg-black text-white " onClick={()=>handleSubmit(users._id)}>Block</button>
                    </td>
                  </tr>
                </>

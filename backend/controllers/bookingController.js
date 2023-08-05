@@ -1,61 +1,100 @@
-const book=require("../models/bookingModel")
-const resort=require("../models/resortModel")
-const { checkout } = require("../routers/Route")
+const book = require("../models/bookingModel");
+const resort = require("../models/resortModel");
+const { checkout } = require("../routers/Route");
 
-module.exports.searchDate=async(req,res)=>{
-    const{selectedPlace,checkIndate,checkOutDate}=req.body
-//    const data= await book.find({
-//         $and: [
-//           { selectedPlace: selectedPlace},
-//           {
-//             $and: [
-//               {  fromDate: { $gte: checkIndate } },
-//               {   toDate: { $lt:checkIndate } } 
-//             ]
-//           }
-//         ]
-//       });
-//       const resortData=await resort.find({'location.district': selectedPlace})
+module.exports.searchDate = async (req, res) => {
+  const { selectedPlace, checkInDate, checkOutDate } = req.body;
+  console.log(checkInDate);
+  console.log(checkOutDate);
+  //    const data= await book.find({
+  //         $and: [
+  //           { selectedPlace: selectedPlace},
+  //           {
+  //             $and: [
+  //               {  fromDate: { $gte: checkIndate } },
+  //               {   toDate: { $lt:checkIndate } }
+  //             ]
+  //           }
+  //         ]
+  //       });
+  //       const resortData=await resort.find({'location.district': selectedPlace})
 
-//       console.log( resortData,"RD");
-//       console.log(data,"date picker");
+  //       console.log( resortData,"RD");
+  //       console.log(data,"date picker");
 
+  const bookedData = await book.find({ status: "booked" });
 
-      const bookedData=await book.find({status:"booked"})
-      
-      console.log(bookedData,"bd");
+  console.log(bookedData, "bd");
 
-      const resorts=bookedData.filter((booking)=>{
+  const resorts = bookedData.filter((booking) => {
+   
+    if (
+      (new Date(checkInDate) >= new Date(booking.fromDate) &&
+        new Date(checkInDate) <= new Date(booking.toDate)) ||
+      (new Date(checkOutDate) >= new Date(booking.fromDate) &&
+        new Date(checkOutDate) <= new Date(booking.toDate))
+    ) {
+      return booking.resortId;
+    }
+  });
 
-        if(fromDate<=checkIndate<=checkOutDate || fromDate <=checkOutDate && checkOutDate<=checkIndate){
+  console.log("------------------resorts-----------", resorts);
+  const resortIds = resorts.map((resort)=>{
+    return resort.resortId
+  })
+  console.log('--------------resortIDs------',resortIds);
+  const dateData = await resort
+    .find({
+      $and: [
+        { _id: { $nin: resortIds } },
+        { "location.district": selectedPlace },
+      ],
+    })
+    .populate("location.district");
 
-            return booking.resortId
-        }
-      })
+  console.log(dateData, "dateeeeeeeee");
+  res.json({
+    status: true,
+    message: "successfully  done it",
+    date: dateData,
+  });
+};
 
-      const dateData=await resort.find({$and:[{_id:{$nin:resorts}},{'location.district':selectedPlace}]}).populate('location.district')
+module.exports.getBookedResort = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id);
+    const bookedData = await resort
+      .findById({ _id: id })
+      .populate("location.district");
+    console.log(bookedData, "BDZ");
+    res.json({
+      status: true,
+      message: "successfully  done it",
+      resort: bookedData,
+    });
+  } catch (error) {}
+};
 
-        
-     
-      console.log(dateData,"dateeeeeeeee");
-      res.json({
-        status:true,
-      message:"successfully  done it",
-      date: dateData
-      })
-}
+module.exports.payment = async (req, res) => {
+  try {
+    const { resortId, paymentt, users, checkInDate, checkOutDate } = req.body;
+    console.log(req.body, "payment on reach");
+    const data = await resort.findById({ _id: resortId });
 
-// module.exports.resortRecord=async(req,res)=>{
-//   try {
-//     const recordData=await resort.find({is_delete:false,verify:true})
-//     console.log(recordData,"RDD");
-//     res.json({
-//       status:true,
-//       message:"successfully  done it",
-//       record:recordData
-//     })
-//   } catch (error) {
-//     console.log(error.message);
-    
-//   }
-// }
+    let Booking = new book({
+      resortId: resortId,
+      userId: users,
+      fromDate: checkInDate,
+      toDate: checkOutDate,
+      payment: {
+        payment_amount: data.price,
+        payment_method: paymentt,
+      },
+    });
+    await Booking.save();
+    console.log(Booking, "BOX");
+  } catch (error) {
+    console.log(error.message);
+  }
+};

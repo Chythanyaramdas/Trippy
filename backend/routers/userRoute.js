@@ -14,9 +14,10 @@ user_route.get('/token_v',authJWT,userControllerRegistration.authUser)
 user_route.get('/singlePage',userControllerRegistration.resortPage)
 user_route.get('/categoryPage/:id',userControllerRegistration.categoryPage)
 user_route.get('/resortInfo',userControllerRegistration.staylocation)
-user_route.post('/search',bookingController.searchDate)
 
-// user_route.post('/authUser',userControllerRegistration.authUser)
+user_route.post('/search',bookingController.searchDate)
+user_route.get('/booking/:id',bookingController.getBookedResort)
+user_route.post('/payment',bookingController.payment)
 
 
 module.exports = user_route;
