@@ -12,6 +12,11 @@ const locationSchema = mongoose.Schema({
         default: false
     },
 
+    image:{
+        type:String,
+        required :true
+    },
+
     places:[{
 
         place:{

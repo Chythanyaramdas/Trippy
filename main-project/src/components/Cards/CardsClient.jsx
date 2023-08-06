@@ -8,100 +8,65 @@ function Cards({ data }) {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  return (
-    <div className="w-full h-full flex flex-col">
-      <div className="mt-10 ms-20"  >
+
+  return(
+    <div>
+    {/* <div className="w-full h-full flex flex-col "> */}
+      <div className="mt-8 ms-20"  >
         <p className="text-2xl text-black font-bold italic">Category's of Stay</p>
       </div>
-      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-20 mt-10  overflow-x-scroll  over">
-      
-        {data.map((data) => {
-          return (
-            <div className=" rounded-lg shadow-2xl overflow-hidden  bg-sky-300 bg-opacity-20  text-center" style={{boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px'}}>
-              <div className="h-72 bg-green-300 bg-opacity-25 flex justify-center items-center">
-                <div className="w-[90%] h-[90%] bg-violet-700 relative">
+
+    
+
+      <div className="flex flex-wrap ">
+        
+            {data.map((datas) => (
+              <div
+                className="bg-white shadow-2xl p-4  w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
+                key={datas.resortname}
+              >
+                <figure>
                   <img
-              src={server_url + "images/" + data.image}
-              alt=""
-              className="h-full w-full hover:transform transform scale-100 hover:scale-125 transition-transform duration-300"  
-            />
-                  {/* <div
-                    className="image-container"
-                    style={{
-                      backgroundImage: `url(${server_url}images/${data.image})`,
-                    }}
-                  ></div> */}
-                  {/* <div className="absolute">helllo </div> */}
+                    src={server_url + "images/" + datas.image}
+                    alt="resort image"
+                    className="mb-1"
+                  />
+                </figure>
+                <div className="flex flex-col">
+                  <div className="flex items-center ">
+                    <div className="text-lg font-semibold">
+                      {/* {datas.name}  */}
+                      <p className="">{capitalizeFirstLetter(datas.name)}</p>
+                    </div>
+                  </div>
+
+                  {/* <div className="flex items-center">
+                    <MdPlace className="text-lg mr-2" />
+                    <div className="text-black">{data.place}</div>
+                  </div> */}
+                  {/* <div className="flex items-center">
+                    <FaRupeeSign className="text-sm" />
+                    <div className="text-black">{item.price} per room</div>
+                  </div> */}
+
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => navigate(`/categoryPage/${datas._id}`)}
+                  >
+                   Book Now
+                  </button>
                 </div>
               </div>
-              <div className="p-2">
-                <p className="mt-3">{capitalizeFirstLetter(data.name)}</p>
-                <button
-                  className="mt-2  bg-green-400 w-28 h-10 text-sm"
-                  onClick={() => navigate(`/categoryPage/${data._id}`)}
-                >
-                  Book Now
-                </button>
-              </div>
-            </div>
+            ))}
+          </div>
+          {/* </div> */}
 
-            /* <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-          <div>
-            <img
-              src="https://c4.wallpaperflare.com/wallpaper/624/380/1000/life-resort-hotel-resort-hotel-wallpaper-preview.jpg"
-              alt=""
-              className=""
-            />
-          </div>
-          <div className="p-2">
-            <p className="mt-3">hello</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
-          </div>
-        </div>
-        <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-          <div>
-            <img
-              src="https://c4.wallpaperflare.com/wallpaper/624/380/1000/life-resort-hotel-resort-hotel-wallpaper-preview.jpg"
-              alt=""
-              className=""
-            />
-          </div>
-          <div className="p-2">
-            <p className="mt-3">hello</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
-          </div>
-        </div>
-        <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-          <div>
-            <img
-              src="https://c4.wallpaperflare.com/wallpaper/624/380/1000/life-resort-hotel-resort-hotel-wallpaper-preview.jpg"
-              alt=""
-              className=""
-            />
-          </div>
-          <div className="p-2">
-            <p className="mt-3">hello</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
-          </div>
-        </div>
-        <div className=" rounded-lg shadow-2xl overflow-hidden  text-center">
-          <div>
-            <img
-              src="https://c4.wallpaperflare.com/wallpaper/624/380/1000/life-resort-hotel-resort-hotel-wallpaper-preview.jpg"
-              alt=""
-              className=""
-            />
-          </div>
-          <div className="p-2">
-            <p className="mt-3">hello</p>
-            <button className="mt-2  bg-green-400">Book Now</button>
-          </div>
-        </div> */
-          );
-        })}
       </div>
-    </div>
-  );
-}
+      
+    
 
+      
+  )
+
+}
 export default Cards;

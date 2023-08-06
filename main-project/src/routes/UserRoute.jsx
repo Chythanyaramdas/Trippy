@@ -8,8 +8,11 @@ import ResortPage from'../pages/user/ResortPage'
 import CategoryPages from '../components/User/CategoryPage';
 import Checkavaliablitys from"../pages/user/Checkavaliablity";
 import Booking from"../pages/user/ResortBooking";
+import Destinations from '../pages/user/Destination';
+import DestinationResort from '../pages/user/DestinationResort';
 import {ProtectedRoute} from"../ProtectedRoute/userProtected";
 import {HomeVerification} from '../ProtectedRoute/HomeVerification';
+
 const UserRoute=()=>{
     return(
         <Routes>
@@ -21,6 +24,8 @@ const UserRoute=()=>{
             <Route exact path='/resort/:id' element={<HomeVerification><ResortPage/></HomeVerification> }/>
             {/* <Route exact path='/categoryPage/:id' element={< ProtectedRoute accessBy = {"non-Authorized"}><CategoryPages/></ProtectedRoute>} /> */}
             <Route exact path='/categoryPage/:id' element={ <HomeVerification><CategoryPages/></HomeVerification>}/>
+            <Route exact path='/destination' element={ <HomeVerification><Destinations/></HomeVerification>}/>
+            <Route exact path='/destinationResort/:id' element={ <HomeVerification><DestinationResort/></HomeVerification>}/>
             <Route exact path='/avalibility' element={< ProtectedRoute accessBy = {"Authorized"}><Checkavaliablitys/></ProtectedRoute>} />
             <Route exact path='/booking/:id' element={< ProtectedRoute accessBy = {"Authorized"}><Booking/></ ProtectedRoute>}/>
 

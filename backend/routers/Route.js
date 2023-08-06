@@ -45,7 +45,7 @@ admin_route.post('/categoreyManagement_ud/:id',upload.single("image"),categoryCo
 admin_route.get('/categoryManagement_u/:id',categoryController.getCategory)
 admin_route.delete('/categoryManagement',categoryController.deleteCategory);
 
-admin_route.post('/addLocation',locationController.locationCreation);
+admin_route.post('/addLocation',upload.single("image"),locationController.locationCreation);
 admin_route.get('/location',locationController.location)
 admin_route.delete('/location',locationController.deleteLocation)
 admin_route.get('/location_u/:id',locationController.getLocation)

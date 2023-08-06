@@ -23,11 +23,14 @@ module.exports.locationCreation=async(req,res)=>{
         try {
 
             const{district,places}=req.body
-            console.log(req.body);
+            
+            let newPlace=JSON.parse(places)
+            console.log(req.body,"des");
             console.log(places,"fiiiiiii");
             const LocationData=  new Location({
                 district:district,
-                places:places  
+                places:newPlace,
+                image:req.file.filename  
             })
             LocationData.save().then(()=> console.log('hhh'))
             // Location.insertOne({district:district,places:fields},function(err,result){

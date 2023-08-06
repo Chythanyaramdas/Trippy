@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import{useNavigate} from'react-router-dom';
 import { AdminApi } from "../../utils/admin/adminApi";
 import './Location.css' ;
+
 function Location() {
 
   const navigate=useNavigate();
@@ -9,7 +10,7 @@ function Location() {
   const[locationId,setLocationId]=useState('')
   const [confirmation,setConfirmation] = useState(false)
   const [add,setAdd]=useState(false); 
-
+  const server_url = process.env.REACT_APP_BASE_URL;
 
   const handleDelete=()=>{
 
@@ -77,11 +78,16 @@ function Location() {
                           Pincode
                       </th>
                       
+                      
+                      
                       <th scope="col" className="px-6  py-4">
                         Actions
                       </th>
                       <th scope="col" className="px-6  py-4 gap-96" >
                         Actions
+                      </th>
+                      <th scope="col" className="px-6  py-4">
+                         Image
                       </th>
                     </tr>
                   </thead>
@@ -137,6 +143,14 @@ function Location() {
                             <td>
                             <button className="mt-2 bg-green-400 w-28 h-10 text-sm" onClick={()=>navigate(`/admin/location_u/${data._id}`)}> Edit </button>
                                         
+                            </td>
+
+                            <td>
+                            <img
+                    src={server_url + "images/" + data.image}
+                    alt="resort image"
+                    className="mb-1 w-20 h-20"
+                  />
                             </td>
 
                         </tr>

@@ -381,3 +381,38 @@ module.exports.staylocation=async(req,res)=>{
     
   }
 }
+
+module.exports.destinationPage=async(req,res)=>{
+  try {
+    const destinationData=await Location.find({is_delete:false})
+    console.log(destinationData,"DD");
+    res.json({
+      status:true,
+      message:"successfully  done it",
+      destination:destinationData
+    })
+    
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+}
+module.exports.destinationResort=async(req,res)=>{
+  try {
+    const id=req.params.id
+    console.log(id,"params");
+
+    const resortData=await resort.find({$and:[{'location.district':id},{verify:true}]}).populate('location.district')
+    console.log(resortData,"RD");
+    res.json({
+      status:true,
+      message:"successfully done",
+      resort:resortData
+    })
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+}

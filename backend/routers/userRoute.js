@@ -13,6 +13,8 @@ user_route.get('/token_v',authJWT,userControllerRegistration.authUser)
 
 user_route.get('/singlePage',userControllerRegistration.resortPage)
 user_route.get('/categoryPage/:id',userControllerRegistration.categoryPage)
+user_route.get('/destination',userControllerRegistration.destinationPage)
+user_route.get('/destinationResort/:id',userControllerRegistration.destinationResort)
 user_route.get('/resortInfo',userControllerRegistration.staylocation)
 
 user_route.post('/search',bookingController.searchDate)

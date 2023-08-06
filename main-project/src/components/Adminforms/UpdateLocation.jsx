@@ -61,9 +61,9 @@ function UpdateLocation() {
           <Sidebar />
 
           <div className="w-full  flex justify-center items-center  ">
-            <div className="w-3/4  bg-white p-11 rounded-3xl h-2/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4">
-          <div className="flex flex-col h-full justify-start bg-sky-200">
-            <div className="flex items-center p-16 ">
+            <div className="w-3/4  bg-white p-11 rounded-3xl h-3/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="flex flex-col h-auto w-auto justify-start bg-sky-200 mt-3">
+            <div className=" ">
             <input
               type="text"
               placeholder="name"
@@ -72,31 +72,38 @@ function UpdateLocation() {
               onChange={(e) => setDistrict(e.target.value)}
             />
 
-            {/* {places.map((location, index) => {
+            </div>
+
+            <div>
+
+            {places.map((location, index) => {
               return (
                 <>
                   <input
                     type="text"
                     placeholder="name"
                     name="place"
-                    className="p-4 mt-4 shadow-lg rounded-lg w-full "
+                    className="p-4 mt-2 shadow-lg rounded-lg w-52 "
                     value={location.place}
                     onChange={(e) => placeFinding(e, index)}
                   />
+                  
 
                   <input
                     type="text"
                     placeholder="name"
                     name="pinCode"
-                    className="p-4 mt-4 shadow-lg rounded-lg w-full"
+                    className="p-4 mt-2 shadow-lg rounded-lg w-52"
                     value={location.pinCode}
                     onChange={(e) => placeFinding(e, index)}
                   />
                 </>
               );
-            })} */}
+            })}
 
-            {/* <div className="flex justify-start bg-red-700"> */}
+</div>
+
+            <div className="flex justify-start bg-red-700">
 
             </div>
             <div className="flex justify-center mt-4">
@@ -108,7 +115,7 @@ function UpdateLocation() {
             >
               Update
             </button>
-          {/* </div> */}
+          </div>
         </div>
         </div>
         </div>
@@ -117,7 +124,7 @@ function UpdateLocation() {
 
         
       </div>
-    </div>
+    
   );
 }
 
