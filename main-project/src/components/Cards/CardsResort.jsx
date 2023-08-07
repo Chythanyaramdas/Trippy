@@ -15,11 +15,18 @@ function CardsResort({data}) {
             {data.map((data) => (
               <div className="bg-white shadow-2xl p-4  w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
                 <figure>
-                  <img
+                  {/* <img
                     src={server_url + "images/" + data.image}
                     className="mb-1"
                     alt="Movie"
+                  /> */}
+
+                  <img
+                    src={`${server_url}images/${data?.image?.[0]}`}
+                    className="mb-1"
+                    alt="Movie"
                   />
+
                 </figure>
                 <div className="flex flex-col">
                   <div className="flex items-center">

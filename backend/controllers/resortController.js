@@ -214,32 +214,34 @@ module.exports.resort = async (req, res) => {
 
     // fs.unlinkSync(imagePath);
 
-    const { formValues, adventure ,location} = req.body;
+    const { formValues, adventure, location } = req.body;
 
     // let newAdventure=JSON.parse(adventure)
-    let newLocation=JSON.parse(location);
+    let newLocation = JSON.parse(location);
     let newFormValues = JSON.parse(formValues);
     console.log("formValues:", newFormValues.resortowner);
-    console.log("image" + req.file.filename);
+    // console.log("image" + req.file.filename);
+    console.log(req.files);
+    let image = req.files.map((file) => file.filename);
+    console.log("imagesss", image);
     console.log("update value");
     console.log(req.body);
 
-    let newUser = new resort({
-      resortowner: newFormValues.id,
-      resortname: newFormValues.resortname,
-      description: newFormValues.description,
-      category:newFormValues.category,
-      capacity: parseInt(newFormValues.capacity),
-      price: parseInt(newFormValues.price),
-      // adventure:newAdventure,
-      image: req.file.filename,
-      location:newLocation,
-     
-     
-      // image: imageId,
-      phone: newFormValues.phone,
-    });
-    console.log(location,"locationss");
+    // let newUser = new resort({
+    //   resortowner: newFormValues.id,
+    //   resortname: newFormValues.resortname,
+    //   description: newFormValues.description,
+    //   category:newFormValues.category,
+    //   capacity: parseInt(newFormValues.capacity),
+    //   price: parseInt(newFormValues.price),
+    //   adventure:newAdventure,
+    //   image: req.file.filename,
+    //   location:newLocation,
+
+    //   image: imageId,
+    //   phone: newFormValues.phone,
+    // });
+    console.log(location, "locationss");
 
     console.log(newUser, "staff come");
     newUser.save().then((data) => {
@@ -252,28 +254,26 @@ module.exports.resort = async (req, res) => {
     console.log(error.message);
   }
 };
-module.exports.resortManagement=async(req,res)=>{
+module.exports.resortManagement = async (req, res) => {
   try {
-
- await resort.find({$and:[{is_delete:false},{verify:true}]}).populate('resortowner').then((response)=>{
-  console.log(response,"espp");
-    res.json({
-      status:true,
-      message:"successfully done",
-      resort:response
-    })
-   }) 
-    
+    await resort
+      .find({ $and: [{ is_delete: false }, { verify: true }] })
+      .populate("resortowner")
+      .then((response) => {
+        console.log(response, "espp");
+        res.json({
+          status: true,
+          message: "successfully done",
+          resort: response,
+        });
+      });
   } catch (error) {
-
     console.log(error.message);
-    
   }
- }
- 
- module.exports.singleResort=async(req,res)=>{
-  try {
+};
 
+module.exports.singleResort = async (req, res) => {
+  try {
     const id = req.query.id;
     const resortData = await resort.findById({ _id: id });
     console.log(resortData, "vanilaaa");
@@ -288,7 +288,6 @@ module.exports.resortManagement=async(req,res)=>{
         message: "cant find id",
       });
     }
-    
   } catch (error) {
     console.log(error.message);
     res.json({
@@ -296,38 +295,117 @@ module.exports.resortManagement=async(req,res)=>{
       message: error.message,
     });
   }
-    
-  }
+};
 
-  module.exports.singleResortInfo=async(req,res)=>{
-    try {
-
-      const {id,action}=req.params;
-      let data;
-      if(action==='block'){
-        data=true
-      }
-
-      else{
-
-        data=false
-      }
-   
-      
-      await resort.findByIdAndUpdate({_id:id},{is_blocked:data}).then((response)=>{
-        res.json({
-          status:true,
-          message:"successfully Done"
-        })
-        .catch((error)=>{
-          console.log(error.message);
-        })
-      })
-      
-    } catch (error) {
-
-      console.log(error.message);
-      
+module.exports.singleResortInfo = async (req, res) => {
+  try {
+    const { id, action } = req.params;
+    let data;
+    if (action === "block") {
+      data = true;
+    } else {
+      data = false;
     }
+
+    await resort
+      .findByIdAndUpdate({ _id: id }, { is_blocked: data })
+      .then((response) => {
+        res
+          .json({
+            status: true,
+            message: "successfully Done",
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      });
+  } catch (error) {
+    console.log(error.message);
   }
-  
+};
+
+module.exports.getResort = async (req, res) => {
+  try {
+    const resortData = await resort.findOne({ _id: req.params.id });
+    console.log(resortData, "rdd");
+    if (resortData) {
+      res.json({
+        status: true,
+        banner: resortData,
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+module.exports.resortManagementView = async (req, res) => {
+  try {
+    const { staff } = req.params;
+
+    const resortCollection = await resort.find({
+      $and: [{ is_delete: false }, { verify: true }, { resortowner: staff }],
+    });
+    res.json({
+      status: true,
+      resort: resortCollection,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+module.exports.updateResort = async (req, res) => {
+  try {
+    // console.log(req.body, "kkkk");
+    // console.log("resortUpdateszz");
+    // console.log(req.params);
+    const id = req.params.id;
+    // console.log(req.file, "filesss");
+    let image=req.files.map((file)=>file.filename)
+    console.log(image);
+    if (image.length) {
+      const categoryData = await resort.updateOne(
+        { _id: id },
+        {
+          $set: {
+            resortname: req.body.resortname,
+            description: req.body.description,
+            // image: req.file.filename,
+            image:image,
+            price: req.body.price,
+            capacity: req.body.capacity,
+          },
+        }
+      );
+      if (categoryData) {
+        console.log("done");
+        res.json({
+          status: true,
+          banner: categoryData,
+        });
+      }
+    } else {
+      console.log("ividde");
+      const categoryData = await resort.updateOne(
+        { _id: id },
+        {
+          $set: {
+            resortname: req.body.resortname,
+            description: req.body.description,
+            price: req.body.price,
+            capacity: req.body.capacity,
+            image:image
+          },
+        }
+      );
+      if (categoryData) {
+        console.log("done");
+        res.json({
+          status: true,
+          banner: categoryData,
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};

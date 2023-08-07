@@ -162,6 +162,22 @@ console.log("Staffil ethiii");
      }
   }
 
+
+
+  module.exports.authStaff=async(req,res)=>{
+
+    try{
+      console.log('req.staff',req.staff);
+      res.json({ status: true, staff: req.staff});
+  
+    }
+    catch(error){
+  console.log("no auth");
+  
+    }
+  }
+
+
   module.exports.adventureManagement=async(req,res)=>{
 
     try {

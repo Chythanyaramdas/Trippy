@@ -403,11 +403,14 @@ module.exports.destinationResort=async(req,res)=>{
     console.log(id,"params");
 
     const resortData=await resort.find({$and:[{'location.district':id},{verify:true}]}).populate('location.district')
+    const locationData=await Location.findOne({_id:id,is_delete:false})
     console.log(resortData,"RD");
+    console.log(locationData,"ld");
     res.json({
       status:true,
       message:"successfully done",
-      resort:resortData
+      resort:resortData,
+      location:locationData
     })
     
   } catch (error) {

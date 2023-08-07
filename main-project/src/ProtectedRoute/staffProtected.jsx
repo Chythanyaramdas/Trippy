@@ -20,6 +20,7 @@ function staffAuthentication({children,accessBy}){
                     const response = await StaffApi.get('/token_v')
                     if(response.data.status){
                         console.log('all done');
+                        console.log(response.data.staff);
                         dispatch(staffLogin(response.data.staff))
                         setLoading(false)
                     }

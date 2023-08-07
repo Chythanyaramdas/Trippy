@@ -6,7 +6,7 @@ import axios from 'axios';
 import {staffContext} from'../../helper/context/StaffContext';
 
 
-
+import { staffLogin } from '../../redux/staffSlice';
 import { userOtp } from '../../services/staffApi';
 
 
@@ -52,11 +52,17 @@ const StaffLogin = () => {
         localStorage.setItem("staffToken",response.data.token);
 
         const{name,_id,email,approved}=response.data.staff;
+
+
         setStaff(name)
         setApproved(approved)
         setId(_id)
 
+
+        dispatch(staffLogin({name,_id}))
+
         navigate("/staff/dashboard");
+
       }) 
 
       // await axios.post(`${staffBaseApi}staff_Login`,{email,password}).then((response)=>{

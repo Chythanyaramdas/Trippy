@@ -28,7 +28,7 @@ const initialValues={
     description:"",
     capacity:"",
     price:"",
-     image:"",
+     image:[],
     //  image:[],
     place:"",
     phone:"",
@@ -106,15 +106,28 @@ const onChangeAdventure=(e,index)=>{
 
 
 
-const imageChange = (e) => {
-  const {name} = e.target
-   const image = e.target.files[0]
+// const imageChange = (e) => {
+//   const {name} = e.target
+//    const image = e.target.files[0]
   // const image = Array.from(e.target.files);
-  console.log(image,"miiiiiii");
+  // console.log(image,"miiiiiii");
   //  setFormValues({...formValues,[name]:['image'].push(e.target.files[0])})
-   setFormValues({...formValues,[name]:image})
+  //  setFormValues({...formValues,[name]:image})
  
+// }
+
+
+const imageChange = (e) => {
+  const { name } = e.target;
+  alert(name)
+  const images = Array.from(e.target.files); // Convert FileList to an array of files
+  console.log(images, "miiiiiii");
+  setFormValues((prevFormValues) => ({
+    ...prevFormValues,
+    [name]: images,
+  }));
 }
+
 
 
 
@@ -124,7 +137,7 @@ const adventureImage = (e) => {
   let images=e.target.files[0]
   console.log("adv",images);
   // setImage([...image])
-  setImage({...images,[name]:images})
+  setImage({...images,[name]:[...images]})
   setImager(true)
 
 }
@@ -152,7 +165,8 @@ const handleSubmit = () => {
   form.append('formValues', JSON.stringify(formValues));
   // form.append('id', formValues.id);
   // form.append('placeId', formValues.placeId);
-   form.append('image', formValues.image);
+   form.append('image', [...formValues.image]);
+   console.log( [...formValues.image],'------------');
    form.append('location', JSON.stringify(location));
   //  form.append('image',images)
   //  form.append('images',images)
@@ -160,10 +174,13 @@ const handleSubmit = () => {
   // form.append('image', image);
   // console.log(image,"mikoooo");
   // form.append('image',formValues.image)
+  for(const img of formValues.image){
+    form.append("image",img)
+  }
    form.append('adventure',JSON.stringify(adventure))
   console.log(JSON.stringify(formValues));
   
-
+  console.log(form.get("image"));
   StaffApi.post('/resortRegister', form,{headers:{
     'Content-Type': 'multipart/form-data'
   }}).then((response) => {
@@ -236,7 +253,7 @@ useEffect(()=>{
 
 <div className="h-60 w-60 rounded-full overflow-hidden relative flex justify-center">
   <img
-    src={formValues.image ? URL.createObjectURL(formValues.image) : ""}
+    src={formValues.image.length ? URL.createObjectURL(formValues?.image?.[0]) : ""}
     alt=""
     className="h-full w-full rounded-full object-cover border border-spacing-9  border-yellow-500"
   />
@@ -247,6 +264,8 @@ useEffect(()=>{
           name="image"
           onChange={imageChange}
           type="file"
+          multiple
+
         />
         <button
           className="bg-black rounded-full w-8 h-8 flex items-center justify-center absolute -bottom-4 left-1/2 transform -translate-x-1/2"

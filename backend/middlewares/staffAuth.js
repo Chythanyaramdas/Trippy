@@ -28,7 +28,7 @@ const staffJwt=async(req,res,next)=>{
 
             }
 
-            req.userID=decodedToken.userId;
+            req.staff=user;
             next();
         
     } 

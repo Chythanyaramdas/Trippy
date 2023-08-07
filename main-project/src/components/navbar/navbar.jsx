@@ -21,7 +21,7 @@ function classNames(...classes) {
   return (
     <Disclosure as="nav" 
     // className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% gap-6">
-    className="bg-white">
+    className="bg-transparent">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -59,7 +59,7 @@ function classNames(...classes) {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current ?'bg-white text-black' : 'text-black hover:bg-gray-700 hover:text-white',
+                          item.current ?'bg-transparent text-black' : 'text-black hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
@@ -82,7 +82,7 @@ function classNames(...classes) {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Menu.Button className="flex rounded-full  text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"

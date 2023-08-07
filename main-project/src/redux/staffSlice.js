@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const INITIAL_VALUES = {
     name:"",
     
-    id:""
+    _id:""
 }
 
 const staffSlice = createSlice({
@@ -14,16 +14,16 @@ reducers:{
         const staffDetials = actions.payload
         state.name = staffDetials.name
        
-        state.id = staffDetials._id
+        state._id = staffDetials._id
     },
     staffLogout(state,actions){
         state.name = ""
         
-        state.id = ""
+        state._id = ""
     }
 
 }
 })
 
-export const {doctorLogin,doctorLogout} = staffSlice.actions
+export const {staffLogin,staffLogout} = staffSlice.actions
 export default staffSlice.reducer
