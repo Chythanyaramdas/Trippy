@@ -54,7 +54,7 @@ function ResortDetalis() {
       <div className="w-full flex flex-col mt-2">
         <div className=" w-full flex  ">
           <p className="text-1xl font-bold"> Owner of Resort's:</p>
-          <h2>{resort.resortowner}</h2>
+          <h2>{resort?.resortowner?.name}</h2>
         </div>
 
         </div>
@@ -64,14 +64,14 @@ function ResortDetalis() {
         <div className="w-full flex flex-col mt-2" >
         <div className=" w-full-flex  ">
           <p className="text-1xl font-bold">ResortName:</p>
-          <h2>{resort.resortname}</h2>
+          <h2>{resort?.resortname}</h2>
         </div>
         </div>
 
         <div className="w-full flex flex-col mt-2">
         <div className=" w-full-flex ">
           <p className="text-1xl font-bold"> Description:</p>
-          <h2>{resort. description}</h2>
+          <h2>{resort?.description}</h2>
         </div>
         </div>
 
@@ -79,7 +79,7 @@ function ResortDetalis() {
 
         <div className=" w-full-flex ">
           <p className="text-1xl font-bold">Capacity:</p>
-          <h2>{resort.capacity}</h2>
+          <h2>{resort?.capacity}</h2>
         </div>
 
         </div>
@@ -93,7 +93,7 @@ function ResortDetalis() {
         <div className="w-full flex flex-col mt-2">
         <div className="w-full-flex" >
           <p className="text-1xl font-bold">Price  per Day:</p>
-          <h2>{resort.price}</h2>
+          <h2>{resort?.price}</h2>
         </div>
         </div>
 
@@ -101,7 +101,7 @@ function ResortDetalis() {
         <div className="w-full flex flex-col mt-2">
         <div className="w-full-flex" >
           <p className="text-1xl font-bold">Category:</p>
-          <h2>{resort.category}</h2>
+          <h2>{resort?.category}</h2>
         </div>
         </div>
         

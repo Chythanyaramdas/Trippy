@@ -99,7 +99,7 @@ function EditResort() {
   return (
     <div>
       <div className='w-full h-full flex justify-center items-center'>
-    <div className="w-3/4 bg-white p-11 rounded-3xl h-3/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4  ">
+    <div className="w-4/5 h-5/6 bg-sky-100 p-11 rounded-3xl h-3/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4  ">
       <div className="flex flex-col justify-center items-center h-full ps-5">
         <input
           type="text"

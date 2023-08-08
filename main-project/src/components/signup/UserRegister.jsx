@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserApi } from "../../utils/user/axiosUser";
@@ -13,7 +13,7 @@ const UserRegister = () => {
     email: "",
     phone: "",
     password: "",
-    repassword: "",
+    confirmPassword: "",
     otp: "",
   };
   const [formVlues, setFormValues] = useState(initialValues);
@@ -22,7 +22,7 @@ const UserRegister = () => {
   const [email, setemail] = useState("");
   const [phone, setphone] = useState("");
   const [password, setpassword] = useState("");
-  const [repassword, setrepassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [formError, setformError] = useState({});
   const [submit, setSubmit] = useState(false);
@@ -48,45 +48,47 @@ const UserRegister = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setformError(validation(formVlues, "signUp"));
+    setSubmit(true);
+
     // if(password!==repassword){
     //   console.log(generateError,"yyyyyyyyyy")
     //   generateError('Password not match Try again later')
     //   setformError(validation(formVlues));optional
     //     setSubmit(true);
 
-    const trimmedName = name.trim();
-    if (trimmedName === "") {
-      generateError("Please enter your name");
-    } else {
-      try {
-        // const data=await userregister(user)
-        // await userregister
-        const data = {
-          name: name,
-          email: email,
-          phone: phone,
-          password: password,
-        };
-        setFormValues(data);
-        if (data) {
-          console.log(data, "data of user");
-          UserApi.post("/register", data);
-          if (data.errors) {
-            const { name, email, phone, password } = data.errors;
-            if (name) generateError(name);
-            else if (email) generateError(email);
-            else if (password) generateError(password);
-            else if (phone) generateError(phone);
-          } else {
-            setMessage("Account activated, check your email");
-            // navigate('/emailverify');
-            setOtp(true);
-          }
-        }
-      } catch (error) {
-        console.log(error, "register error problem");
-      }
-    }
+    // const trimmedName = name.trim();
+    // if (trimmedName === "") {
+    //   generateError("Please enter your name");
+    // } else {
+    //   try {
+        
+    //     const data = {
+    //       name: name,
+    //       email: email,
+    //       phone: phone,
+    //       password: password,
+    //     };
+    //     setFormValues(data);
+    //     if (data) {
+    //       console.log(data, "data of user");
+    //       UserApi.post("/register", data);
+    //       if (data.errors) {
+    //         const { name, email, phone, password } = data.errors;
+    //         if (name) generateError(name);
+    //         else if (email) generateError(email);
+    //         else if (password) generateError(password);
+    //         else if (phone) generateError(phone);
+    //       } else {
+    //         setMessage("Account activated, check your email");
+            
+    //         setOtp(true);
+    //       }
+    //     }
+    //   } catch (error) {
+    //     console.log(error, "register error problem");
+    //   }
+    // }
   };
 
   const handleConfirm = () => {
@@ -102,6 +104,44 @@ const UserRegister = () => {
       }
     });
   };
+
+  const handleChange=(e)=>{
+    const {name,value} = e.target
+    setFormValues(prev=>{
+      return {
+        ...prev,[name]:value
+      }
+    })
+  }
+
+
+  useEffect(() => {
+    let interValId;
+    if (Object.keys(formError).length === 0 && submit) {
+      UserApi
+        .post("/register", {
+          ...formVlues,
+          country_code: formVlues.country_code,
+        })
+        .then((response) => {
+          if (response.data.status) {
+            setOtp(true);
+            // setOtp(!otp);
+            // setId(response.data.id)
+            // interValId = setInterval(() => {
+            //   setTimer((preTime) => preTime - 1);
+            // }, 1000);
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+
+    return () => {
+      clearInterval(interValId);
+    };
+  }, [formError]);
 
   return (
     <>
@@ -154,16 +194,17 @@ const UserRegister = () => {
                 <input
                   type="text"
                   id="name"
-                  value={name}
+                  name="name"
+                  value={formVlues.name}
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your name"
-                  onChange={(e) => setname(e.target.value)}
+                  onChange={handleChange}
                   required
                 />
 
-                {/* {formError.name && (
+                {formError.name && (
                 <p style={{ color: "red" }}>{formError.name}</p>
-              )} */}
+              )}
               </div>
 
               <div className="mb-4">
@@ -177,16 +218,17 @@ const UserRegister = () => {
                 <input
                   type="email"
                   id="email"
-                  value={email}
+                  name="email"
+                  value={formVlues.email}
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your email"
-                  onChange={(e) => setemail(e.target.value)}
+                  onChange={handleChange}
                   required
                 />
 
-                {/* {formError.email && (
+                {formError.email && (
                 <p style={{ color: "red" }}>{formError.email}</p>
-              )} */}
+              )}
               </div>
 
               <div className="mb-4">
@@ -201,17 +243,13 @@ const UserRegister = () => {
                 <input
                   type="number"
                   id="phone"
+                  name="phone"
                   maxLength={10}
                   minLength={10}
-                  value={phone}
+                  value={formVlues.phone}
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   placeholder="+91-"
-                  onChange={(e) => {
-                    const phoneNumber = e.target.value.replace(/[^0-9]/g, "");
-                    if (phoneNumber.length <= 10) {
-                      setphone(phoneNumber);
-                    }
-                  }}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -225,17 +263,18 @@ const UserRegister = () => {
                 <input
                   type="password"
                   id="password"
+                  name="password"
                   minLength={6}
-                  value={password}
+                  value={formVlues.password}
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your password"
-                  onChange={(e) => setpassword(e.target.value)}
+                  onChange={handleChange}
                   required
                 />
 
-                {/* {formError.password && (
+                {formError.password && (
                     <p style={{ color: "red" }}>{formError.password}</p>
-                  )}  */}
+                  )} 
               </div>
               <div className="mb-6">
                 <label
@@ -247,16 +286,17 @@ const UserRegister = () => {
                 <input
                   type="password"
                   id="password"
-                  value={repassword}
+                  name="confirmPassword"
+                  value={formVlues.confirmPassword}
                   className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter confirm password"
-                  onChange={(e) => setrepassword(e.target.value)}
+                  onChange={handleChange}
                   required
                 />
 
-                {/* {formError.confirmPassword && (
+                {formError.confirmPassword && (
                 <p style={{ color: "red" }}>{formError.confirmPassword}</p>
-              )} */}
+              )}
               </div>
               <div className="flex justify-between items-center">
                 <button

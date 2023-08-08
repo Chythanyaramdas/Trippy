@@ -8,14 +8,11 @@ export default function validation(values){
         error.name = 'First Name required'
     }
     
-
     if(values.email.trim() == ""){
         error.email = "Email Required"
     }else if(!email_pattern.test(values.email)){
         error.email = "Enter the correct format example@gmai.com"
     }
-
-    
     if(!values.phone){
         error.phone = 'Enter Phone number'
     }
@@ -32,4 +29,5 @@ export default function validation(values){
         error.confirmPassword = "Password didn't match"
     }
     return error
+    
 }

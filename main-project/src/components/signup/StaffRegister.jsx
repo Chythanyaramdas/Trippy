@@ -1,7 +1,7 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import validation from "../../helper/FormValidation";
 import {StaffApi} from'../../utils/staff/axiosStaff';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +22,13 @@ const StaffRegister=()=>{
       const [email,setemail]=useState('')
       const [phone,setphone]=useState('')
       const [password,setpassword]=useState('')
-      const [repassword, setrepassword] = useState('');
+      // const [repassword, setrepassword] = useState('');
+      const [confirmPassword, setConfirmPassword] = useState("");
+
+      const [formError, setformError] = useState({});
+      const [submit, setSubmit] = useState(false);
+
+
         const [otp1,setOtp1]=useState(0)
         const [otp2,setOtp2]=useState(0)
         const [otp3,setOtp3]=useState(0)
@@ -38,57 +44,64 @@ const StaffRegister=()=>{
           position: 'top-center'
         });
       };
-      console.log(password,"pass",repassword);
+      // console.log(password,"pass",repassword);
+
+
+      const handleChange=(e)=>{
+        const {name,value} = e.target
+        setFormValues(prev=>{
+          return {
+            ...prev,[name]:value
+          }
+        })
+      }
 
       const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // if(password!=repassword){
-        //     console.log("errror");
-        //   console.log(generateError,"yyyyyyyyyy")
-        //   generateError('Password not match Try again later')
+        
+        setformError(validation(formVlues, "signUp"));
+        setSubmit(true);
+        // const trimmedName=name.trim();
+        // if(trimmedName ===''){
+
+        //   generateError('Please enter your name')
         // }
 
-        const trimmedName=name.trim();
-        if(trimmedName ===''){
 
-          generateError('Please enter your name')
-        }
-
-
-        else{
-          try {
+        // else{
+        //   try {
             
             
-            const data={
-              name:name,
-              email:email,
-              phone:phone,
-              password:password,
+        //     const data={
+        //       name:name,
+        //       email:email,
+        //       phone:phone,
+        //       password:password,
               
-            }
-            setFormValues(data)
-            if (data) {
-              console.log(data,"data of user")
+        //     }
+        //     setFormValues(data)
+        //     if (data) {
+        //       console.log(data,"data of user")
 
-            StaffApi.post('/register',data)
+        //     StaffApi.post('/register',data)
 
-              if (data.errors) {
-                const { name, email, phone, password } = data.errors;
-                if (name) generateError(name);
-                else if (email) generateError(email);
-                else if (password) generateError(password);
-                else if (phone) generateError(phone);
-              } else {
-                setMessage('Account activated, check your email');
-                // navigate('/emailverify');
-                setOtp(true);
-              }
-            }
-          } catch (error) {
-            console.log(error, 'register error problem');
-          }
-        }
+        //       if (data.errors) {
+        //         const { name, email, phone, password } = data.errors;
+        //         if (name) generateError(name);
+        //         else if (email) generateError(email);
+        //         else if (password) generateError(password);
+        //         else if (phone) generateError(phone);
+        //       } else {
+        //         setMessage('Account activated, check your email');
+        //         // navigate('/emailverify');
+        //         setOtp(true);
+        //       }
+        //     }
+        //   } catch (error) {
+        //     console.log(error, 'register error problem');
+        //   }
+        // }
        
       };
 
@@ -111,6 +124,35 @@ const StaffRegister=()=>{
        
         }
 
+
+        useEffect(() => {
+          let interValId;
+          if (Object.keys(formError).length === 0 && submit) {
+            alert('start')
+              StaffApi.post("/register", {
+                ...formVlues,
+                country_code: formVlues.country_code,
+              })
+              .then((response) => {
+                if (response.data.status) {
+
+                 alert('fff')
+                  setOtp(true);
+                  // setId(response.data.id)
+                  // interValId = setInterval(() => {
+                  //   setTimer((preTime) => preTime - 1);
+                  // }, 1000);
+                }
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          }
+      
+          return () => {
+            clearInterval(interValId);
+          };
+        }, [formError]);
 
 
 return(
@@ -135,12 +177,18 @@ return(
           <input
             type="text"
             id="name"
-            value={name}
+            name="name"
+            value={formVlues.name}
             placeholder="Name"
-            onChange={(e)=> setname(e.target.value)}
+            // onChange={(e)=> setname(e.target.value)}
+            onChange={handleChange}
             className="w-full input input-bordered"
             required
           />
+
+          {formError.name && (
+                <p style={{ color: "red" }}>{formError.name}</p>
+              )}
         </div>
         <div>
           <label className="label">
@@ -149,12 +197,18 @@ return(
           <input
             type="email"
             id="email"
-            value={email}
+            name="email"
+            value={formVlues.email}
             placeholder="Email Address"
-            onChange={(e)=> setemail(e.target.value)}
+            // onChange={(e)=> setemail(e.target.value)}
+            onChange={handleChange}
             className="w-full input input-bordered"
           />
+          {formError.email && (
+                <p style={{ color: "red" }}>{formError.email}</p>
+              )}
         </div>
+
         <div>
           <label className="label">
             <span className="text-base label-text  text-black text-sm font-bold mb-2">Enter mobile</span>
@@ -162,14 +216,15 @@ return(
           <input
             type="number"
             id="phone"
-
+            name="phone"
             placeholder="Enter mobile"
-            onChange={(e) => {
-                const phoneNumber = e.target.value.replace(/[^0-9]/g, "")
-                if (phoneNumber.length <= 10) {
-                  setphone(phoneNumber);
-                }
-              }}
+            // onChange={(e) => {
+            //     const phoneNumber = e.target.value.replace(/[^0-9]/g, "")
+            //     if (phoneNumber.length <= 10) {
+            //       setphone(phoneNumber);
+            //     }
+            //   }}
+            onChange={handleChange}
               required
             className="w-full input input-bordered"
           />
@@ -182,12 +237,18 @@ return(
           <input
             type="password"
             id="password"
+            name="password"
               minLength={6}
             placeholder="Enter Password"
-            onChange={(e) =>  setpassword( e.target.value )}
+            value={formVlues.password}
+            // onChange={(e) =>  setpassword( e.target.value )}
+            onChange={handleChange}
                   required
             className="w-full input input-bordered"
           />
+          {formError.password && (
+                    <p style={{ color: "red" }}>{formError.password}</p>
+                  )} 
         </div>
         <div>
           <label className="label">
@@ -196,12 +257,17 @@ return(
           <input
             type="password"
             id="password"
-            value={repassword}
+            name="confirmPassword"
+            value={formVlues.confirmPassword}
             placeholder="Confirm Password"
-            onChange={(e) =>  setrepassword( e.target.value )}
+            // onChange={(e) =>  setrepassword( e.target.value )}
+            onChange={handleChange}
                   required
             className="w-full input input-bordered"
           />
+           {formError.confirmPassword && (
+                <p style={{ color: "red" }}>{formError.confirmPassword}</p>
+              )}
         </div>
 
 
