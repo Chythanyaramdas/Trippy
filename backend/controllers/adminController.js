@@ -288,7 +288,7 @@ module.exports.Admin_Login=async(req,res,next)=>{
   module.exports.resortDetails = async (req, res) => {
     try {
       const id = req.query.id;
-      const resortData = await Resort.findById({ _id: id });
+      const resortData = await Resort.findOne({ _id: id }).populate('resortowner');
       console.log(resortData, "vanilaaa");
       if (resortData) {
         res.json({

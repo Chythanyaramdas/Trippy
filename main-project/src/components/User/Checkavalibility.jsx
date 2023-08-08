@@ -154,9 +154,9 @@ alert(checkInDate)
             className="bg-white shadow-1 p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
             key={item.resortname}
           >
-            <figure>
+            <figure className="w-full">
               <img
-                src={server_url + "images/" + item.image}
+                src={`${server_url}images/${item.image[0]}`}
                 alt="images_resort"
                 className="rounded-tl-[20px] mb-8"
               />
@@ -207,7 +207,7 @@ alert(checkInDate)
         >
           <figure>
             <img
-              src={server_url + "images/" + item.image}
+              src={server_url + "images/" + item.image[0]}
               alt="images_resort"
               className="rounded-tl-[20px] mb-8"
             />

@@ -20,6 +20,7 @@ user_route.get('/resortInfo',userControllerRegistration.staylocation)
 user_route.post('/search',bookingController.searchDate)
 user_route.get('/booking/:id',bookingController.getBookedResort)
 user_route.post('/payment',bookingController.payment)
+user_route.get('/searchSingleResort/:checkInDate/:checkOutDate/:resort_id',bookingController.checkSingleResort)
 
 
 module.exports = user_route;

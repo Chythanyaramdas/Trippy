@@ -93,8 +93,54 @@ module.exports.payment = async (req, res) => {
       },
     });
     await Booking.save();
+    res.json({
+      status:true,
+      message:"successfull"
+    })
     console.log(Booking, "BOX");
   } catch (error) {
     console.log(error.message);
   }
 };
+
+module.exports.checkSingleResort=async(req,res)=>{
+  try {
+
+    const {  checkInDate, checkOutDate,resort_id } = req.params;
+    console.log(checkInDate);
+    console.log(checkOutDate);
+    const bookedData = await book.find({$and:[{ status: "booked" },{resortId:resort_id}]}); 
+
+  console.log(bookedData, "bd");
+
+  const resorts = bookedData.filter((booking) => {
+   
+    if (
+      (new Date(checkInDate) >= new Date(booking.fromDate) &&
+        new Date(checkInDate) <= new Date(booking.toDate)) ||
+      (new Date(checkOutDate) >= new Date(booking.fromDate) &&
+        new Date(checkOutDate) <= new Date(booking.toDate))
+    ) {
+      return booking.resortId;
+    }
+  });
+
+  console.log("------------------resorts-----------", resorts);
+
+  if(!resorts.length){
+    res.json({
+      status:true,
+      message:"available"
+    })
+  }
+  else{
+    res.json({
+      status:false,
+      message:"unavailable"
+    })
+  }
+    
+  } catch (error) {
+    console.log(error.message);
+  }
+}

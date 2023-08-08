@@ -43,7 +43,7 @@ function CategoryPage() {
               <div className="w-[90%] h-[60%]   relative">
                 <img
                   className="rounded-t-lg overflow-hidden hover:transform transform scale-100 hover:scale-110 transition-transform duration-300 "
-                  src={server_url + "images/" + data.image}
+                  src={server_url + "images/" + data?.image?.[0]}
                   alt=""
                 />
               </div>

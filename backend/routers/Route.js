@@ -49,7 +49,7 @@ admin_route.post('/addLocation',upload.single("image"),locationController.locati
 admin_route.get('/location',locationController.location)
 admin_route.delete('/location',locationController.deleteLocation)
 admin_route.get('/location_u/:id',locationController.getLocation)
-admin_route.post('/location_ud/:id',locationController.updateLocation)
+admin_route.post('/location_ud/:id',upload.single('image'),locationController.updateLocation)
 
 admin_route.get('/resortApplications',adminController.resortList)
 admin_route.post('/resortRegister/:id',adminController.resortApproval)

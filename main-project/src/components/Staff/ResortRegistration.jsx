@@ -251,12 +251,14 @@ useEffect(()=>{
           </div>
         </div> */}
 
-<div className="h-60 w-60 rounded-full overflow-hidden relative flex justify-center">
+<div className="h-60 w-60 rounded-full  overflow-hidden relative flex justify-center">
+  <div className='h-52 w-52  bg-slate-500 rounded-full'>
   <img
     src={formValues.image.length ? URL.createObjectURL(formValues?.image?.[0]) : ""}
     alt=""
-    className="h-full w-full rounded-full object-cover border border-spacing-9  border-yellow-500"
+    className="h-52 w-52 rounded-full relative shadow-lg  shadow-black object-cover border border-spacing-9  border-yellow-500"
   />
+  </div>
    <div className="absolute bottom-9 left-1 w-full">
         <input
           ref={fileInputRef}

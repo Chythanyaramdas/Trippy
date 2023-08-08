@@ -39,8 +39,8 @@ function AdminSidebar() {
           className="h-14 flex items-center justify-center  pl-4 md:justify-start text-sm lg:text-lg cursor-pointer hover:bg-[#FFFFFF]"
           
         >
-          {/* <PiFlagBannerFill /> */}
-          <p className="hidden md:block"     onClick={()=> navigate('/admin/banner')}>Resorts</p>
+           <MdFastfood className="mr-1"/>
+          <p className="hidden md:block"     onClick={()=> navigate('/admin/resortManagement')}>Resort Management</p>
         </div>
       </div>
     );

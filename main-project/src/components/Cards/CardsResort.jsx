@@ -6,9 +6,10 @@ function CardsResort({data}) {
   const server_url=process.env.REACT_APP_BASE_URL;
   const navigate=useNavigate()
   return (
-    <div className="bg-slate-100">
-      <div className="mt-10 ms-20">
-        <p className="text-2xl text-black font-bold italic"> Our Stay...</p>
+    <div className="bg-slate-100 w-full h-full py-10 mt-8">
+      <div className="mt-10 ms-20 flex">
+        <p className="text-2xl text-blue-900 font-serif mt-1"> Our</p>
+        <p className="text-3xl  text-black font-serif ms-3 ">  Stay...</p>
       </div>
 
       <div className="flex flex-wrap mt-4 ">

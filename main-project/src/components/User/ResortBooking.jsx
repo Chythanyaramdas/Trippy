@@ -41,9 +41,12 @@ const ResortBooking = () => {
   }, [id]);
 
       const handlebookingHotel =async()=>{
-
+          alert('start')
         UserApi.post('/payment',{resortId:resort._id,users:users.id,checkInDate,checkOutDate,paymentt}).then((response)=>{
           if(response.data.status){
+            alert('hi')
+        localStorage.removeItem('checkinDate')
+        localStorage.removeItem('checkoutDate')
 
           }
         }) 
@@ -192,6 +195,10 @@ const ResortBooking = () => {
     }
   }, []);
 
+
+
+  
+
   // console.log(resortdata,"resort")
   return (
     <div className="mx-auto max-w-screen-2xl bg-white">
@@ -244,6 +251,7 @@ const ResortBooking = () => {
               </div>
             </form>
           </div>
+          
           <div className="max-w-[900px] bg-gray-100 p-4 mt-5 rounded-lg">
             <h2 className="font-semibold">{resort?.resortname}</h2>
             <h2 className="font-semibold flex items-center">
@@ -331,6 +339,7 @@ const ResortBooking = () => {
               Pay Hotel
             </button>
           </div>
+
         </div>
       </div>
       <ToastContainer />

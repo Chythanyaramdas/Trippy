@@ -11,14 +11,19 @@ function Cards({ data }) {
 
   return(
     <div>
+
     {/* <div className="w-full h-full flex flex-col "> */}
-      <div className="mt-8 ms-20"  >
-        <p className="text-2xl text-black font-bold italic">Category's of Stay</p>
+
+      <div className="mt-8 ms-20 flex "  >
+
+        <p className="text-2xl text-black font-serif mt-1">Choose </p>
+        <p className="text-3xl text-blue-800 font-serif ms-3"> your Stay</p>
+
       </div>
 
     
 
-      <div className="flex flex-wrap ">
+      <div className="flex flex-wrap mt-4">
         
             {data.map((datas) => (
               <div

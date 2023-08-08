@@ -56,9 +56,10 @@ function Location() {
         {/* Hello world */}
         {/* --------------------------------------------------------------------- */}
 
-        <div className="flex flex-col">
-          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block w-full  sm:px-6 lg:px-8 ">
+        <div className="flex flex-col w-full">
+          <div className="overflow-x-auto">
+            {/* <div className="inline-block w-full  sm:px-6 lg:px-8 "> */}
+            <div>
               <div className="overflow-hidden">
                 <table className="min-w-full text-left text-sm font-light">
                   <thead className="border-b min-w-full bg-blue-400 font-medium dark:border-neutral-500">

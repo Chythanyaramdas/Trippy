@@ -9,6 +9,8 @@ function UpdateLocation() {
   const [location, setLocation] = useState(false);
   const [district, setDistrict] = useState("");
   const [places, setPlaces] = useState([{}]);
+  const [image,setImage] = useState({})
+  const [newImage,setNewImage] = useState('')
   const { id } = useParams();
 
   useEffect(() => {
@@ -35,17 +37,40 @@ function UpdateLocation() {
     setPlaces([...newData]);
   };
 
+
+  const uploadImage=(e)=>{
+    alert('image')
+    console.log("heiii");
+    if(e.target.files){
+      console.log(e.target.files[0]);
+      // const file =   Array.from(e.target.files);
+      const file = e?.target?.files?.[0]
+      setNewImage(e.target.files[0])
+    }
+  }
+
   const handleSubmit = () => {
     const form = new FormData();
     form.append("district", district);
-    form.append("places", places);
+    form.append("places", JSON.stringify(places));
     form.append("districtId", id);
+    console.log(newImage,"kgahg2")
+        
+        if(newImage){
+          form.append('image',newImage)
+            
+          console.log(form.get('image'));
+          
+        }
+        else{
+            console.log('not');
+            
+                
+        }
+       
+          console.log(form.get("image"),"image");
 
-    AdminApi.post(`/location_ud/${id}`, {
-      district: district,
-      places: places,
-      districtId: id,
-    }).then((response) => {
+    AdminApi.post(`/location_ud/${id}`,form).then((response) => {
       if (response.data.status) {
         alert("successfullyUpdate");
         navigate("/admin/location");
@@ -73,6 +98,16 @@ function UpdateLocation() {
             />
 
             </div>
+
+
+            <input
+          type="file"
+      
+          name="image"
+          className="p-2 mt-8 shadow-lg rounded-lg w-64 h-40 "
+          onChange={uploadImage}
+          
+        />
 
             <div>
 

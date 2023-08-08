@@ -9,6 +9,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import { MdPlace } from "react-icons/md";
 import Footer from "../Footer/UserFooter";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
 
 
 function Resorters() {
@@ -18,6 +19,10 @@ function Resorters() {
   const [resort, setResort] = useState({});
   const [images, setImages] = useState([{}]);
   const [cities, setCities] = useState([{}]);
+  const [checkInDate, setCheckInDate] = useState(null);
+const [checkOutDate, setCheckOutDate] = useState(null);
+const [selectedPlace, setSelectedPlace] = useState("");
+const [filteredResorts, setFilteredResorts] = useState([]);
 
   useEffect(() => {
     if (id) {
@@ -49,12 +54,66 @@ function Resorters() {
     }
   }, [id]);
 
+
+  const handleCheckInDateChange = (date) => {
+    alert(date)
+    setCheckInDate(date);
+  };
+
+  const handleCheckOutDateChange = (date) => {
+    if (date < checkInDate) {
+      setCheckOutDate(checkInDate);
+    } else {
+      setCheckOutDate(date);
+    }
+  };
+
+  const today = new Date();
+
   const getPlace = (e) => {
     let newData = cities.filter((obj) => obj._id === e);
     console.log(newData);
 
     return newData[0].place;
   };
+
+
+  const handleSearch=()=>{
+    alert(checkInDate)
+        UserApi.get(`/searchSingleResort/${checkInDate}/${checkOutDate}/${resort._id}`).then((response)=>{
+            if(response.data.status){
+              alert("Resorts are available,please book your stay")
+                // setFilteredResorts([...response.data.date]) 
+    
+            }
+            else{
+              alert("Resorts are unavailable")
+            }
+        })
+      }
+
+
+      useEffect(() => {
+        if (checkInDate) {
+          console.log(checkInDate,"CD");
+          // localStorage.setItem("checkinDate", checkInDate.toISOString());
+          localStorage.setItem("checkinDate", checkInDate);
+        } else {
+          localStorage.removeItem("checkinDate");
+        }
+      }, [checkInDate]);
+    
+      useEffect(() => {
+        if (checkOutDate) {
+          // localStorage.setItem("checkoutDate", checkOutDate.toISOString());
+          localStorage.setItem("checkoutDate", checkOutDate);
+          const dddd = checkOutDate.toISOString()
+          console.log("checkOutDate normal", checkOutDate);
+          console.log("checkOutDate with iso log",dddd);
+        } else {
+          localStorage.removeItem("checkoutDate");
+        }
+      }, [checkOutDate]);
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
@@ -78,6 +137,7 @@ function Resorters() {
 
       <div className="w-full h-[30rem] flex bg-transparent">
         <div className="w-[50%] h-full ">
+
           <div className="  w-full flex h-28  items-center ps-16 mt-5">
             <h3 className=" z-10  text-3xl text-black font-serif">
               Welcome to{" "}
@@ -104,8 +164,8 @@ function Resorters() {
 
             <div className="flex flex-wrap mt-4  ">
            
-              <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64  mx-auto cursor-pointer  ">
-                <figure className="h-[95%]">
+              <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64  rounded-lg  mx-auto cursor-pointer  ">
+                <figure className="h-[90%]">
                   
 
                   <img
@@ -136,8 +196,8 @@ function Resorters() {
 
             <div className="flex flex-wrap mt-4 ">
            
-           <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64  mx-auto cursor-pointer  ">
-             <figure className="h-[95%] overflow-hidden">
+           <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64  rounded-lg mx-auto cursor-pointer  ">
+             <figure className="h-[90%] overflow-hidden">
                
 
                <img
@@ -168,8 +228,8 @@ function Resorters() {
 
             <div className="flex flex-wrap mt-4 ">
            
-           <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64  mx-auto cursor-pointer  ">
-             <figure className="h-[95%] overflow-hidden">
+           <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64 rounded-lg  mx-auto cursor-pointer  ">
+             <figure className="h-[90%] overflow-hidden">
                
 
                <img
@@ -199,25 +259,80 @@ function Resorters() {
 
       </div>
 
-      <div className="mt-16 w-[100%] h-96  flex flex-col gap-4 bg-green-500 mr-10">
-      <div className="w-full h-[80%] flex justify-evenly ">
-        <div>
-        <p>iueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-        guyyyyyyyyyyyyyyyyyyyyyy
-        hgjuyyyyyuuuuuuuuuuuuuuuu
-      </p>
+      <div className="mt-16 w-[100%] h-96  flex flex-col gap-4 bg-slate-100 ">
+      <div className="w-full h-[80%] flex justify-between px-16  mt-10 ">
+        <div className="w-[50%] h-[100%] bg-sky-100 ">
+
+          {/* <div className="w-full  h-full flex  items-center ps-12 mr-3 "> */}
+        <div className="w-full h-15 bg-transparent mt-3 ps-10 ">
+          <p className=" z-10  text-3xl text-blue-600 font-bold">Book your stay</p>
+        </div>
+
+        <div className="w-full h-20 bg-transparent flex items-center justify-evenly mt-10">
+
+        <div className="ml-2">
+            <DatePicker
+              selected={checkInDate}
+              dateFormat="dd MMMM yyyy"
+              onChange={handleCheckInDateChange}
+              placeholderText="Check-in"
+              className="w-64 h-10 max-w-xs bg-slate-300"
+              minDate={today}
+            />
+          </div>
+
+          <div className="ml-4">
+            <DatePicker
+              selected={checkOutDate}
+              dateFormat="dd MMMM yyyy"
+              onChange={handleCheckOutDateChange}
+              placeholderText="Check-out"
+              className="w-64 h-10 max-w-xs bg-slate-300"
+              minDate={checkInDate ? new Date(checkInDate) : null}
+            />
+          </div>
+
+
+          <button
+            className="btn join-item my-1 bg-slate-300"
+              onClick={() => {
+               
+                handleSearch();
+              }}
+          >
+            Search
+          </button>
+
+
+
+        </div>
+
+        <div className="w-full h-[8.7rem] bg-transparent flex justify-end items-end pe-20 pb-5">
+
+        <button className="bg-blue-600 m-0 w-28 h-10 text-sm" onClick={()=>navigate(`/booking/${resort._id}`)}>click</button>
+        </div>
+        
+
+
+        
+
+          
+
+
+        
+
+        {/* </div> */}
         </div>
       
       
 
-      <div className="w-80 h-[80%] bg-black ">
-      <p>iueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-        guyyyyyyyyyyyyyyyyyyyyyy
-        hgjuyyyyyuuuuuuuuuuuuuuuu
-      </p>
+      <div className="w-[50%] h-[100%] flex flex-col gap-5 justify-center items-center ">
+     <img src="https://book.zostel.com/static/media/gray-zobu.018014d9.svg" alt="image"  className="w-[80%] h-[60%] m-0"/>
+     <p className=" font-serif text-2xl font-bold">Please Select</p>
 
         </div>
       </div>
+
     </div>
 
 

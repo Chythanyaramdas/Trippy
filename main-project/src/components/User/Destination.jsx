@@ -25,9 +25,9 @@ function Destination() {
 
       </div>
 
-      <div className="flex flex-wrap mt-10 ">
+      <div className="grid grid-cols-3 gap-8  mt-10 ">
             {destination.map((data) => (
-              <div className="bg-white shadow-2xl p-4  w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
+              <div className="bg-white  flex flex-col shadow-2xl p-4  w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
                 <figure>
                   <img
                     src={server_url + "images/" + data.image}
@@ -42,7 +42,7 @@ function Destination() {
                   </div>
                 </div>
                     <button
-                    className="btn btn-primary"
+                    className="btn btn-primary mx-auto"
                     onClick={()=>navigate(`/destinationResort/${data._id}`)}
                   >
                     View Details

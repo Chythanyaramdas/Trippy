@@ -227,26 +227,26 @@ module.exports.resort = async (req, res) => {
     console.log("update value");
     console.log(req.body);
 
-    // let newUser = new resort({
-    //   resortowner: newFormValues.id,
-    //   resortname: newFormValues.resortname,
-    //   description: newFormValues.description,
-    //   category:newFormValues.category,
-    //   capacity: parseInt(newFormValues.capacity),
-    //   price: parseInt(newFormValues.price),
-    //   adventure:newAdventure,
-    //   image: req.file.filename,
-    //   location:newLocation,
+    let newUser = new resort({
+      resortowner: newFormValues.id,
+      resortname: newFormValues.resortname,
+      description: newFormValues.description,
+      category:newFormValues.category,
+      capacity: parseInt(newFormValues.capacity),
+      price: parseInt(newFormValues.price),
+      // adventure:newAdventure,
+      // image: req.file.filename,
+      location:newLocation,
 
-    //   image: imageId,
-    //   phone: newFormValues.phone,
-    // });
+      image: image,
+      phone: newFormValues.phone,
+    });
     console.log(location, "locationss");
 
     console.log(newUser, "staff come");
     newUser.save().then((data) => {
       console.log(data, "miiiioo");
-      req.adventureId = data._id;
+      // req.adventureId = data._id;
 
       res.status(200).json({ message: "Authenticated" });
     });

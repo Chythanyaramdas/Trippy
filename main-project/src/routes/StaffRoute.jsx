@@ -18,12 +18,12 @@ const StaffRoute=()=>{
         <Routes>
           <Route exact path='/register' element={<StaffRegister/>} />
           <Route exact path='/staffLogin' element={<StaffLoginPage/>} />
-          <Route exact path='/dashboard' element={<Dashboards/>} />
-          <Route exact path='/resortRegister' element={<ResortPage/>} />
+          <Route exact path='/dashboard' element={<ProtectedRoute accessBy ={ 'Authorized'}><Dashboards/></ProtectedRoute>} />
+          <Route exact path='/resortRegister' element={<ProtectedRoute accessBy ={ 'Authorized'}><ResortPage/></ProtectedRoute>}/>
           <Route exact path='/adventureManagement' element={<AdventureManagement/>} />
           <Route exact path='/adventureCreation/:id' element={<AddAdventure/>} />
           <Route exact path='/resorts' element={<ProtectedRoute accessBy ={ 'Authorized'}><Resorts/></ProtectedRoute>} />
-          <Route exact path='/editResort_u/:id' element={<ResortUpdate/>} />
+          <Route exact path='/editResort_u/:id' element={<ProtectedRoute accessBy ={ 'Authorized'}><ResortUpdate/></ProtectedRoute>}/>
 
        </Routes>
     )

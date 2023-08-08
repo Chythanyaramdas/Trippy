@@ -42,7 +42,7 @@ function ResortDetalis() {
 
       <div className="w-full flex justify-center items-center h-44 ">
         <img
-          src={server_url+'images/'+ resort.image}
+          src={server_url+'images/'+ resort?.image?.[0]}
         
           
           alt=""
