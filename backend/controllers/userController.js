@@ -184,6 +184,15 @@ module.exports.userLogin=async(req,res,next)=>{
       console.log(userData,"oooo");
     if(userData){
       console.log("is present");
+
+      if(userData.isBlocked===true){
+        console.log("njn");
+        res.json({
+          message:"User Blocked",
+          status:401
+        })
+      }
+
       const passwordMatch= bcrypt.compareSync(password,userData.password)
       console.log(passwordMatch);
       

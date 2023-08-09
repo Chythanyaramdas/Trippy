@@ -21,13 +21,18 @@ function Destination() {
     },[])
   return (
     <div>
-      <div>
-
+      <div className=' w-full flex h-28  justify-center items-center'>
+      <h3 className=" z-10  text-3xl text-black font-serif">
+              Explore 
+            </h3>
+            <h1 className=" z-10  text-4xl text-blue-800 font-serif ms-4">
+             Destinations
+            </h1>
       </div>
 
-      <div className="grid grid-cols-3 gap-8  mt-10 ">
+      <div className="grid grid-cols-3 gap-8  mt-10  px-20">
             {destination.map((data) => (
-              <div className="bg-white  flex flex-col shadow-2xl p-4  w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
+              <div className="bg-white  flex flex-col shadow-2xl p-4  w-full max-w-[600px]    mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
                 <figure>
                   <img
                     src={server_url + "images/" + data.image}
@@ -42,7 +47,7 @@ function Destination() {
                   </div>
                 </div>
                     <button
-                    className="btn btn-primary mx-auto"
+                    className="btn btn-primary mx-auto w-60"
                     onClick={()=>navigate(`/destinationResort/${data._id}`)}
                   >
                     View Details

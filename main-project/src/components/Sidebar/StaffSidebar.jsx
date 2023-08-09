@@ -16,12 +16,12 @@ function Sidebar() {
 
           <p className="hidden md:block  ">Resorts</p>
         </div>
-        <div className="h-14 flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"  onClick={() => navigate('/staff/adventureManagement')} >
+        {/* <div className="h-14 flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"  onClick={() => navigate('/staff/adventureManagement')} >
           
           <AiTwotoneHome className="mr-1"/>
 
           <p className="hidden md:block">Adventure</p>
-        </div>
+        </div> */}
 
         <div className="h-14 flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"  onClick={() => navigate('/staff/resorts')} >
           

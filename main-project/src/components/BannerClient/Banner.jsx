@@ -24,7 +24,13 @@ function Banner(){
             
             <div   className=' md:h-auto w-full md:w-full relative h-[70vh]'>
             <img  src={server_url+'images/'+ banner.image} alt="" className='w-full h-[80vh] object-cover relative' />
-                <h3 className='absolute top-1/2 left-1/2 z-10  text-6xl text-white' ></h3>
+
+            <div className=' h-full w-full md:w-full flex  justify-center items-center'>
+
+            <h3 className='z-10  text-6xl text-white font-serif  ps-3 absolute top-96' > Live it. Now</h3>
+
+            </div>
+                
             </div>
         </div>
       )

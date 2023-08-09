@@ -311,8 +311,8 @@ module.exports.Admin_Login=async(req,res,next)=>{
   };
  module.exports.userInfo=async(req,res)=>{
   try {
-
-   const response= await User.find({isBlocked:false}) 
+console.log('dfdfdfdfd');
+   const response= await User.find({}) 
     console.log(response,"USER");
     res.json({
       status:true,
@@ -327,14 +327,44 @@ module.exports.Admin_Login=async(req,res,next)=>{
  }
  module.exports.userAction=async(req,res)=>{
   try {
-    const{ id }=req.params;
-    const responseData=await User.findByIdAndUpdate({_id:id},{isBlocked:true})
-    console.log( responseData,"RD");
-    res.json({
-      status:true,
-      message:"successfully done it",
-      user:responseData
+    const{ id,action }=req.params;
+    console.log(id,action);
+    let data;
+    if(action=="block"){
 
+      data=true;
+
+    }
+
+    else{
+
+      data=false;
+    }
+    
+    // const responseData=await User.findByIdAndUpdate({_id:id},{isBlocked:data})
+    // console.log( responseData,"RD");
+    // res.json({
+    //   status:true,
+    //   message:"successfully done it",
+    //   user:responseData
+
+    // }).catch((error)=>{
+    //   console.log(error.message);
+    // })
+
+    await User.findByIdAndUpdate({_id:id},{isBlocked:data}).then((response)=>{
+      res.json({
+
+        status:true,
+          message:"successfully done it",
+         
+        //   
+
+      })
+      .catch((error)=>{
+
+        console.log(error.message);
+      })
     })
     
   } catch (error) {

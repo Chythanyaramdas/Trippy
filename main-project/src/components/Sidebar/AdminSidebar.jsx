@@ -42,6 +42,13 @@ function AdminSidebar() {
            <MdFastfood className="mr-1"/>
           <p className="hidden md:block"     onClick={()=> navigate('/admin/resortManagement')}>Resort Management</p>
         </div>
+        <div
+          className="h-14 flex items-center justify-center  pl-4 md:justify-start text-sm lg:text-lg cursor-pointer hover:bg-[#FFFFFF]"
+          
+        >
+           <MdFastfood className="mr-1"/>
+          <p className="hidden md:block"     onClick={()=> navigate('/admin/userInfo')}>User Management</p>
+        </div>
       </div>
     );
   }

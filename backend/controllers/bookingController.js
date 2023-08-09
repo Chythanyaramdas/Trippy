@@ -48,6 +48,7 @@ module.exports.searchDate = async (req, res) => {
       $and: [
         { _id: { $nin: resortIds } },
         { "location.district": selectedPlace },
+        {is_delete:false}
       ],
     })
     .populate("location.district");

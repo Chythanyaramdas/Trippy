@@ -266,7 +266,7 @@ const ResortBooking = () => {
             </h2>
 
             <img
-              src={server_url + "images/" + resort.image}
+              src={server_url + "images/" + resort?.image?.[0]}
               alt="Resort"
               className="w-72 h-56"
             />

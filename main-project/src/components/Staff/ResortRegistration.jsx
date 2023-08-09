@@ -289,7 +289,7 @@ useEffect(()=>{
             <span>:</span>
             <p className="mb-4 text-2xl font-bold">
               {/* {" "} */}
-              Resort Registration 
+              Registration 
               {/* {staff?.name + " " } */}
             </p>
           </div>

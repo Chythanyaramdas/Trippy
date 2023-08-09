@@ -309,7 +309,7 @@ const [filteredResorts, setFilteredResorts] = useState([]);
 
         <div className="w-full h-[8.7rem] bg-transparent flex justify-end items-end pe-20 pb-5">
 
-        <button className="bg-blue-600 m-0 w-28 h-10 text-sm" onClick={()=>navigate(`/booking/${resort._id}`)}>click</button>
+        <button className="bg-blue-600 m-0 w-28 h-10 text-sm font-serif" onClick={()=>navigate(`/booking/${resort._id}`)}>Book</button>
         </div>
         
 
@@ -328,7 +328,7 @@ const [filteredResorts, setFilteredResorts] = useState([]);
 
       <div className="w-[50%] h-[100%] flex flex-col gap-5 justify-center items-center ">
      <img src="https://book.zostel.com/static/media/gray-zobu.018014d9.svg" alt="image"  className="w-[80%] h-[60%] m-0"/>
-     <p className=" font-serif text-2xl font-bold">Please Select</p>
+     <p className=" font-serif text-2xl font-serif">Please Select</p>
 
         </div>
       </div>
