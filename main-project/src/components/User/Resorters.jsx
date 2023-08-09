@@ -328,7 +328,7 @@ const [filteredResorts, setFilteredResorts] = useState([]);
 
       <div className="w-[50%] h-[100%] flex flex-col gap-5 justify-center items-center ">
      <img src="https://book.zostel.com/static/media/gray-zobu.018014d9.svg" alt="image"  className="w-[80%] h-[60%] m-0"/>
-     <p className=" font-serif text-2xl font-serif">Please Select</p>
+     <p className=" font-serif text-2xl ">Please Select</p>
 
         </div>
       </div>

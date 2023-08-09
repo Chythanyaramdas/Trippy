@@ -1,6 +1,7 @@
 const express = require('express');
 const staff_route = express.Router();
 const authJWT=require('../middlewares/staffAuth')
+const bookingController=require('../controllers/bookingController')
 
 const multer=require('multer')
 const path=require('path')
@@ -77,6 +78,8 @@ staff_route.post('/resort_ud/:id',upload.array('image',5),resortController.updat
  staff_route.get('/adventureManagement',staffController.adventureManagement);
  staff_route.post('/adventureManagement/:id',upload.single('image'),staffController.addAdventure);
  staff_route.delete('/adventureManagement',staffController.deleteAdventure)
+
+ staff_route.get('/bookingManagement',bookingController.bookingManagement)
 
 
 // staff_route.post('/resortRegister',upload.array('image',10),resortController.resort);

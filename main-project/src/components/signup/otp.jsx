@@ -18,7 +18,7 @@ function Otp() {
 
         const {success,error}=response.data;
         if(success){
-            navigate('/login')
+            navigate('/newPassword')
         }
 
         else{

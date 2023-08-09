@@ -145,3 +145,12 @@ module.exports.checkSingleResort=async(req,res)=>{
     console.log(error.message);
   }
 }
+module.exports.bookingManagement=async(req,res)=>{
+  try {
+
+    
+    
+  } catch (error) {
+    console.log(error.message);
+  }
+}

@@ -12,6 +12,7 @@ dotenv.config()
 const Category=require('../models/categoryModel');
 const resort=require('../models/resortModel')
 const Location = require("../models/locationModel");
+const { Long } = require('mongodb');
 
 const {USER_MAIL,USER_PASSWORD,JWT_SECRET_KEY}=process.env
 
@@ -177,7 +178,7 @@ module.exports.userLogin=async(req,res,next)=>{
 
     const email=req.body.email;
     const password=req.body.password;
-    console.log(email,password);
+    console.log(email,password,"mmkki");
     const userData=await User.findOne({email:email})
     console.log(userData._id);
     console.log("correct");
@@ -240,6 +241,86 @@ console.log("no auth");
   }
 }
 
+
+
+// ================================================forget=====================================
+
+module.exports.resetPasswordOtp=async(req,res)=>{
+  try {
+      const{email}=req.body
+      console.log(req.body,"emmmiiiii");
+      const userData=await User.findOne({email:email})
+      console.log(!!userData,"du");
+       if(userData&&userData.name ){
+
+      var mailOptions = {
+        from: USER_MAIL,
+        to: req.body.email,
+        subject: "Otp for registration is: ",
+        html:
+          "<h3>OTP for account verification is </h3>" +
+          "<h1 style='font-weight:bold;'>" +
+          otp +
+          "</h1>", // html body
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error,"no user ");
+        } else {
+          console.log('success', { otp });
+          res.status(200).json({ status:true, message: 'User Reset up successfully' });
+        }
+      });
+
+    }
+
+    else{
+      console.log('not found');
+      res.status(404).json({
+        status:false,
+        message:"No user"
+      })
+    }
+
+    
+    
+  } catch (error) {
+    res.json({
+      status:false,
+      message:error.message
+    })
+    console.log(error.message);
+    
+  }
+}
+
+// ===================================================newPassword================================
+
+module.exports.newPassword=async(req,res)=>{
+  try {
+
+    const{email,formValues}=req.body
+    console.log(req.body,"FV");
+    
+
+
+      const password=bcrypt.compareSync(password,formValues.password)
+      const data=await User.updateOne({email:email},{
+        $set:{
+          password:password
+        }
+      })
+
+   
+   
+
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+}
 
 // ===================================================LandHome===================================
 
@@ -428,3 +509,4 @@ module.exports.destinationResort=async(req,res)=>{
     
   }
 }
+

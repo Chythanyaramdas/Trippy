@@ -10,6 +10,8 @@ import Checkavaliablitys from"../pages/user/Checkavaliablity";
 import Booking from"../pages/user/ResortBooking";
 import Destinations from '../pages/user/Destination';
 import DestinationResort from '../pages/user/DestinationResort';
+import ResetEmail from '../pages/Admin/ResetEmail';
+import NewPassword from '../pages/user/NewPassword'
 import {ProtectedRoute} from"../ProtectedRoute/userProtected";
 import {HomeVerification} from '../ProtectedRoute/HomeVerification';
 
@@ -20,6 +22,8 @@ const UserRoute=()=>{
             <Route exact path='/register' element={<RegisterPage/>} />
             <Route exact path='/login' element={<LoginPage/>} />
             <Route exact path='/otp' element={<OtpPage/>}/>
+            <Route exact path='/resetPasswordEmail' element={<ResetEmail/>}/>
+            <Route exact path='/newPassword' element={<NewPassword/>}/>
             <Route exact path='/' element={<UserPage/>} />
             <Route exact path='/resort/:id' element={<HomeVerification><ResortPage/></HomeVerification> }/>
             {/* <Route exact path='/categoryPage/:id' element={< ProtectedRoute accessBy = {"non-Authorized"}><CategoryPages/></ProtectedRoute>} /> */}
