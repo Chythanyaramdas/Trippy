@@ -72,6 +72,7 @@ const   UserLogin = () => {
       // }
     } catch (error) {
       console.log(error);
+      alert("User Blocked")
     }
   };
 return (

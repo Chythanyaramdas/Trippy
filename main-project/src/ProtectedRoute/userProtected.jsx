@@ -1,4 +1,4 @@
-import { userLogin} from "../redux/userSlice";
+import { userLogin, userLogout} from "../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserApi } from "../utils/user/axiosUser";
@@ -55,7 +55,16 @@ export const ProtectedRoute = ({ children, accessBy }) => {
               setLoading(false)
               // navigate('/')
             }
-          });
+          }).catch((err)=>{
+            alert("jjj")
+            const expires=localStorage.removeItem('userToken')
+            console.log(expires);
+            
+            dispatch(userLogout())
+
+            navigate('/login')
+            
+          })
           // window.location.href = '/'
         }}
     }

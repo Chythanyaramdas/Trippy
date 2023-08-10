@@ -24,7 +24,7 @@ const UserRoute=()=>{
             <Route exact path='/otp' element={<OtpPage/>}/>
             <Route exact path='/resetPasswordEmail' element={<ResetEmail/>}/>
             <Route exact path='/newPassword' element={<NewPassword/>}/>
-            <Route exact path='/' element={<UserPage/>} />
+            <Route exact path='/' element={<HomeVerification><UserPage/></HomeVerification>} />
             <Route exact path='/resort/:id' element={<HomeVerification><ResortPage/></HomeVerification> }/>
             {/* <Route exact path='/categoryPage/:id' element={< ProtectedRoute accessBy = {"non-Authorized"}><CategoryPages/></ProtectedRoute>} /> */}
             <Route exact path='/categoryPage/:id' element={ <HomeVerification><CategoryPages/></HomeVerification>}/>

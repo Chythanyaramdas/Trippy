@@ -12,6 +12,7 @@ dotenv.config();
 const Category = require("../models/categoryModel");
 const resort = require("../models/resortModel");
 const Location = require("../models/locationModel");
+const booked=require("../models/bookingModel")
 const { Long } = require("mongodb");
 
 const { USER_MAIL, USER_PASSWORD, JWT_SECRET_KEY } = process.env;
@@ -179,9 +180,9 @@ module.exports.userLogin = async (req, res, next) => {
 
       if (userData.isBlocked === true) {
         console.log("njn");
-        res.json({
+        res.status(401).json({
           message: "User Blocked",
-          status: 401,
+           
         });
       }
 
@@ -381,10 +382,12 @@ module.exports.resortPage = async (req, res) => {
     // const{ id }=req.params;
     const id = req.query.id;
     console.log("sahrdya");
-    await resort
+    const resortData=await resort
       .findOne({ $and: [{ _id: id }, { verify: true }] })
       .populate({ path: "location", populate: "district" })
-      .then((response) => {
+     const bookedData=await booked.find({resortId:id})
+     console.log(bookedData,"BD");
+      
         // const districtId=response.location.district
         // console.log(districtId);
         // const district=await Location.findById({_id:districtId})
@@ -393,10 +396,12 @@ module.exports.resortPage = async (req, res) => {
         res.json({
           status: true,
           message: "successfully done",
-          resort: response,
+          resort: resortData,
+          booked:bookedData
+
         });
         //
-      });
+      
   } catch (error) {
     console.log(error.message);
   }

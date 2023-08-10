@@ -23,6 +23,21 @@ function Resorters() {
 const [checkOutDate, setCheckOutDate] = useState(null);
 const [selectedPlace, setSelectedPlace] = useState("");
 const [filteredResorts, setFilteredResorts] = useState([]);
+const[booked,setBooked]=useState([])
+const [allDates,setallDates] = useState([])
+const [newstate,setNewState] = useState(false)
+const handlebookedDate =()=>{
+  let newDates = booked.map(booking=>{
+      let dates=[]
+      let inStamp = new Date(booking.fromDate).getTime()
+      let outStamp = new Date(booking.toDate).getTime()
+      for(let i = inStamp;i<= outStamp;i+24*60*60*1000){
+        dates.push(new Date(i))
+      }
+      return dates
+    } )
+    console.log(newDates,'----sdsdsdsdsdsdsdsdsdsdsdsd-------');
+}
 
   useEffect(() => {
     if (id) {
@@ -46,15 +61,30 @@ const [filteredResorts, setFilteredResorts] = useState([]);
           // above befer error   ...response.data.resort[0]?.image?.map((image, index) => ({
           console.log("arunn");
           // console.log(response.data.resort[0],"answer");
-          console.log(response.data.resort);
+          console.log(response.data.booked,'-----------');
           setResort({ ...response.data.resort });
           console.log(setResort, "tree hut");
+          setBooked([...response.data.booked])
+
+          let newDates = response.data.booked.map(booking=>{
+            let dates=[]
+            let inStamp = new Date(booking.fromDate).getTime()
+            let outStamp = new Date(booking.toDate).getTime()
+            for(let i = inStamp;i<= outStamp;i+=24*60*60*1000){
+              dates.push(new Date(i).toLocaleString())
+            }
+            // console.log('-------dates--',dates);
+            return dates
+          } )
+          console.log(newDates.flat(),'--------sdsdsdsdsd---');
+          setallDates([...newDates.flat()])
+          
         }
       });
     }
   }, [id]);
 
-
+console.log('----allDates---',allDates);
   const handleCheckInDateChange = (date) => {
     alert(date)
     setCheckInDate(date);
@@ -278,6 +308,8 @@ const [filteredResorts, setFilteredResorts] = useState([]);
               placeholderText="Check-in"
               className="w-64 h-10 max-w-xs bg-slate-300"
               minDate={today}
+              excludeDates={allDates?.map((date)=> new Date(date))}
+
             />
           </div>
 

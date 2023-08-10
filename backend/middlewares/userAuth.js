@@ -6,6 +6,7 @@ dotenv.config()
 
 console.log(process.env.JWT_SECRET_KEY,"jjjjjsssss");
 const User=require("../models/userModel");
+const { Error } = require("mongoose");
 
 const clientJwt=async(req,res,next)=>{
     try{
@@ -26,6 +27,7 @@ const clientJwt=async(req,res,next)=>{
                 throw new Error("Authentication failed: User not found");
 
             }
+            if(user.isBlocked===true)throw new Error("User blocked")
 
             req.user=user;
             next();
