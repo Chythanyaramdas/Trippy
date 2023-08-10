@@ -10,7 +10,9 @@ user_route.post('/register', userControllerRegistration.signup);
 user_route.post('/verify_otp',userControllerRegistration.verification)
 user_route.post('/userLogin',userControllerRegistration.userLogin)
 user_route.post('/resetPasswordOtp',userControllerRegistration.resetPasswordOtp)
+user_route.post('/verifiyNewPassword',userControllerRegistration.verifyNewPassword)
 user_route.post('/newPassword',userControllerRegistration.newPassword)
+
 user_route.get('/token_v',authJWT,userControllerRegistration.authUser)
 
 user_route.get('/singlePage',userControllerRegistration.resortPage)

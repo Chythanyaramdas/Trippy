@@ -15,7 +15,17 @@ const dotenv=require("dotenv");
 const { ObjectId } = require('mongodb');
 dotenv.config()
 
+const { USER_MAIL, USER_PASSWORD, JWT_SECRET_KEY } = process.env;
 
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  service: "gmail",
+  auth: {
+    user: config.emailUser,
+    pass: config.emailPassword,
+  },
+});
 
 module.exports.Admin_Login=async(req,res,next)=>{
     console.log("Staffil ethiii");
@@ -249,6 +259,56 @@ module.exports.Admin_Login=async(req,res,next)=>{
           console.log(err.message);
         });
       });
+      
+    } catch (error) {
+
+      console.log(error.message);
+      
+    }
+  }
+
+  module.exports.resortReject=async(req,res)=>{
+    try {
+
+
+
+      const{reject}=req.params;
+      const reason=req.body.reason
+      console.log(reason,"reee");
+      console.log(req.params,"reject");
+
+      const staffEmail=await Resort.findById({_id:reject}).populate('resortowner')
+
+      var mailOptions = {
+        from:USER_MAIL,
+        to: staffEmail.resortowner.email,
+        subject: "Otp for registration is: ",
+        html:
+          
+        `<h1>${reason}</h1>`
+          
+          // html body
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("success");
+          res.json({
+            status:true,
+            message:"success"
+  
+          })
+        }
+      })
+
+
+      
+
+     
+      
+      
+    
       
     } catch (error) {
 

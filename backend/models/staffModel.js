@@ -51,7 +51,13 @@ status:{
 
     type:String,
     default:"unbanned"
-}
+},
+notification:[{
+
+    message:{
+        type:String
+    }
+}]
 },{
     timestamps:true
 },);

@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Validation from "../../helper/LoginValidation";
 import { UserApi } from '../../utils/user/axiosUser';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -17,11 +18,14 @@ const [formError, setformError] = useState({});
   const [submit, setSubmit] = useState(false);
 const[email,setEmail]=useState('')
 const[otp,setOtp]=useState('')
+const navigate=useNavigate()
+
+
 const handlePassword=(e)=>{
 
-    const{name,value}=e.target.value
-
-    setFormValues((pre)=>{
+    const{name,value}=e.target
+   
+      setFormValues((pre)=>{
 
         return {...pre,[name]:value}
 
@@ -33,6 +37,7 @@ const handlePassword=(e)=>{
     const handleSubmit=async(e)=>{
 
         e.preventDefault();
+        console.log(formValues)
         setformError(Validation(formValues, "NewPassword"));
         setSubmit(true);
         setEmail(localStorage.getItem('email'))
@@ -44,22 +49,24 @@ const handlePassword=(e)=>{
         let interValId;
         if (Object.keys(formError).length === 0 && submit) {
 
+          console.log({...formValues,email});
           UserApi
             .post("/newPassword", {
-              ...formValues,
+             password : formValues.password,
              email,
-             
-
             })
 
             .then((response) => {
               if (response.data.status) {
-                setOtp(true);
+
+                navigate('/login')
+                // setOtp(true);
                 // setOtp(!otp);
                 // setId(response.data.id)
                 // interValId = setInterval(() => {
                 //   setTimer((preTime) => preTime - 1);
                 // }, 1000);
+
               }
             })
             .catch((error) => {
@@ -87,9 +94,10 @@ const handlePassword=(e)=>{
           <input
             type="password"
             name="password"
-            className="form-control"
+            className="form-control w-60"
             id="password"
-            required=""
+            value={formValues.password}
+            required
             onChange={handlePassword}
            
           />
@@ -104,9 +112,10 @@ const handlePassword=(e)=>{
           <input
             type="password"
             name="confirmPassword"
-            className="form-control"
+            className="form-control w-60"
             id="confirmPassword"
-            required=""
+            value={formValues.confirmPassword}
+            required
             onChange={handlePassword}
           />
           {formError.confirmPassword && (
@@ -117,7 +126,7 @@ const handlePassword=(e)=>{
           <input
             type="submit"
             defaultValue="submitData"
-            className="btn btn-dark form-control"
+            className="btn btn-dark form-control w-60"
           />
         </div>
       </form>
@@ -128,4 +137,4 @@ const handlePassword=(e)=>{
   )
 }
 
-export default NewPassword
+export default NewPassword;

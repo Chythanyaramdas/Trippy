@@ -98,11 +98,12 @@ const UserRegister = () => {
     UserApi.post("/verify_otp", { ...formVlues, result }).then((response) => {
       console.log(response);
       if (response.data.message === "Authenticated") {
+
         navigate("/login");
       } else {
         console.log("invalid otp");
       }
-    });
+    })
   };
 
   const handleChange=(e)=>{
@@ -133,9 +134,10 @@ const UserRegister = () => {
             // }, 1000);
           }
         })
-        .catch((error) => {
-          console.log(error.message);
-        });
+        .catch((error)=>{
+      console.log('error');
+      alert('Already existed')
+    })
     }
 
     return () => {

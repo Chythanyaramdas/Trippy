@@ -50,7 +50,7 @@ export default function validation(values, page) {
     }
 
     else if(page=='NewPassword'){
-            error={password:"Password Required",confirmPassword:"Confirm Password Required"}
+            // error={password:"Password Required",confirmPassword:"Confirm Password Required"}
             
         if (values.password.trim() == "") {
             error.password = "Password Required";

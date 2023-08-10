@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import {userOtp} from'../../services/userApi';
 import { Link,useNavigate } from 'react-router-dom'
+import { UserApi } from '../../utils/user/axiosUser';
 
 function Otp() {
     const navigate = useNavigate()
@@ -19,12 +20,13 @@ function Otp() {
 
   const submitHandle = (e) => {
   
+    setOtp(''+otp1+otp2+otp3+otp4+otp5+otp6)
 
-    userOtp(otp)
+   UserApi.post('/verifiyNewPassword',{otp})
     .then((response)=>{
 
         const {success,error}=response.data;
-        if(success){
+        if(response.data.status){
             navigate('/newPassword')
         }
 

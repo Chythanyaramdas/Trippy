@@ -1,29 +1,28 @@
-const bcrypt = require('bcryptjs');
-const User = require('../models/userModel');
-const banner=require('../models/bannerModel');
+const bcrypt = require("bcryptjs");
+const User = require("../models/userModel");
+const banner = require("../models/bannerModel");
 const nodemailer = require("nodemailer");
-const config=require('../config/config');
-const randormstring=require("randomstring");
-const express=require("express");
-const session=require("express-session");
-const jwt=require('jsonwebtoken');
-const dotenv =require("dotenv")
-dotenv.config()
-const Category=require('../models/categoryModel');
-const resort=require('../models/resortModel')
+const config = require("../config/config");
+const randormstring = require("randomstring");
+const express = require("express");
+const session = require("express-session");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
+const Category = require("../models/categoryModel");
+const resort = require("../models/resortModel");
 const Location = require("../models/locationModel");
-const { Long } = require('mongodb');
+const { Long } = require("mongodb");
 
-const {USER_MAIL,USER_PASSWORD,JWT_SECRET_KEY}=process.env
-
+const { USER_MAIL, USER_PASSWORD, JWT_SECRET_KEY } = process.env;
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: config.emailUser,
-    pass: config.emailPassword
+    pass: config.emailPassword,
   },
 });
 const min = 100000; // Minimum 6-digit number
@@ -32,12 +31,9 @@ var otp = Math.floor(Math.random() * (max - min + 1)) + min;
 // = Math.random()* 1000000;
 // otp = parseInt(otp);
 
-
-
 // ==================================otp===================
 
-exports.otp=async(req,res,next)=>{
-
+exports.otp = async (req, res, next) => {
   try {
     console.log("haiiiiii", req.body);
     // req.session.name = req.body.name;
@@ -66,14 +62,13 @@ exports.otp=async(req,res,next)=>{
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.log(error);
-        }else{
-          console.log('success',{otp});
-
+        } else {
+          console.log("success", { otp });
         }
         // res.render("otppage", { status: "false" });
       });
     } else {
-      console.log('exit');
+      console.log("exit");
       // res.render("home", { status: "true" });
       // res.redirect('/home')
     }
@@ -83,10 +78,7 @@ exports.otp=async(req,res,next)=>{
   }
 };
 
-
-
 // ===========================================================================
-
 
 exports.signup = async (req, res) => {
   console.log("gghghghg");
@@ -98,9 +90,9 @@ exports.signup = async (req, res) => {
     // Check if the email is already taken
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'Email already exists' });
+      console.log('already exit');
+      res.status(400).json({ message: "Email already exists" });
     } else {
-     
       var mailOptions = {
         from: USER_MAIL,
         to: req.body.email,
@@ -115,51 +107,51 @@ exports.signup = async (req, res) => {
         if (error) {
           console.log(error);
         } else {
-          console.log('success', { otp });
+          console.log("success", { otp });
         }
       });
 
       req.session.password = password;
-      req.session.email=email;
-      req.session.name=name;
-      req.session.phone=phone
+      req.session.email = email;
+      req.session.name = name;
+      req.session.phone = phone;
 
-      
-
-      res.status(200).json({ status:true, message: 'User signed up successfully' });
+      res
+        .status(200)
+        .json({ status: true, message: "User signed up successfully" });
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: error.message })
   }
 };
 
 exports.verification = async (req, res) => {
   console.log("veriiii");
   try {
-    console.log(req.body,"body is here");
+    console.log(req.body, "body is here");
     req.session.otp = req.body.numberOpt;
     console.log(req.body.result, "Entered otp");
     console.log(otp, "otp send");
 
-    if (otp ==req.body.result) {
+    if (otp == req.body.result) {
       console.log("iff");
       req.session.password = req.body.password;
       let hashedPassword = await bcrypt.hash(req.body.password, 10);
       let newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        mobileNumber:req.body.phone,
+        mobileNumber: req.body.phone,
         password: hashedPassword,
       });
 
-      console.log(newUser,"userDatas");
-     newUser.save().then((data) => {
+      console.log(newUser, "userDatas");
+      newUser.save().then((data) => {
         console.log(data, "oooo");
         // req.session.useremail = req.session.email;
         // req.session.userlogged = true;
         // req.session.user = newUser;
-        res.status(200).json({ message:'Authenticated'})
+        res.status(200).json({ message: "Authenticated" });
       });
     } else {
       console.log("invalid otp page");
@@ -169,90 +161,74 @@ exports.verification = async (req, res) => {
   }
 };
 // ==================================== user login========================================
-module.exports.userLogin=async(req,res,next)=>{
+module.exports.userLogin = async (req, res, next) => {
   // console.log("Staffil ethiii");
 
   console.log("userlogin isss");
 
-   try{
-
-    const email=req.body.email;
-    const password=req.body.password;
-    console.log(email,password,"mmkki");
-    const userData=await User.findOne({email:email})
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    console.log(email, password, "mmkki");
+    const userData = await User.findOne({ email: email });
     console.log(userData._id);
     console.log("correct");
-      console.log(userData,"oooo");
-    if(userData){
+    console.log(userData, "oooo");
+    if (userData) {
       console.log("is present");
 
-      if(userData.isBlocked===true){
+      if (userData.isBlocked === true) {
         console.log("njn");
         res.json({
-          message:"User Blocked",
-          status:401
-        })
+          message: "User Blocked",
+          status: 401,
+        });
       }
 
-      const passwordMatch= bcrypt.compareSync(password,userData.password)
+      const passwordMatch = bcrypt.compareSync(password, userData.password);
       console.log(passwordMatch);
-      
-      if(passwordMatch){
-        console.log(JWT_SECRET_KEY,"kkkk");
-        const token=jwt.sign({userId:userData._id,role:"client"},process.env.JWT_SECRET_KEY,{expiresIn:30000})
-        console.log(token,"token");
-       
-        res.status(200).json({token:token,message:"success token",user:userData})
 
+      if (passwordMatch) {
+        console.log(JWT_SECRET_KEY, "kkkk");
+        const token = jwt.sign(
+          { userId: userData._id, role: "client" },
+          process.env.JWT_SECRET_KEY,
+          { expiresIn: 30000 }
+        );
+        console.log(token, "token");
+
+        res
+          .status(200)
+          .json({ token: token, message: "success token", user: userData });
+      } else {
+        res.status(401).json({ message: "invalid password" });
       }
-      
-
-      else{
-
-        res.status(401).json({message:"invalid password"})
-      }
+    } else {
+      console.log("pottiii");
+      res.status(404).json({ message: "user not found" });
     }
-      else{
-        console.log("pottiii");
-        res.status(404).json({message:"user not found"})
-
-
-      }
-
-    }
-
-   
-   catch(error){
-
-    res.status(500).json({message:'Internal server error'})
-
-   }
-}
-
-module.exports.authUser=async(req,res)=>{
-
-  try{
-    res.json({ status: true, user: req.user});
-
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
   }
-  catch(error){
-console.log("no auth");
+};
 
+module.exports.authUser = async (req, res) => {
+  try {
+    res.json({ status: true, user: req.user });
+  } catch (error) {
+    console.log("no auth");
   }
-}
-
-
+};
 
 // ================================================forget=====================================
 
-module.exports.resetPasswordOtp=async(req,res)=>{
+module.exports.resetPasswordOtp = async (req, res) => {
   try {
-      const{email}=req.body
-      console.log(req.body,"emmmiiiii");
-      const userData=await User.findOne({email:email})
-      console.log(!!userData,"du");
-       if(userData&&userData.name ){
-
+    const { email } = req.body;
+    console.log(req.body, "emmmiiiii");
+    const userData = await User.findOne({ email: email });
+    console.log(!!userData, "du");
+    if (userData && userData.name) {
       var mailOptions = {
         from: USER_MAIL,
         to: req.body.email,
@@ -265,97 +241,110 @@ module.exports.resetPasswordOtp=async(req,res)=>{
       };
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          console.log(error,"no user ");
+          console.log(error, "no user ");
         } else {
-          console.log('success', { otp });
-          res.status(200).json({ status:true, message: 'User Reset up successfully' });
+          console.log("success", { otp });
+          res
+            .status(200)
+            .json({ status: true, message: "User Reset up successfully" });
         }
       });
+    } else {
+      console.log("not found");
+      res.status(404).json({
+        status: false,
+        message: "No user",
+      });
+    }
+  } catch (error) {
+    res.json({
+      status: false,
+      message: error.message,
+    });
+    console.log(error.message);
+  }
+};
+// ===================================================password Verification=====================
 
+module.exports.verifyNewPassword = async (req, res) => {
+  try {
+    console.log(otp, "global otp");
+    let result = JSON.parse(otp);
+    console.log("resultzzzz");
+    if (otp === result) {
+      console.log("success");
+      res.json({
+        status:true,
+        message:"successfully done it"
+      });
     }
 
     else{
-      console.log('not found');
-      res.status(404).json({
+      res.json({
         status:false,
-        message:"No user"
-      })
+        message:"failed"
+      });
+    
+
     }
-
-    
-    
   } catch (error) {
-    res.json({
-      status:false,
-      message:error.message
-    })
     console.log(error.message);
-    
   }
-}
-
+};
 // ===================================================newPassword================================
 
-module.exports.newPassword=async(req,res)=>{
+module.exports.newPassword = async (req, res) => {
   try {
-
-    const{email,formValues}=req.body
-    console.log(req.body,"FV");
+    const { email, password } = req.body;
     
-
-
-      const password=bcrypt.compareSync(password,formValues.password)
-      const data=await User.updateOne({email:email},{
-        $set:{
-          password:password
-        }
-      })
-
-   
-   
-
-    
+    // console.log(formValues.password);
+    const hashPassword = await bcrypt.hash(password,10);
+    const data = await User.updateOne(
+      { email: email },
+     {
+        $set: {
+          password: hashPassword,
+        },
+      }
+    );
+    res.json({
+      status:true,
+      message:"success completed"
+    })
   } catch (error) {
-
     console.log(error.message);
-    
   }
-}
+};
 
 // ===================================================LandHome===================================
 
-module.exports.landPage=async(req,res)=>{
+module.exports.landPage = async (req, res) => {
+  try {
+    const bannerData = await banner.find({ is_delete: false });
+    const categoryData = await Category.find({ is_delete: false });
+    const resortData = await resort.find({
+      is_delete: false,
+      verify: true,
+      is_blocked: false,
+    });
 
-  try{
-
-    const bannerData = await banner.find({is_delete:false})
-    const categoryData=await Category.find({is_delete:false})
-    const resortData=await resort.find({is_delete:false, verify:true,is_blocked:false})
-    
     res.json({
-      banners:bannerData,
-      status:true,
-      category:categoryData,
-      resort:resortData
-
-    })
-  }
-  catch(error){
-
+      banners: bannerData,
+      status: true,
+      category: categoryData,
+      resort: resortData,
+    });
+  } catch (error) {
     console.log(error.message);
   }
-}
-module.exports.auth=async(req,res)=>{
-  try{
-
+};
+module.exports.auth = async (req, res) => {
+  try {
     console.log("Augustine");
-
-  }
-
-  catch(error){
+  } catch (error) {
     console.log(error.message);
   }
-}
+};
 
 // module.exports.resortPage=async(req,res)=>{
 //   try {
@@ -374,139 +363,124 @@ module.exports.auth=async(req,res)=>{
 //       message:"successfully done",
 //       resort:response,
 
-
 //     })
 //     .catch((err)=>{
 //       console.log(err.message);
 //     });
 //    });
 
-    
 //   } catch (error) {
 
 //     console.log(error.message);
-    
+
 //   }
 // }
 
-
-module.exports.resortPage=async(req,res)=>{
+module.exports.resortPage = async (req, res) => {
   try {
-
     // const{ id }=req.params;
-    const id=req.query.id;
+    const id = req.query.id;
     console.log("sahrdya");
-   await resort.findOne({$and:[{_id:id},{verify:true}]}).populate({path:'location',populate:'district'}).then((response)=>{
-    // const districtId=response.location.district
-    // console.log(districtId);
-    // const district=await Location.findById({_id:districtId})
-    // console.log(district,"the dis");
-    // console.log(response,"responn");
-    res.json({
-      status:true,
-      message:"successfully done",
-      resort:response,
-
-
-    })
-  //   
-   })
-
-    
+    await resort
+      .findOne({ $and: [{ _id: id }, { verify: true }] })
+      .populate({ path: "location", populate: "district" })
+      .then((response) => {
+        // const districtId=response.location.district
+        // console.log(districtId);
+        // const district=await Location.findById({_id:districtId})
+        // console.log(district,"the dis");
+        // console.log(response,"responn");
+        res.json({
+          status: true,
+          message: "successfully done",
+          resort: response,
+        });
+        //
+      });
   } catch (error) {
-
     console.log(error.message);
-    
   }
-}
+};
 
-
-module.exports.categoryPage=async(req,res)=>{
-
-try {
-
-
-  const id=req.params.id;
-  console.log(id);
-  console.log("params come");
-  await resort.find({$and:[{verify:true},{is_delete:false},{category:id}]}).then((response)=>{
-    console.log(response,"rp");
-    res.json({
-
-      status:true,
-      message:"successfully done it",
-      category:response
-    })
-
-  })
-
-  
-  
-} catch (error) {
-
-  console.log(error.message);
-  
-}
-
-}
-
-module.exports.staylocation=async(req,res)=>{
+module.exports.categoryPage = async (req, res) => {
   try {
-
-    const placeData=await Location.find({is_delete:false})
-    const recordData=await resort.find({is_delete:false,verify:true}).populate('location.district')
-    console.log(recordData,"RDD");
-
-    res.json({
-
-      status:true,
-      message:"successfully  done it",
-      place:placeData,
-      record:recordData
-    })
-    
+    const id = req.params.id;
+    console.log(id);
+    console.log("params come");
+    await resort
+      .find({
+        $and: [{ verify: true }, { is_delete: false }, { category: id }],
+      })
+      .then((response) => {
+        console.log(response, "rp");
+        res.json({
+          status: true,
+          message: "successfully done it",
+          category: response,
+        });
+      });
   } catch (error) {
-
     console.log(error.message);
-    
   }
-}
+};
 
-module.exports.destinationPage=async(req,res)=>{
+module.exports.staylocation = async (req, res) => {
   try {
-    const destinationData=await Location.find({is_delete:false})
-    console.log(destinationData,"DD");
+    const placeData = await Location.find({ is_delete: false });
+    const recordData = await resort
+      .find({ is_delete: false, verify: true })
+      .populate("location.district");
+    console.log(recordData, "RDD");
+
     res.json({
-      status:true,
-      message:"successfully  done it",
-      destination:destinationData
-    })
-    
+      status: true,
+      message: "successfully  done it",
+      place: placeData,
+      record: recordData,
+    });
   } catch (error) {
     console.log(error.message);
-    
   }
-}
-module.exports.destinationResort=async(req,res)=>{
+};
+
+module.exports.destinationPage = async (req, res) => {
   try {
-    const id=req.params.id
-    console.log(id,"params");
-
-    const resortData=await resort.find({$and:[{'location.district':id},{verify:true},{is_delete:false},{is_blocked:false}]}).populate('location.district')
-    const locationData=await Location.findOne({_id:id,is_delete:false})
-    console.log(resortData,"RD");
-    console.log(locationData,"ld");
+    const destinationData = await Location.find({ is_delete: false });
+    console.log(destinationData, "DD");
     res.json({
-      status:true,
-      message:"successfully done",
-      resort:resortData,
-      location:locationData
-    })
-    
+      status: true,
+      message: "successfully  done it",
+      destination: destinationData,
+    });
   } catch (error) {
-
     console.log(error.message);
-    
   }
-}
+};
+module.exports.destinationResort = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id, "params");
 
+    const resortData = await resort
+      .find({
+        $and: [
+          { "location.district": id },
+          { verify: true },
+          { is_delete: false },
+          { is_blocked: false },
+        ],
+      })
+      .populate("location.district");
+    const locationData = await Location.findOne({ _id: id, is_delete: false });
+    console.log(resortData, "RD");
+    console.log(locationData, "ld");
+    res.json({
+      status: true,
+      message: "successfully done",
+      resort: resortData,
+      location: locationData,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

@@ -53,6 +53,7 @@ admin_route.post('/location_ud/:id',upload.single('image'),locationController.up
 
 admin_route.get('/resortApplications',adminController.resortList)
 admin_route.post('/resortRegister/:id',adminController.resortApproval)
+admin_route.post('/resortRegisterReject/:reject',adminController.resortReject)
 admin_route.get('/resortDetails',adminController.resortDetails)
 admin_route.get('/resortList',resortController.resortManagement)
 admin_route.get('/singleResort',resortController.singleResort)
