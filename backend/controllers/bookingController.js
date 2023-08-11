@@ -1,6 +1,11 @@
 const book = require("../models/bookingModel");
 const resort = require("../models/resortModel");
 const { checkout } = require("../routers/Route");
+const dotenv = require("dotenv");
+dotenv.config();
+const{STRIPE_KEY}=process.env;
+
+const stripe = require('stripe')(STRIPE_KEY)
 
 module.exports.searchDate = async (req, res) => {
   const { selectedPlace, checkInDate, checkOutDate } = req.body;
@@ -148,9 +153,135 @@ module.exports.checkSingleResort=async(req,res)=>{
 module.exports.bookingManagement=async(req,res)=>{
   try {
 
-    
+    const bookedData=await book.find({status:"booked"}).populate('resortId')
+    console.log(bookedData);
+res.json({
+  status:true,
+  message:"sucessfully done it ",
+  book:bookedData
+
+})
     
   } catch (error) {
     console.log(error.message);
+  }
+}
+module.exports.paymentStripe=async(req,res)=>{
+  try {
+    const{resortId}=req.body
+    console.log(resortId,"RID");
+    const resortData=await resort.findById({_id:resortId})
+    console.log(resortData,"RD");
+    let resortPrice = resortData.price
+    console.log(resortPrice);
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price_data: {
+            currency: 'INR',
+            product_data: {
+              name: `${resortData.resortname}`,
+            },
+            unit_amount: resortPrice ,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `http://localhost:3000/successPage?session_id={CHECKOUT_SESSION_ID}&resortId=${resortData._id}`,
+      cancel_url: 'http://localhost:3000/cancel',
+    });
+    
+    res.json({
+      status:true,
+      url:session.url
+    })
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+}
+module.exports.paymentSuccess=async(req,res)=>{
+  try {
+
+    const { paymentId,resortId,users,checkInDate,checkOutDate } = req.body;
+    console.log(req.body,"RB");
+    const paymentChecking = await stripe.checkout.sessions.retrieve(paymentId);
+    console.log(paymentChecking);
+    console.log(paymentChecking.payment_status);
+    const data=await resort.findById({_id:resortId})
+    console.log(data,"RDATA");
+  
+    if( paymentChecking.payment_status==='paid' ){
+
+      let Booking = new book({
+        resortId: resortId,
+        userId: users,
+        fromDate: checkInDate,
+        toDate: checkOutDate,
+        payment: {
+          payment_amount: data.price,
+          payment_method: 'Online',
+        },
+      });
+      await Booking.save();
+      res.json({
+        status:true,
+        message:"successfull"
+      })
+      console.log(Booking, "BOX");
+
+
+    }
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+}
+module.exports.paymentHistory=async(req,res)=>{
+  try {
+
+    const users=req.params.id
+    console.log(req.params,"urd");
+    console.log(users,"urs");
+
+    const bookedHistory=await book.find({userId:users}).populate({ path: "resortId", populate: "location.district" })
+    console.log(bookedHistory[0].resortId.location.district,"bH");
+    res.json({
+      status:true,
+      message:"successfully done it",
+      booked:bookedHistory
+
+    })
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+}
+module.exports.cancelBooking=async(req,res)=>{
+  try {
+
+    const id=req.params.id;
+    console.log(id,"idzzz");
+    const cancelData=await book.findByIdAndUpdate({_id:id}, {
+      $set: {
+        status:"cancelled"
+      },
+    })
+    res.json({
+      status:true,
+      message:"Successfully Cancelled",
+      cancel:cancelData
+    })
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
   }
 }

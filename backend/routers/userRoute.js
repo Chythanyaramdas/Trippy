@@ -24,7 +24,13 @@ user_route.get('/resortInfo',userControllerRegistration.staylocation)
 user_route.post('/search',bookingController.searchDate)
 user_route.get('/booking/:id',bookingController.getBookedResort)
 user_route.post('/payment',bookingController.payment)
+user_route.post('/create-checkout-session',bookingController.paymentStripe)
+user_route.post('/payment-succes',bookingController.paymentSuccess)
+user_route.get('/myBooking/:id',bookingController.paymentHistory)
 user_route.get('/searchSingleResort/:checkInDate/:checkOutDate/:resort_id',bookingController.checkSingleResort)
+
+user_route.get('/cancelBooking/:id',bookingController.cancelBooking)
+
 
 
 module.exports = user_route;

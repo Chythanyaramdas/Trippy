@@ -9,12 +9,13 @@ function ResortRegistration() {
     const{id}=useContext(staffContext);
     console.log(id,"id");
 
-   const[adventure,setAdventure]=useState([{}]);
+   const[services,setServices]=useState([{}]);
    const[place,setPlace]=useState([{}])
   //  const[address,setAddress]=useState({})
    const[location,setLocation]=useState({})
    const[store,setStore]=useState([{}])
    const[filter,setFilter]=useState({})
+   const[added,setAdded]=useState('')
 
     const[images,setImage]=useState("");
      const[imager,setImager]=React.useState(false)
@@ -30,6 +31,7 @@ const initialValues={
     price:"",
      image:[],
     //  image:[],
+    services:[],
     place:"",
     phone:"",
     category:"",
@@ -41,7 +43,9 @@ const[formValues,setFormValues]=useState(initialValues);
 const inputChange=(e)=>{
     const{name,value}=e.target;
 
-    setFormValues({...formValues,[name]:value});
+    setFormValues(pre=>{
+      return {...pre,[name]:[value]}
+    });
     console.log(formValues);
 
 };
@@ -80,19 +84,33 @@ const filterFinding=(e)=>{
 
 
 const addMore=()=>{
-    setAdventure([...adventure,{}]);
+    setServices([...services,""]);
 };
+
+
+const add=()=>{
+
+
+setFormValues(prev=>{
+
+ return {...prev,['services']:[...prev['services'],added]}
+})
+setAdded("")
+;
+
+}
+
 // ==================================================
+// array
+// const onChangeAdventure=(e,index)=>{
+//     const{name,value}=e.target;
+//     const adv=[...adventure];
+//     adv[index][name]=value;
+//     setAdventure([...adv]);
+//     console.log(setAdventure);
+    
 
-const onChangeAdventure=(e,index)=>{
-    const{name,value}=e.target;
-    const adv=[...adventure];
-    adv[index][name]=value;
-    setAdventure([...adv]);
-    console.log(setAdventure);
-    // array
-
-};
+// };
 // ==================================================
 
 // const imageChange = (e)=>{
@@ -177,8 +195,8 @@ const handleSubmit = () => {
   for(const img of formValues.image){
     form.append("image",img)
   }
-   form.append('adventure',JSON.stringify(adventure))
-  console.log(JSON.stringify(formValues));
+  //  form.append('adventure',JSON.stringify(adventure))
+  // console.log(JSON.stringify(formValues));
   
   console.log(form.get("image"));
   StaffApi.post('/resortRegister', form,{headers:{
@@ -449,6 +467,59 @@ useEffect(()=>{
             />
           </div>
 
+          <div>
+            <div>
+              <h2 className="mb-4 underline underline-offset-8" >Services</h2>
+            </div>
+
+
+            {/* <div className="grid grid-cols-3">
+            <label htmlFor="">Field</label>
+            <input
+              type="number"
+              onChange={(e) => inputChange(e)}
+              value={formValues.field1}
+              name="Age"
+              className="border-2 p-1 mb-2 "
+            />
+          </div> */}
+
+              <div>
+          
+                <div  className="flex " >
+                  <div className="">
+                    <label htmlFor="">Name <span className="text-red-600">*</span></label>
+                    <input
+                      type="text"
+                      name="services"
+                      onChange={(e) =>setAdded(e.target.value) }
+                      className="border-2 p-1 mb-2 w-60 "
+                      value={added}
+                    />
+                  </div>
+
+                  
+                  
+
+
+                 
+
+       
+
+
+
+                </div>
+            
+          </div> 
+
+
+
+          {/* <button onClick={addMore} className="bg-lime-500 p-2" >Add More</button> */}
+          <button onClick={add}>Add</button>
+          
+            </div>
+           
+
           {/* <div className="grid grid-cols-3">
             <label htmlFor="">Age</label>
             <input
@@ -555,7 +626,9 @@ useEffect(()=>{
         {/* <button onClick={addMore} className="bg-lime-500 p-2" >Add More</button> */}
 
         </div>
-        
+        <div>{formValues.services.map((service)=>{
+          return <p>{service}</p>
+        })}</div>
       </div>
       <div className="w-full flex justify-center ">
       <button onClick={handleSubmit} className="bg-red-500 p-2">
@@ -566,6 +639,7 @@ useEffect(()=>{
       
       </div>
     </div>
+    
   </div>
   )
 }

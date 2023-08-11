@@ -226,12 +226,13 @@ module.exports.resort = async (req, res) => {
     console.log("imagesss", image);
     console.log("update value");
     console.log(req.body);
-
+console.log(id);
     let newUser = new resort({
       resortowner: newFormValues.id,
       resortname: newFormValues.resortname,
       description: newFormValues.description,
       category:newFormValues.category,
+      services:newFormValues.services,
       capacity: parseInt(newFormValues.capacity),
       price: parseInt(newFormValues.price),
       // adventure:newAdventure,

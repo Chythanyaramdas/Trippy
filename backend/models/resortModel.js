@@ -80,6 +80,10 @@ const resortSchema= mongoose.Schema({
 
     },
 
+    services:[],
+
+    
+
     adventure:[{
 
         name:{

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+
 // import { keyId } from "../../files/file";
 
 const ResortBooking = () => {
@@ -47,6 +48,7 @@ const ResortBooking = () => {
             alert('hi')
         localStorage.removeItem('checkinDate')
         localStorage.removeItem('checkoutDate')
+        navigate('/successPage')
 
           }
         }) 
@@ -55,7 +57,20 @@ const ResortBooking = () => {
 
 
 
+        const handleOnlinePayment=async ()=>{
 
+            UserApi.post('/create-checkout-session',{resortId:resort._id}).then((response)=>{
+              if(response.data.status){
+                // alert('hello')
+                // localStorage.removeItem('checkinDate')
+                // localStorage.removeItem('checkoutDate')
+                // window.location.href(response.data.url)
+                alert('success')
+                window.location.href = response.data.url
+                
+              }
+            })
+        }
 
 
 
@@ -322,7 +337,7 @@ const ResortBooking = () => {
             <button
               disabled={!checkInDate || !checkOutDate || paymentt === "cod"}
               onClick={() => {
-                // handleOnlinePayment(booked);
+                handleOnlinePayment();
               }}
               className="btn btn-success mr-4"
             >

@@ -10,15 +10,15 @@ const { Error } = require("mongoose");
 
 const clientJwt=async(req,res,next)=>{
     try{
-        console.log(req.header,"headers");
+        // console.log(req.header,"headers");
         const token=req.header("Authorization").replace("Bearer ","");
-        console.log(token,"toooo");
+        // console.log(token,"toooo");
         if(!token){
             throw new Error("Authentication failed:Token missing");
         }
 
         const decodedToken=jwt.verify(token,process.env.JWT_SECRET_KEY);
-        console.log(decodedToken);
+        // console.log(decodedToken);
         if(decodedToken.role ==="client"){
             
             const user =await User.findById(decodedToken.userId);

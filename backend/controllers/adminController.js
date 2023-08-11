@@ -3,6 +3,7 @@ const Admin = require('../models/adminModel');
 const Resort=require('../models/resortModel');
 const Staff=require('../models/staffModel')
 const User=require('../models/userModel')
+const book=require('../models/bookingModel');
 const nodemailer = require("nodemailer");
 const config=require('../config/config');
 const randormstring=require("randomstring");
@@ -433,5 +434,7 @@ console.log('dfdfdfdfd');
     
   }
  }
+
+ 
 
   

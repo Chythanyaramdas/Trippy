@@ -11,7 +11,9 @@ import Booking from"../pages/user/ResortBooking";
 import Destinations from '../pages/user/Destination';
 import DestinationResort from '../pages/user/DestinationResort';
 import ResetEmail from '../pages/Admin/ResetEmail';
-import NewPassword from '../pages/user/NewPassword'
+import NewPassword from '../pages/user/NewPassword';
+import SuccessPage from '../pages/user/SuccessPage';
+import Mybooking from '../pages/user/Mybooking';
 import {ProtectedRoute} from"../ProtectedRoute/userProtected";
 import {HomeVerification} from '../ProtectedRoute/HomeVerification';
 
@@ -32,7 +34,9 @@ const UserRoute=()=>{
             <Route exact path='/destinationResort/:id' element={ <HomeVerification><DestinationResort/></HomeVerification>}/>
             <Route exact path='/avalibility' element={< ProtectedRoute accessBy = {"Authorized"}><Checkavaliablitys/></ProtectedRoute>} />
             <Route exact path='/booking/:id' element={< ProtectedRoute accessBy = {"Authorized"}><Booking/></ ProtectedRoute>}/>
-
+            <Route exact path='/successPage' element={< ProtectedRoute accessBy = {"Authorized"}><SuccessPage/></ ProtectedRoute>}/>
+            <Route exact path='/myBooking' element={< ProtectedRoute accessBy = {"Authorized"}><Mybooking/></ ProtectedRoute>}/>
+            
         </Routes>
     )
 }

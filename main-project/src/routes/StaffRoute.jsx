@@ -26,7 +26,7 @@ const StaffRoute=()=>{
           <Route exact path='/adventureCreation/:id' element={<AddAdventure/>} />
           <Route exact path='/resorts' element={<ProtectedRoute accessBy ={ 'Authorized'}><Resorts/></ProtectedRoute>} />
           <Route exact path='/editResort_u/:id' element={<ProtectedRoute accessBy ={ 'Authorized'}><ResortUpdate/></ProtectedRoute>}/>
-          <Route exact path='/bookingManagement/:id' element={<ProtectedRoute accessBy ={ 'Authorized'}><BookingManagement/></ProtectedRoute>}/>
+          <Route exact path='/bookingManagement' element={<ProtectedRoute accessBy ={ 'Authorized'}><BookingManagement/></ProtectedRoute>}/>
 
        </Routes>
     )

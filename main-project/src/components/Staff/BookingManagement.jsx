@@ -12,7 +12,7 @@ function BookingManagement() {
             StaffApi.get('/bookingManagement').then((response)=>{
                 if(response.data.status){
                     console.log(response.data.book,"babaa");
-                    setBook([response.data.book])
+                    setBook([...response.data.book])
                 }
             })
         },[])
@@ -31,10 +31,10 @@ function BookingManagement() {
                SI No
              </th>
              <th scope="col" className="px-6 py-3">
-               OwnerName
+               Resort Name
              </th>
              <th scope="col" className="px-6 py-3">
-               ResortName
+              Status
              </th>
              {/* <th scope="col" className="px-6 py-3">
               
@@ -45,24 +45,25 @@ function BookingManagement() {
            </tr>
          </thead>
          <tbody>
-           {/* {resort.map((resorts,index) => {
+           {book.map((books,index) => {
              return (
                <>
                  <tr className="bg-white border-b bg-[#a0d6db] dark:border-gray-700 " key={index}>
                    <td className="px-6 py-4">{index+1}</td>
-                   <td className="px-6 py-4">{resorts.resortowner?.name}</td>
-                   <td className="px-6 py-4">{resorts.resortname}</td>
+                
+                    <td className="px-6 py-4">{books?.resortId?.resortname}</td>
+                   <td className="px-6 py-4">{books.status}</td>
                 
                    <td
                      className="px-6 py-4 cursor-pointer underline underline-offset-2"
-                     onClick={() => navigate(`/admin/singleResort/${resorts._id}`)}
+                    //  onClick={() => navigate(`/admin/singleResort/${resorts._id}`)}
                    >
                      More
                    </td>
                  </tr>
                </>
              );
-           })} */}
+           })}
          </tbody>
        </table>
      </div>
