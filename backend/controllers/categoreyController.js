@@ -116,9 +116,21 @@ module.exports.updateCategory = async (req, res) => {
 module.exports.searchService=async(req,res)=>{
   try {
 
-    const id=req.params.id
-    const resortData=await resort.find({services:id})
+    const id=req.params.search
+    const categoryId=req.params.id
+    console.log(id,"search");
+    let search = id.toLowerCase()
+    const resortData=await resort.find({ $and:[{services:search},{
+      category:categoryId}]})
+    
     console.log(resortData,"rdssss");
+
+    if(resortData){
+      res.json({
+        status:true,
+        search:resortData
+      })
+    }
     
   } catch (error) {
 

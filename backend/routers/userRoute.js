@@ -30,7 +30,7 @@ user_route.post('/payment-succes',bookingController.paymentSuccess)
 user_route.get('/myBooking/:id',bookingController.paymentHistory)
 user_route.get('/searchSingleResort/:checkInDate/:checkOutDate/:resort_id',bookingController.checkSingleResort)
 
-user_route.get('searchService/:search',categoryController.searchService)
+user_route.get('/searchService/:search/:id',categoryController.searchService)
 
 user_route.get('/cancelBooking/:id',bookingController.cancelBooking)
 
