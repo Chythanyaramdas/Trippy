@@ -174,45 +174,13 @@ module.exports.resortLocation = async (req, res) => {
 
 // let imageId = [];
 // let imagePath
+
+
 module.exports.resort = async (req, res) => {
-  // console.log("jeee");
-
-  // if (req.files && req.files.length > 0) {
-
-  // for (let i = 0; i <= req.files.length; i++) {
-  //   console.log("lllll",req.files.filename);
-  //    imagePath = path.join(__dirname, '../public/images', req.files[i].filename);
-
-  //   try {
-  //     // Load the image using sharp
-  //     const image = sharp(imagePath);
-
-  //     // Convert the image to JPEG format with higher quality
-  //     await image
-  //       .jpeg({ quality: 90 })
-  //       .resize(cropWidth, cropHeight, { fit: 'cover' })
-  //       .toFile(croppedImagePath);
-
-  //       imageId.push(i); // You might want to use something more meaningful as the image ID
-  //     }
-
-  //     catch (error) {
-  //       console.log('Error processing image:', error.message);
-  //     }
-  //   }
-  // }
-
-  // else{
-  //   console.log("no uploads");
-  // }
+  
 
   try {
-    // const formValues = req.body.form;
-    // console.log('formValues:', formValues);
-
-    // fs.chmodSync(imagePath, 0o777);
-
-    // fs.unlinkSync(imagePath);
+    
 
     const { formValues, adventure, location } = req.body;
 
@@ -225,13 +193,13 @@ module.exports.resort = async (req, res) => {
     let image = req.files.map((file) => file.filename);
     console.log("imagesss", image);
     console.log("update value");
-    console.log(req.body);
-console.log(id);
+    console.log(req.body); 
+console.log(newFormValues.id,"oppppppppooo");
     let newUser = new resort({
       resortowner: newFormValues.id,
       resortname: newFormValues.resortname,
       description: newFormValues.description,
-      category:newFormValues.category,
+      category:newFormValues.category, 
       services:newFormValues.services,
       capacity: parseInt(newFormValues.capacity),
       price: parseInt(newFormValues.price),
@@ -374,6 +342,7 @@ module.exports.updateResort = async (req, res) => {
             image:image,
             price: req.body.price,
             capacity: req.body.capacity,
+            services:req.body.services
           },
         }
       );
@@ -394,7 +363,8 @@ module.exports.updateResort = async (req, res) => {
             description: req.body.description,
             price: req.body.price,
             capacity: req.body.capacity,
-            image:image
+            // image:image,
+            services:req.body.services
           },
         }
       );

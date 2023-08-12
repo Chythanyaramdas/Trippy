@@ -20,7 +20,7 @@ function Cards({ data }) {
         <p className="text-3xl text-blue-800 font-serif ms-3"> your Stay</p>
 
       </div>
-
+      
     
 
       <div className="flex flex-wrap mt-4">

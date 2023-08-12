@@ -1,4 +1,5 @@
 const Categorey = require("../models/categoryModel");
+const resort=require('../models/resortModel')
 
 module.exports.categoreyCreation = async (req, res) => {
   try {
@@ -111,3 +112,17 @@ module.exports.updateCategory = async (req, res) => {
     console.log(error.message);
   }
 };
+
+module.exports.searchService=async(req,res)=>{
+  try {
+
+    const id=req.params.id
+    const resortData=await resort.find({services:id})
+    console.log(resortData,"rdssss");
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+}

@@ -3,6 +3,7 @@ const user_route = express.Router();
 const authJWT=require('../middlewares/userAuth')
 const userControllerRegistration = require('../controllers/userController');
 const bookingController=require('../controllers/bookingController')
+const categoryController=require('../controllers/categoreyController')
 
 
 user_route.get('/',userControllerRegistration.landPage);
@@ -28,6 +29,8 @@ user_route.post('/create-checkout-session',bookingController.paymentStripe)
 user_route.post('/payment-succes',bookingController.paymentSuccess)
 user_route.get('/myBooking/:id',bookingController.paymentHistory)
 user_route.get('/searchSingleResort/:checkInDate/:checkOutDate/:resort_id',bookingController.checkSingleResort)
+
+user_route.get('searchService/:search',categoryController.searchService)
 
 user_route.get('/cancelBooking/:id',bookingController.cancelBooking)
 

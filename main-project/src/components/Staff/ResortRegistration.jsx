@@ -44,7 +44,7 @@ const inputChange=(e)=>{
     const{name,value}=e.target;
 
     setFormValues(pre=>{
-      return {...pre,[name]:[value]}
+      return {...pre,[name]:value}
     });
     console.log(formValues);
 

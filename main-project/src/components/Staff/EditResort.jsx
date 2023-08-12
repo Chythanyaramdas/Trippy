@@ -13,6 +13,8 @@ function EditResort() {
     const [newImage,setNewImage] = useState([])
     const[price,setPrice]=useState("")
     const[capacity,setCapacity]=useState("")
+    const[services,setServices]=useState([])
+    const [fields, setFields] = useState([{  }]);
     const {id} = useParams()
 
     const initialValues={
@@ -20,7 +22,8 @@ function EditResort() {
         description:"",
         image:[],
         price:"",
-        capacity:""
+        capacity:"",
+        services:[]
     };
 
     const[formValues,setFormValues]=useState(initialValues);
@@ -36,6 +39,7 @@ function EditResort() {
                     setImage(response.data.banner.image)
                     setPrice(response.data.banner.price)
                     setCapacity(response.data.banner.capacity)
+                    setServices(response.data.banner.services)
                     
                 }
             })
@@ -45,6 +49,16 @@ function EditResort() {
         
 
     },[id])
+
+
+    const Services=(index,e)=>{
+
+      const{name,value}=e.target;
+      const updatedFields=[...services];
+      updatedFields[index]=value;
+      setServices(updatedFields)
+
+    }
 
 
     const uploadImage=(e)=>{
@@ -67,6 +81,7 @@ function EditResort() {
         form.append('description',description)
         form.append('price',price)
         form.append('capacity',capacity)
+        form.append('services',services)
         console.log(newImage.length,"kgahg2")
         
         if(!newImage.length){
@@ -99,7 +114,7 @@ function EditResort() {
   return (
     <div>
       <div className='w-full h-full flex justify-center items-center'>
-    <div className="w-4/5 h-5/6 bg-sky-100 p-11 rounded-3xl h-3/4 shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4  ">
+    <div className="w-4/5 h-auto bg-sky-100 p-11 rounded-3xl shadow-lg grid grid-cols-2 md:grid-cols-3 gap-4  ">
       <div className="flex flex-col justify-center items-center h-full ps-5">
         <input
           type="text"
@@ -132,6 +147,8 @@ function EditResort() {
         />
 
 
+
+
         <input
           type="file"
           multiple
@@ -156,11 +173,11 @@ function EditResort() {
       </div>
 
       
-      <div className="flex flex-col justify-center items-center md:col-span-2 ">
+      <div className="flex flex-col  items-center md:col-span-2 ">
         <div className="flex flex-col text-center justify-center border-2 mx-20 h-72 px-10 py-6 ">
         {banner && <img
           className="w-full h-full    rounded-lg  "
-          src={`http://localhost:3001/images/${image}`}
+          src={`http://localhost:3001/images/${image[0]}`}
           alt=""
         />}
       {!banner &&
@@ -168,10 +185,40 @@ function EditResort() {
         <p>preview</p>
       <img
           className="w-full h-full    rounded-lg  "
-          src={`http://localhost:3001/images/${image}`}
+          src={`http://localhost:3001/images/${image[0]}`}
           alt=""
         /></>)}
         </div>
+
+        <div className=''>
+
+        <div>
+          <p>Services</p>
+        </div>
+       
+        <div className='flex flex-col'>
+        {services.map((service,index)=>{
+          return(
+
+            <input
+            type="text"
+            placeholder="service"
+            className="p-4 mt-8 shadow-lg rounded-lg w-60 "
+            value={service}
+            onChange={(e)=> Services(index,e)}
+            
+         
+          />
+
+          )
+        })}
+
+</div>
+
+</div>
+
+        
+       
        
       </div>
     </div>

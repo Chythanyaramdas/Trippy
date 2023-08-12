@@ -10,6 +10,7 @@ function CategoryPage() {
   const server_url = process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
   const [category, setCategory] = useState([{}]);
+  const[search,setSearch]=useState('')
 
   useEffect(() => {
     if (id) {
@@ -26,15 +27,56 @@ function CategoryPage() {
     }
   }, [id]);
 
+  const handleSearch=()=>{
+    alert(search)
+    UserApi.get(`/searchService/${search}`).then((response)=>{
+      if(response.data.status){
+        alert("search success")
+      }
+      else{
+        alert("search failed")
+      }
+    })
+
+  }
+
   return (
     <div className="">
       <div className="">
         <Navbar />
       </div>
 
+
+      <div className="w-full h-full flex justify-center items-center bg-slate-200  ">
+      <input
+          type="text"
+          placeholder="please search "
+          className="p-4 my-5 text-black shadow-lg rounded-lg w-1/3 bg-slate-300 h-12  "
+        
+         value={search}
+         onChange={(e)=>setSearch(e.target.value)}
+       
+        />
+
+          <button
+            className="btn join-item mx-10 my-auto bg-slate-300"
+              onClick={() => {
+               
+                handleSearch();
+              }}
+          >
+            Search
+          </button>
+
+
+
+      </div>
+
       <div className="flex justify-center">
         <p className="text-2xl font-serif">Choose Your Stay</p>
       </div>
+
+      
 
       <div className="flex  flex-wrap gap-16 mt-12 ps-6 ">
         {category?.map((data) => {
