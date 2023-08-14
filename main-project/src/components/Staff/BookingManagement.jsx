@@ -1,15 +1,18 @@
 import React,{useEffect,useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useParams } from 'react-router-dom'
 import { StaffApi } from '../../utils/staff/axiosStaff'
+import { useSelector } from "react-redux";
 
 
 function BookingManagement() {
 
     const navigate=useNavigate()
     const[book,setBook]=useState([{}])
+    const { id } = useParams();
+    const users = useSelector((store) => store.staff);
 
         useEffect(()=>{
-            StaffApi.get('/bookingManagement').then((response)=>{
+            StaffApi.get(`/bookingManagement`).then((response)=>{
                 if(response.data.status){
                     console.log(response.data.book,"babaa");
                     setBook([...response.data.book])
@@ -40,7 +43,7 @@ function BookingManagement() {
               
              </th> */}
              <th scope="col" className="px-6 py-3">
-               view
+              PaymentMode
              </th>
            </tr>
          </thead>
@@ -58,7 +61,7 @@ function BookingManagement() {
                      className="px-6 py-4 cursor-pointer underline underline-offset-2"
                     //  onClick={() => navigate(`/admin/singleResort/${resorts._id}`)}
                    >
-                     More
+                    {books?.payment?.payment_method}
                    </td>
                  </tr>
                </>

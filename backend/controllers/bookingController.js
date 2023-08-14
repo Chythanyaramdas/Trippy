@@ -149,11 +149,20 @@ module.exports.checkSingleResort=async(req,res)=>{
   } catch (error) {
     console.log(error.message);
   }
-}
+} 
 module.exports.bookingManagement=async(req,res)=>{
   try {
+    // const users=req.params.id
+    // const bookedData=await book.find({$and:[{status:"booked"},{status:"cancelled"}]}).populate('resortId')
+    const bookedData = await book.find({
+      $or: [
+        {},
+        { status: "booked" },
+        { status: "cancelled" }
+      ]
+    }).populate('resortId');
 
-    const bookedData=await book.find({status:"booked"}).populate('resortId')
+    
     console.log(bookedData);
 res.json({
   status:true,
@@ -279,6 +288,45 @@ module.exports.cancelBooking=async(req,res)=>{
       cancel:cancelData
     })
     
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+}
+module.exports.bookingResorts=async(req,res)=>{
+  try {
+
+    const staff=req.params.id
+    console.log(req.params.id,"staffffs");
+    await resort.find({$and:[{resortowner:staff},{is_delete:false}]}).then((response)=>{
+      res.json({
+        status:true,
+        message:"successs",
+        resort:response
+      })
+    })
+
+    
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+}
+
+module.exports.bookingSingleResorts=async(req,res)=>{
+  try {
+
+    const id=req.params.id
+    console.log(id,"idz");
+    const bookedData=await book.find({resortId:id})
+    console.log(bookedData,"bD");
+    res.json({
+      status:true,
+      message:"successfully done it",
+      book:bookedData
+
+    })
   } catch (error) {
 
     console.log(error.message);

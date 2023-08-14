@@ -5,12 +5,15 @@ import { UserApi } from "../../utils/user/axiosUser";
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../Footer/UserFooter";
 
+
 function CategoryPage() {
   const { id } = useParams();
   const server_url = process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
   const [category, setCategory] = useState([{}]);
   const [search, setSearch] = useState("");
+  const [filter,setFilter]=useState([])
+  const[services,setServices]=useState([{}])
 
   useEffect(() => {
     if (id) {
@@ -22,6 +25,7 @@ function CategoryPage() {
           console.log(response.data.category);
 
           setCategory([...response.data.category]);
+          setServices([...response.data.services])
         }
       });
     }
@@ -29,7 +33,7 @@ function CategoryPage() {
 
   const handleSearch = () => {
     // alert(search);
-    UserApi.get(`/searchService/${search}/${id}`).then((response) => {
+    UserApi.get(`/searchService/${id}?search=${search}`).then((response) => {
       if (response.data.status) {
         
         setCategory([...response.data.search]);
@@ -39,6 +43,72 @@ function CategoryPage() {
       }
     });
   };
+
+  // const handleFilter=(e,index)=>{
+  //   setServices(prev=>{
+  //     return [...prev.map((service,index1)=>{
+  //       if(index === index1) service['checked'] = service['checked'] ? false:true
+  //       return {...service}
+  //     })]
+  //   })
+
+  //   let newFilter  = []
+
+  //   services.forEach((service)=>{
+  //     if(service.checked) newFilter.push(service.title)
+  //   })
+
+    // const{value}=e.target
+
+    // const data=filter.indexOf(value)
+
+    // if(data>=0){
+    //   setFilter((prev)=>[...prev.filter((obj)=> obj!==value)])
+    // }
+    // else{
+    //   setFilter((prev)=>[...prev,value]) 
+    // }
+    // let newFilter = [...filter,value]
+    
+  //   UserApi.get(`/searchService/${id}?service=[${newFilter}]`).then((response)=>{
+
+
+  //     if(response.data.status){
+  //       setCategory([...response.data.search])
+
+  //     }
+  //   })
+  // }
+
+  const handleFilter = (e, index) => {
+    setServices((prev) => {
+      return prev.map((service, index1) => {
+        if (index === index1) {
+          service['checked'] = !service['checked'];
+        }
+        return { ...service };
+      });
+    });
+  
+    setTimeout(() => {
+      let newFilter = [];
+  
+      services.forEach((service) => {
+        if (service.checked) {
+          newFilter.push(service.title);
+        }
+      });
+  
+      UserApi.get(`/searchService/${id}?service=[${newFilter}]`).then((response) => {
+        if (response.data.status) {
+          setCategory([...response.data.search]);
+        }
+      });
+    }, 0);
+  };
+  
+  
+  
 
   return (
     <div className="">
@@ -105,12 +175,17 @@ function CategoryPage() {
               <p className="text-2xl font-serif ">Filter</p>
             </div>
             <div className="bg-transparent w-full h-[90%]">
+              {services?.map((data,index)=>{
+                return(
               <div className="w-full h-10 bg-green-500 flex justify-start items-center ps-2">
-                <input type="checkbox" className="w-5 me-4"  name="service" value=""/>
-                <p>Hello</p>
+                <input type="checkbox" className="w-5 me-4"  name="service"  onChange={(e)=>handleFilter(e,index)} value={data.title}/>
+                <p>{data?.title}</p>
               </div>
+              );
+            })}
             </div>
-          </div>
+            </div>
+                
         </div>
       </div>
 

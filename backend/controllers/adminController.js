@@ -4,6 +4,7 @@ const Resort=require('../models/resortModel');
 const Staff=require('../models/staffModel')
 const User=require('../models/userModel')
 const book=require('../models/bookingModel');
+const services=require('../models/ServicesModel')
 const nodemailer = require("nodemailer");
 const config=require('../config/config');
 const randormstring=require("randomstring");
@@ -277,8 +278,9 @@ module.exports.Admin_Login=async(req,res,next)=>{
       const reason=req.body.reason
       console.log(reason,"reee");
       console.log(req.params,"reject");
+      let reasons=`your resort is rejected due to ${reason}`
 
-      const staffEmail=await Resort.findById({_id:reject}).populate('resortowner')
+      const staffEmail=await Resort.findByIdAndUpdate({_id:reject}).populate('resortowner')
 
       var mailOptions = {
         from:USER_MAIL,
@@ -435,6 +437,64 @@ console.log('dfdfdfdfd');
   }
  }
 
+ module.exports.services=async(req,res)=>{
+  try {
+    const servicesCollection=await services.find({is_delete:false})
+    console.log(servicesCollection,"SV");
+    res.json({
+      status:true,
+      banners:servicesCollection
+    })
+    
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+ }
+
+ module.exports.deleteServices=async(req,res)=>{
+  try {
+
+    console.log(req.body.id);
+    const serviceData=await services.findByIdAndUpdate(req.body.id,{is_delete:true})
+    if(serviceData)({
+
+      status:true,
+      message:"Successfully done it"
+
+    })
+    
+  } catch (error) {
+
+    console.log(error.message);
+    res.json({
+      status:false,
+      message:"Can't find the data"
+  })
+    
+  }
+ }
+module.exports.servicesCreation=async(req,res)=>{
+  try {
+
+    const{title}=req.body;
+    console.log(req.body,"reqss");
+    const newTitle=new services({
+      title
+    })
+
+    const serviceData=await newTitle.save()
+    if(serviceData){
+      res.status(201).json({status:true,message:"successfully created"})
+
+    }
+    
+  } catch (error) {
+
+    console.log(error.message);
+    
+  }
+}
  
 
   

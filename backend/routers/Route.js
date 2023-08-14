@@ -39,6 +39,11 @@ admin_route.get('/banner_u/:id',adminController.getBanner);
 admin_route.post('/banner_ud/:id',upload.single('image'),adminController.updateBanner);
 
 
+admin_route.get('/services',adminController.services)
+admin_route.post('/services',adminController.servicesCreation)
+admin_route.delete('/services',adminController.deleteServices);
+
+
 admin_route.get('/categoryManagement',categoryController.categoreyManagement);
 admin_route.post('/categoreyUpload',upload.single("image"),categoryController.categoreyCreation);
 admin_route.post('/categoreyManagement_ud/:id',upload.single("image"),categoryController.updateCategory);

@@ -9,6 +9,8 @@ import AddAdventure from '../pages/staff/AddAdventure';
 import ResortUpdate from"../pages/staff/EditResort";
 import Resorts from"../pages/staff/ResortManagement";
 import BookingManagement from '../pages/staff/BookingManagement';
+import BookedResorts from '../pages/staff/BookedResorts';
+import BookedSingleResorts from '../pages/staff/BookedSingleResorts';
 import  ProtectedRoute from '../ProtectedRoute/staffProtected';
 
 
@@ -27,7 +29,8 @@ const StaffRoute=()=>{
           <Route exact path='/resorts' element={<ProtectedRoute accessBy ={ 'Authorized'}><Resorts/></ProtectedRoute>} />
           <Route exact path='/editResort_u/:id' element={<ProtectedRoute accessBy ={ 'Authorized'}><ResortUpdate/></ProtectedRoute>}/>
           <Route exact path='/bookingManagement' element={<ProtectedRoute accessBy ={ 'Authorized'}><BookingManagement/></ProtectedRoute>}/>
-
+          <Route exact path='/bookingResorts' element={<ProtectedRoute accessBy ={ 'Authorized'}><BookedResorts/></ProtectedRoute>}/>
+          <Route exact path='/bookingSingleResorts/:id' element={<ProtectedRoute accessBy ={ 'Authorized'}><BookedSingleResorts/></ProtectedRoute>}/>
        </Routes>
     )
 }

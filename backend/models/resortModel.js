@@ -82,6 +82,12 @@ const resortSchema= mongoose.Schema({
 
     services:[],
 
+    notification:[{
+
+        message:{
+            type:String
+        }
+    }],
     
 
     adventure:[{

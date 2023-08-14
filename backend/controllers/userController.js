@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
+const services=require('../models/ServicesModel')
 const banner = require("../models/bannerModel");
 const nodemailer = require("nodemailer");
 const config = require("../config/config");
@@ -412,18 +413,21 @@ module.exports.categoryPage = async (req, res) => {
     const id = req.params.id;
     console.log(id);
     console.log("params come");
-    await resort
+    const categoreyData=await resort
       .find({
         $and: [{ verify: true }, { is_delete: false }, { category: id }],
       })
-      .then((response) => {
-        console.log(response, "rp");
+      const serviceData=await services.find({is_delete:false})
+      console.log(serviceData,"SDR");
+      
+        // console.log(response, "rp");
         res.json({
           status: true,
           message: "successfully done it",
-          category: response,
+          category: categoreyData,
+          services:serviceData
         });
-      });
+     
   } catch (error) {
     console.log(error.message);
   }

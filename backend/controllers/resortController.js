@@ -1,6 +1,7 @@
 const Location = require("../models/locationModel");
 const resort = require("../models/resortModel");
 const category = require("../models/categoryModel");
+const services=require("../models/ServicesModel")
 const { response } = require("express");
 // const sharp=require('sharp')
 
@@ -13,11 +14,13 @@ module.exports.resortLocation = async (req, res) => {
     const locationData = await Location.find({ is_delete: false });
     const resortData = await resort.find({});
     const categoreyData = await category.find({ is_delete: false });
+    const serviceData=await services.find({is_delete:false})
     res.json({
       status: true,
       place: locationData,
       resort: resortData,
       category: categoreyData,
+      services:serviceData
     });
   } catch (error) {
     console.log(error.message);
@@ -178,12 +181,12 @@ module.exports.resortLocation = async (req, res) => {
 
 module.exports.resort = async (req, res) => {
   
-
+ 
   try {
     
 
-    const { formValues, adventure, location } = req.body;
-
+    const { formValues, adventure, location,services } = req.body;
+console.log(req.body);
     // let newAdventure=JSON.parse(adventure)
     let newLocation = JSON.parse(location);
     let newFormValues = JSON.parse(formValues);
@@ -193,7 +196,7 @@ module.exports.resort = async (req, res) => {
     let image = req.files.map((file) => file.filename);
     console.log("imagesss", image);
     console.log("update value");
-    console.log(req.body); 
+    console.log(JSON.parse( services)); 
 console.log(newFormValues.id,"oppppppppooo");
     let newUser = new resort({
       resortowner: newFormValues.id,
@@ -203,6 +206,8 @@ console.log(newFormValues.id,"oppppppppooo");
       services:newFormValues.services,
       capacity: parseInt(newFormValues.capacity),
       price: parseInt(newFormValues.price),
+      services:JSON.parse( services),
+
       // adventure:newAdventure,
       // image: req.file.filename,
       location:newLocation,

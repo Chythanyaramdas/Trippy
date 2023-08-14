@@ -1,5 +1,5 @@
 const Categorey = require("../models/categoryModel");
-const resort=require('../models/resortModel')
+const resort = require("../models/resortModel");
 
 module.exports.categoreyCreation = async (req, res) => {
   try {
@@ -86,21 +86,21 @@ module.exports.updateCategory = async (req, res) => {
       if (categoryData) {
         console.log("done");
         res.json({
-            status: true,
-            banner: categoryData,
+          status: true,
+          banner: categoryData,
         });
       }
     } else {
       const categoryData = await Categorey.updateOne(
         { name: req.body.id },
         {
-            $set: {
+          $set: {
             name: req.body.name,
             description: req.body.description,
-        },
-    }
-    );
-    if (categoryData) {
+          },
+        }
+      );
+      if (categoryData) {
         console.log("done");
         res.json({
           status: true,
@@ -113,28 +113,54 @@ module.exports.updateCategory = async (req, res) => {
   }
 };
 
-module.exports.searchService=async(req,res)=>{
+module.exports.searchService = async (req, res) => {
   try {
+    const filter = req.query.service || "";
+    console.log(filter, "filter");
+    const id = req.query.search || "";
 
-    const id=req.params.search
-    const categoryId=req.params.id
-    console.log(id,"search");
-    let search = id.toLowerCase()
-    const resortData=await resort.find({ $and:[{services:search},{
-      category:categoryId}]})
-    
+    const categoryId = req.params.id;
+
+    console.log(id, "search");
+
+    let search = id.toLowerCase();
+
+    let query = {
+      category: categoryId,
+      is_blocked: false,
+      is_delete: false,
+    };
+
+    if (id) {
+      query["services"] = search;
+    }
+
+    if (filter) {
+      const servicesArray = filter
+        .slice(1, -1) // Remove the square brackets at the beginning and end
+        .split(",") // Split the remaining string by commas
+        .filter((service) => service.trim());
+      console.log(servicesArray);
+      if(servicesArray.length) query["services"] = { $all: servicesArray };
+      
+      
+      console.log(query, "filter");
+    }
+
+    // const resortData=await resort.find({ $and:[{services:search},{
+    //   category:categoryId}]})
+    const resortData = await resort.find(query);
+
     console.log(resortData,"rdssss");
 
-    if(resortData){
+    if (resortData) {
       res.json({
-        status:true,
-        search:resortData
-      })
+        status: true,
+        search: resortData,
+      });
     }
-    
   } catch (error) {
-
     console.log(error.message);
-    
   }
-}
+};
+

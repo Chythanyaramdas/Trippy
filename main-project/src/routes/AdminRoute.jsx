@@ -16,6 +16,9 @@ import BannerUpdate from"../pages/Admin/BannerUpdation";
 import ResortManagement from '../pages/Admin/ResortManagement';
 import SingleResort from '../components/Adminforms/SingleResort';
 import UserManagement from '../pages/Admin/UserManagement';
+import Services from '../pages/Admin/Services';
+import ServiceCreation from '../pages/Admin/ServiceCreation';
+
 
 
 const AdminRoute=()=>{
@@ -26,6 +29,10 @@ const AdminRoute=()=>{
         <Route path='/banner' element={<BannerPage/>}/>
         <Route path='/create_banner' element={<BannerCreation/>}/>
         <Route path='/banner_u/:id' element={<BannerUpdate/>}/>
+
+        <Route path='/services' element={<Services/>}/>
+        <Route path='/create_services' element={<ServiceCreation/>}/>
+        
 
         <Route path='/categoreyUpload' element={<CategoreyCreation/>}/>
         <Route path='/categoryManagement' element={<CategoreyPage/>}/>

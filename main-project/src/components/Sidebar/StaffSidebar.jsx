@@ -29,6 +29,13 @@ function Sidebar() {
 
           <p className="hidden md:block">Edit Resort</p>
         </div>
+
+        <div className="h-14 flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"  onClick={() => navigate('/staff/bookingResorts')} >
+          
+          <AiTwotoneHome className="mr-1"/>
+
+          <p className="hidden md:block"> Booking Management</p>
+        </div>
         {/* <div className="h-14 flex items-center justify-center pl-4  md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"  >
          <TbPlayFootball className="mr-1"/>
           <p className="hidden md:block">Adventures</p>

@@ -60,7 +60,7 @@ useEffect(()=>{
 
   console.log("ids",id);
 
-    // if(formValues.id){
+    
       console.log("chythanya ramdas");
 
         StaffApi.get('/adventureManagement/?64ad9f37972741f1f7b2f4e0=${64ad9f37972741f1f7b2f4e0}').then((response)=>{
@@ -70,11 +70,11 @@ useEffect(()=>{
                 console.log("mat");
                 console.log(response.data.resort,"miio");
                 setResort([...response.data.resort])
-                // setAdventure([...response.data.adventure])
+                
             }
 
         })
-    // }
+    
 
     
 },[])
