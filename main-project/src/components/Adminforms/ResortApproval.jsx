@@ -13,7 +13,7 @@ function ResortDetalis() {
   // const [adventure,setAdventure] = useState([])
 
   const handleSubmit = () => {
-    AdminApi.post(`resortRegister/${id}`).then((responses) => {
+    AdminApi.post(`resortRegister/${id}`,).then((responses) => {
       if (responses.data.status) {
         alert("successfull");
       }
@@ -21,7 +21,7 @@ function ResortDetalis() {
   };
 
   const handleReject = () => {
-    AdminApi.post(`resortRegisterReject/${id}`,{reason}).then((response) => {
+    AdminApi.post(`resortRegisterReject/${id}`,{reason,resortOwner:resort.resortowner._id}).then((response) => {
       if (response.data.status) {
         // alert("rejected");
         setReject(false)

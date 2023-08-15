@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { UserApi } from "../../utils/user/axiosUser";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Navbar from "../navbar/navbar";
 
 function MyBooking() {
   const { id } = useParams();
@@ -36,6 +37,9 @@ function MyBooking() {
 
   return (
     <div>
+      <div>
+      <Navbar/>
+      </div>
       <div className="mx-auto max-w-screen-2xl">
         <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
           My Booking Details

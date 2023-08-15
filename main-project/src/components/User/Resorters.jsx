@@ -321,6 +321,7 @@ console.log('----allDates---',allDates);
               placeholderText="Check-out"
               className="w-64 h-10 max-w-xs bg-slate-300"
               minDate={checkInDate ? new Date(checkInDate) : null}
+              excludeDates={allDates?.map((date)=> new Date(date))}
             />
           </div>
 

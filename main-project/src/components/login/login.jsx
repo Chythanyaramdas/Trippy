@@ -112,12 +112,20 @@ return (
             required
           />
         </div>
+        <div className='flex flex-col'>
         <a
           href="/register"
           className="text-xs text-gray-600 hover:underline hover:text-blue-600"
         >
                       <span className="text-base label-text">Not a member? Sign up now</span>
         </a>
+        <a
+          href="/resetPasswordEmail"
+          className="text-xs text-gray-600 hover:underline hover:text-blue-600"
+        >
+                      <span className="text-base label-text">Forgot password? </span>
+        </a>
+        </div>
         <div>
           <button className="btn btn-block">Login</button>
         </div>

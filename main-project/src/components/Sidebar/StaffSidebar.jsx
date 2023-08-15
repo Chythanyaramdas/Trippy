@@ -10,7 +10,15 @@ function Sidebar() {
   
     return (
       <div className="h-[93.1vh] 394867 py-4 w-full pt-16  font-serif sticky left-0 top-0 bg-[#0DB24C]">
-        <div className="h-14 bg-[#FFFFFF] flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"onClick={() => navigate('/staff/resortRegister')}>
+
+         <div className="h-14 flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"onClick={() => navigate('/staff/dashboard')}>
+          
+          <GiTatteredBanner className="mr-1 "/>
+
+          <p className="hidden md:block  ">Dashboard</p>
+        </div>
+
+        <div className="h-14  flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"onClick={() => navigate('/staff/resortRegister')}>
           
           <GiTatteredBanner className="mr-1 "/>
 

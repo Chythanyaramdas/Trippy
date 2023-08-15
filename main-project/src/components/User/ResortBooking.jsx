@@ -42,7 +42,7 @@ const ResortBooking = () => {
   }, [id]);
 
       const handlebookingHotel =async()=>{
-          alert('start')
+          alert('offline')
         UserApi.post('/payment',{resortId:resort._id,users:users.id,checkInDate,checkOutDate,paymentt}).then((response)=>{
           if(response.data.status){
             alert('hi')
@@ -58,7 +58,7 @@ const ResortBooking = () => {
 
 
         const handleOnlinePayment=async ()=>{
-
+alert("online")
             UserApi.post('/create-checkout-session',{resortId:resort._id}).then((response)=>{
               if(response.data.status){
                 // alert('hello')
@@ -336,9 +336,7 @@ const ResortBooking = () => {
             </div>
             <button
               disabled={!checkInDate || !checkOutDate || paymentt === "cod"}
-              onClick={() => {
-                handleOnlinePayment();
-              }}
+              onClick={() => handleOnlinePayment()}
               className="btn btn-success mr-4"
             >
               Pay Now
@@ -346,9 +344,7 @@ const ResortBooking = () => {
 
             <button
               disabled={!checkInDate || !checkOutDate || paymentt === "online"}
-              onClick={() => {
-                handlebookingHotel()
-              }}
+              onClick={() => handlebookingHotel()}
               className="btn btn-success"
             >
               Pay Hotel

@@ -83,56 +83,107 @@ const handlePassword=(e)=>{
 
 
   return (
-   <>
-      <div className="flex justify-content-center items-center">
+//    <>
+//       <div className="flex justify-content-center items-center">
     
-      <form onSubmit={handleSubmit}>
-        <div className="form-group mb-2">
-          <label htmlFor="password" className="form-label">
-            New Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            className="form-control w-60"
-            id="password"
-            value={formValues.password}
-            required
-            onChange={handlePassword}
+//       <form onSubmit={handleSubmit}>
+//         <div className="form-group mb-2">
+//           <label htmlFor="password" className="form-label">
+//             New Password
+//           </label>
+//           <input
+//             type="password"
+//             name="password"
+//             className="form-control w-60"
+//             id="password"
+//             value={formValues.password}
+//             required
+//             onChange={handlePassword}
            
-          />
-          {formError.password && (
-                    <p style={{ color: "red" }}>{formError.password}</p>
-                  )} 
-        </div>
-        <div className="form-group mb-2">
-          <label htmlFor="confirmPassword" className="form-label">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            name="confirmPassword"
-            className="form-control w-60"
-            id="confirmPassword"
-            value={formValues.confirmPassword}
-            required
-            onChange={handlePassword}
-          />
-          {formError.confirmPassword && (
-                <p style={{ color: "red" }}>{formError.confirmPassword}</p>
-              )}
-        </div>
-        <div className="form-group mb-2">
-          <input
-            type="submit"
-            defaultValue="submitData"
-            className="btn btn-dark form-control w-60"
-          />
-        </div>
-      </form>
-    </div>
+//           />
+//           {formError.password && (
+//                     <p style={{ color: "red" }}>{formError.password}</p>
+//                   )} 
+//         </div>
+//         <div className="form-group mb-2">
+//           <label htmlFor="confirmPassword" className="form-label">
+//             Confirm Password
+//           </label>
+//           <input
+//             type="password"
+//             name="confirmPassword"
+//             className="form-control w-60"
+//             id="confirmPassword"
+//             value={formValues.confirmPassword}
+//             required
+//             onChange={handlePassword}
+//           />
+//           {formError.confirmPassword && (
+//                 <p style={{ color: "red" }}>{formError.confirmPassword}</p>
+//               )}
+//         </div>
+//         <div className="form-group mb-2">
+//           <input
+//             type="submit"
+//             defaultValue="submitData"
+//             className="btn btn-dark form-control w-60"
+//           />
+//         </div>
+//       </form>
+//     </div>
   
+// </>
+
+<>
+  <div className="flex w-screen  justify-center object-cover   bg-no-repeat items-center h-screen  " style={{ backgroundImage: "url('https://free4kwallpapers.com/uploads/wallpaper/background-blue-circle-pattern-abstract-design-texture-wallpaper-1024x768-wallpaper.jpg')",backgroundSize: "100vw 100vh"}}>
+    <form onSubmit={handleSubmit} className="w-2/4 h-2/4">
+      <div className='flex justify-center items-center bg-sky-100 bg-opacity-50 rounded-md w-[100%] h-[100%] flex-col'>
+      <div className="form-group mb-2 ">
+        <label htmlFor="password" className="form-label">
+          New Password
+        </label>
+        <input
+          type="password"
+          name="password"
+          className="form-control w-64 rounded-lg border-2 border-stone-950 bg-slate-300"
+          id="password"
+          value={formValues.password}
+          required
+          onChange={handlePassword}
+        />
+        {formError.password && (
+          <p className="text-red-500">{formError.password}</p>
+        )}
+      </div>
+      <div className="form-group mb-2">
+        <label htmlFor="confirmPassword" className="form-label">
+          Confirm Password
+        </label>
+        <input
+          type="password"
+          name="confirmPassword"
+          className="form-control w-64 rounded-lg overflow-hidden bg-slate-300"
+          id="confirmPassword"
+          value={formValues.confirmPassword}
+          required
+          onChange={handlePassword}
+        />
+        {formError.confirmPassword && (
+          <p className="text-red-500">{formError.confirmPassword}</p>
+        )}
+      </div>
+      <div className="form-group mb-2 flex justify-center items-center w-full ">
+        <input
+          type="submit"
+          value="Submit"
+          className="btn btn-dark form-control w-36 bg-blue-900 text-black "
+        />
+      </div>
+      </div>
+    </form>
+  </div>
 </>
+
     
   )
 }

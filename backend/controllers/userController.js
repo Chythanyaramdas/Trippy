@@ -339,7 +339,7 @@ module.exports.landPage = async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
-};
+}; 
 module.exports.auth = async (req, res) => {
   try {
     console.log("Augustine");

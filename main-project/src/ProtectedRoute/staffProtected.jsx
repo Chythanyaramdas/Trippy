@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {StaffApi} from"../utils/staff/axiosStaff";
 import { staffLogin} from "../redux/staffSlice";
 
-function staffAuthentication({children,accessBy}){
+function StaffAuthentication({children,accessBy}){
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [loading,setLoading] = useState(true)
@@ -20,6 +20,7 @@ function staffAuthentication({children,accessBy}){
                     const response = await StaffApi.get('/token_v')
                     if(response.data.status){
                         console.log('all done');
+                        
                         console.log(response.data.staff);
                         dispatch(staffLogin(response.data.staff))
                         setLoading(false)
@@ -31,6 +32,7 @@ function staffAuthentication({children,accessBy}){
                 else if(jwtToken){
                     const response = await StaffApi.get('/token_v')
                     if(response.data.status){
+                        console.log(response.data.staff);
                         dispatch(staffLogin(response.data.staff))
                         setLoading(false)
                     }
@@ -51,5 +53,5 @@ function staffAuthentication({children,accessBy}){
 
 }
 
-export default staffAuthentication;
+export default StaffAuthentication;
 

@@ -21,7 +21,7 @@ function Destination() {
     },[])
   return (
     <div>
-      <div className=' w-full flex h-28  justify-center items-center'>
+      <div className=' w-full flex h-28  justify-center items-center overflow-hidden bg-[url(https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-63452.jpg?w=1480&t=st=1692072928~exp=1692073528~hmac=00f9f78c35cdb7bbd2f8c745eab4ac739fbdddd69fb02704833d60ed27ef6874)]'>
       <h3 className=" z-10  text-3xl text-black font-serif">
               Explore 
             </h3>
@@ -30,7 +30,7 @@ function Destination() {
             </h1>
       </div>
 
-      <div className="grid grid-cols-3 gap-8  mt-10  px-20">
+      <div className="grid grid-cols-3 gap-8  mt-10  px-20 ">
             {destination.map((data) => (
               <div className="bg-white  flex flex-col shadow-2xl p-4  w-full max-w-[600px]    mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105 ">
                 <figure>

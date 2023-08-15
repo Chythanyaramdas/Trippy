@@ -56,7 +56,13 @@ notification:[{
 
     message:{
         type:String
+    },
+    resortId:{
+        type:String,
+        required:true
+
     }
+    
 }]
 },{
     timestamps:true

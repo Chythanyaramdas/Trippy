@@ -23,8 +23,10 @@ function SuccessPage() {
           UserApi
             .post("/payment-succes", { paymentId: session_id,resortId:resort_id,users:users.id,checkInDate,checkOutDate})
             .then((res) => {
-              alert("success");
+              // alert("success");
               localStorage.removeItem("myToken");
+              localStorage.removeItem('checkinDate')
+              localStorage.removeItem('checkoutDate')
             });
         }
       }, [session_id]);
@@ -34,13 +36,14 @@ function SuccessPage() {
     <div>
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       
-      <div className="bg-white rounded-lg shadow-md p-8">
-       <img src='https://res.cloudinary.com/dsyln8j3g/image/upload/v1688207220/success_yutxdw.gif' className='w-96 h-64'/>
-        <h2 className="text-2xl font-bold mb-4">Your Resort is successfully reserved</h2>
+      <div className="bg-white rounded-xl shadow-lg p-2">
+       <img src='https://res.cloudinary.com/dsyln8j3g/image/upload/v1688207220/success_yutxdw.gif' className='w-144 h-96'/>
+        <h2 className="text-2xl text-center font-bold my-4">Your Resort is successfully reserved</h2>
+        <div className='flex justify-center align-middle mb-4'>
         <Link  to="/" className='btn btn-info mr-4'>HomePage</Link>
         {/* <button className='btn btn-warning'>Download Pdf </button> */}
         <Link to="/mybooking" className='btn btn-success'>View Booking</Link>
-       
+       </div>
       </div>
     </div>
     </div>

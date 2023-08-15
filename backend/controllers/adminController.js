@@ -251,23 +251,50 @@ module.exports.Admin_Login=async(req,res,next)=>{
     try {
 
       const{ id }=req.params;
-      await Resort.findByIdAndUpdate({_id:id},{verify:true}).then((response)=>{
+      
+      
+      const approvedData=await Resort.findByIdAndUpdate({_id:id},{verify:true}).populate('resortowner')
+      // console.log(approvedData,"AP");
+        var mailOptions = {
+          from:USER_MAIL,
+          to: approvedData.resortowner.email,
+          subject: "Otp for registration is: ",
+          html:
+            
+          '<h1>Your resort is Approved</h1>'
+            
+            // html body
+        };
+        const userData= await Staff.updateOne({_id:approvedData?.resortowner?._id},{$pull:{notification:{resortId:id}}})
+        console.log(userData,"popo");
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("success");
+          }
+
+            
         res.json({
           status: true,
             message: "Successfully Done",
+            approvedData:approvedData
+
         })
+      })
 
         .catch((err) => {
           console.log(err.message);
         });
-      });
+    
       
     } catch (error) {
 
       console.log(error.message);
       
     }
-  }
+  
+}
 
   module.exports.resortReject=async(req,res)=>{
     try {
@@ -275,12 +302,22 @@ module.exports.Admin_Login=async(req,res,next)=>{
 
 
       const{reject}=req.params;
+      const ownerId=req.body.resortOwner;
+      console.log( ownerId,"rd");
       const reason=req.body.reason
       console.log(reason,"reee");
       console.log(req.params,"reject");
+      const staffEmail=await Resort.findById({_id:reject}).populate('resortowner')
       let reasons=`your resort is rejected due to ${reason}`
-
-      const staffEmail=await Resort.findByIdAndUpdate({_id:reject}).populate('resortowner')
+      const staffData=await Staff.findByIdAndUpdate({_id:ownerId},
+       { $push:{
+          notification:{
+            message:reasons,
+            resortId:reject
+          }
+        }}
+      )
+     
 
       var mailOptions = {
         from:USER_MAIL,
@@ -299,7 +336,8 @@ module.exports.Admin_Login=async(req,res,next)=>{
           console.log("success");
           res.json({
             status:true,
-            message:"success"
+            message:"success",
+            staff:staffData
   
           })
         }
@@ -457,7 +495,7 @@ console.log('dfdfdfdfd');
 
     console.log(req.body.id);
     const serviceData=await services.findByIdAndUpdate(req.body.id,{is_delete:true})
-    if(serviceData)({
+    if(serviceData)res.json({
 
       status:true,
       message:"Successfully done it"
@@ -479,6 +517,11 @@ module.exports.servicesCreation=async(req,res)=>{
 
     const{title}=req.body;
     console.log(req.body,"reqss");
+    const serv=await services.findOne({title:title,is_delete:false})
+    console.log(serv,"sddsds");
+    if(!serv){
+
+    
     const newTitle=new services({
       title
     })
@@ -488,6 +531,11 @@ module.exports.servicesCreation=async(req,res)=>{
       res.status(201).json({status:true,message:"successfully created"})
 
     }
+  }
+  else{
+
+    res.status(404).json({status:true,message:"Already exist"})
+  }
     
   } catch (error) {
 

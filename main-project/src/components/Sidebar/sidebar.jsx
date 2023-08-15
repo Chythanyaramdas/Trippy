@@ -10,6 +10,12 @@ function Sidebar() {
   
     return (
       <div className="h-[93.1vh] 394867 py-4 w-full pt-16  font-serif sticky left-0 top-0 bg-[#0DB24C]">
+        {/* <div className="h-14 bg-[#FFFFFF] flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]">
+          
+          <GiTatteredBanner className="mr-1 "/>
+
+          <p className="hidden md:block  ">Banner</p>
+        </div> */}
         <div className="h-14 bg-[#FFFFFF] flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]">
           
           <GiTatteredBanner className="mr-1 "/>

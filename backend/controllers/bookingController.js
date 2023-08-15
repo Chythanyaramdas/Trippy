@@ -215,12 +215,13 @@ module.exports.paymentSuccess=async(req,res)=>{
   try {
 
     const { paymentId,resortId,users,checkInDate,checkOutDate } = req.body;
-    console.log(req.body,"RB");
+    // console.log(req.body,"RB");
+    console.log('-------start------------');
     const paymentChecking = await stripe.checkout.sessions.retrieve(paymentId);
-    console.log(paymentChecking);
-    console.log(paymentChecking.payment_status);
+    // console.log(paymentChecking);
+    // console.log(paymentChecking.payment_status);
     const data=await resort.findById({_id:resortId})
-    console.log(data,"RDATA");
+    // console.log(data,"RDATA");
   
     if( paymentChecking.payment_status==='paid' ){
 
@@ -239,9 +240,9 @@ module.exports.paymentSuccess=async(req,res)=>{
         status:true,
         message:"successfull"
       })
-      console.log(Booking, "BOX");
-
-
+      // console.log(Booking, "BOX");
+ 
+console.log(1);
     }
     
   } catch (error) {
@@ -299,7 +300,7 @@ module.exports.bookingResorts=async(req,res)=>{
 
     const staff=req.params.id
     console.log(req.params.id,"staffffs");
-    await resort.find({$and:[{resortowner:staff},{is_delete:false}]}).then((response)=>{
+    await resort.find({$and:[{resortowner:staff},{is_delete:false},{verify:true}]}).then((response)=>{
       res.json({
         status:true,
         message:"successs",
