@@ -15,7 +15,7 @@ function Sidebar() {
           
           <GiTatteredBanner className="mr-1 "/>
 
-          <p className="hidden md:block  ">Dashboard</p>
+          <p className="hidden md:block  ">view</p>
         </div>
 
         <div className="h-14  flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"onClick={() => navigate('/staff/resortRegister')}>

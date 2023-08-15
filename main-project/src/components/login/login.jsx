@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link} from 'react-router-dom';
 import axios from 'axios';
+import { hideLoading,showLoading } from '../../redux/alertSlice';
 
 
 
@@ -43,9 +44,10 @@ const   UserLogin = () => {
       console.log('token');
       const token = localStorage.getItem('adminToken')
       console.log(token);
+      dispatch(showLoading());
       await UserApi.post(`/userLogin`,{email,password}).then((response)=>{
         console.log(response);
-
+        dispatch(hideLoading());
         const{name,_id,email}=response.data.user;
 
         dispatch(userLogin({name,_id,email}));
