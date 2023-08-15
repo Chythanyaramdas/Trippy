@@ -135,7 +135,7 @@ const handlePassword=(e)=>{
 // </>
 
 <>
-  <div className="flex w-screen  justify-center object-cover   bg-no-repeat items-center h-screen  " style={{ backgroundImage: "url('https://free4kwallpapers.com/uploads/wallpaper/background-blue-circle-pattern-abstract-design-texture-wallpaper-1024x768-wallpaper.jpg')",backgroundSize: "100vw 100vh"}}>
+  <div className="flex w-screen  justify-center object-cover   bg-no-repeat items-center h-screen  " style={{ backgroundImage: "url('https://wallpaperaccess.com/full/1431610.jpg')",backgroundSize: "100vw 100vh"}}>
     <form onSubmit={handleSubmit} className="w-2/4 h-2/4">
       <div className='flex justify-center items-center bg-sky-100 bg-opacity-50 rounded-md w-[100%] h-[100%] flex-col'>
       <div className="form-group mb-2 ">
@@ -145,7 +145,7 @@ const handlePassword=(e)=>{
         <input
           type="password"
           name="password"
-          className="form-control w-64 rounded-lg border-2 border-stone-950 bg-slate-300"
+          className="form-control w-64 rounded-lg border-2 border-stone-950 bg-slate-300 text-black font-serif text-2xl"
           id="password"
           value={formValues.password}
           required
@@ -162,7 +162,7 @@ const handlePassword=(e)=>{
         <input
           type="password"
           name="confirmPassword"
-          className="form-control w-64 rounded-lg overflow-hidden bg-slate-300"
+          className="form-control w-64 rounded-lg overflow-hidden bg-slate-300 text-black font-serif text-2xl"
           id="confirmPassword"
           value={formValues.confirmPassword}
           required

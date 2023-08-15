@@ -415,7 +415,7 @@ module.exports.categoryPage = async (req, res) => {
     console.log("params come");
     const categoreyData=await resort
       .find({
-        $and: [{ verify: true }, { is_delete: false }, { category: id }],
+        $and: [{ verify: true }, { is_delete: false }, { category: id },{verify:true}],
       })
       const serviceData=await services.find({is_delete:false})
       console.log(serviceData,"SDR");

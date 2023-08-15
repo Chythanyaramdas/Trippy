@@ -134,7 +134,7 @@ function CategoryPage() {
       </div> */}
 
       <div className="w-[99vw] min-h-[60rem]  pb-20 flex">
-        <div className="w-[80%] h-full shadow-black shadow-lg rounded-xl m-5 ">
+        <div className="w-[80%] h-full shadow-black shadow-sm rounded-xl m-5 ">
 
 
         <div className="w-full h-full flex justify-center items-center ">
@@ -194,7 +194,7 @@ function CategoryPage() {
             <div className="bg-transparent w-full h-[90%]">
               {services?.map((data,index)=>{
                 return(
-              <div className="w-full h-10 bg-[#88cbfa] flex justify-start items-center ps-2">
+              <div className="w-full h-10  flex justify-start items-center ps-2">
                 <input type="checkbox" className="w-5 me-4"  name="service"  onChange={(e)=>handleFilter(e,index)} value={data.title}/>
                 <p>{data?.title}</p>
               </div>

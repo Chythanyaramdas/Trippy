@@ -81,8 +81,8 @@ return (
 
 
 
-<div className="relative flex flex-col justify-center h-screen overflow-hidden bg-[url(https://i.pinimg.com/originals/d8/22/20/d822205ab35e56560a848a76b0d33a58.jpg)]">
-    <div className="w-full p-6 m-auto bg-violet-200	background-color: rgb(221 214 254); rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-lg">
+<div className="relative flex flex-col justify-center h-screen overflow-hidden bg-[url(https://wallpapercave.com/wp/wp4069431.jpg)]">
+    <div className="w-full p-6 m-auto bg-green-100	background-color: rgb(221 214 254); rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-lg">
       <h1 className="text-3xl font-semibold text-center text-gray-700">
         Trippy
       </h1>
