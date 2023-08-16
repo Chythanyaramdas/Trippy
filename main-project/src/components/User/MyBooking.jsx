@@ -28,7 +28,7 @@ function MyBooking() {
   console.log(booked, "book");
 
   const CancelBooking = (id) => {
-    UserApi.get(`/cancelBooking/${id}`).then((response) => {
+    UserApi.get(`/cancelBooking/${id}?userId=${users.id}`).then((response) => {
       if (response.data.status) {
         setCancel((prev) => !prev);
       }
@@ -40,6 +40,7 @@ function MyBooking() {
       <div>
       <Navbar/>
       </div>
+      
       <div className="mx-auto max-w-screen-2xl">
         <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
           My Booking Details

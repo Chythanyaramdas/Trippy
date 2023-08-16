@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
-const services=require('../models/ServicesModel')
+const services = require("../models/ServicesModel");
 const banner = require("../models/bannerModel");
 const nodemailer = require("nodemailer");
 const config = require("../config/config");
@@ -13,7 +13,7 @@ dotenv.config();
 const Category = require("../models/categoryModel");
 const resort = require("../models/resortModel");
 const Location = require("../models/locationModel");
-const booked=require("../models/bookingModel")
+const booked = require("../models/bookingModel");
 const { Long } = require("mongodb");
 
 const { USER_MAIL, USER_PASSWORD, JWT_SECRET_KEY } = process.env;
@@ -92,7 +92,7 @@ exports.signup = async (req, res) => {
     // Check if the email is already taken
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log('already exit');
+      console.log("already exit");
       res.status(400).json({ message: "Email already exists" });
     } else {
       var mailOptions = {
@@ -124,7 +124,7 @@ exports.signup = async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: error.message })
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -183,7 +183,6 @@ module.exports.userLogin = async (req, res, next) => {
         console.log("njn");
         res.status(401).json({
           message: "User Blocked",
-           
         });
       }
 
@@ -276,18 +275,14 @@ module.exports.verifyNewPassword = async (req, res) => {
     if (otp === result) {
       console.log("success");
       res.json({
-        status:true,
-        message:"successfully done it"
+        status: true,
+        message: "successfully done it",
       });
-    }
-
-    else{
+    } else {
       res.json({
-        status:false,
-        message:"failed"
+        status: false,
+        message: "failed",
       });
-    
-
     }
   } catch (error) {
     console.log(error.message);
@@ -298,21 +293,21 @@ module.exports.verifyNewPassword = async (req, res) => {
 module.exports.newPassword = async (req, res) => {
   try {
     const { email, password } = req.body;
-    
+
     // console.log(formValues.password);
-    const hashPassword = await bcrypt.hash(password,10);
+    const hashPassword = await bcrypt.hash(password, 10);
     const data = await User.updateOne(
       { email: email },
-     {
+      {
         $set: {
           password: hashPassword,
         },
       }
     );
     res.json({
-      status:true,
-      message:"success completed"
-    })
+      status: true,
+      message: "success completed",
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -339,7 +334,7 @@ module.exports.landPage = async (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
-}; 
+};
 module.exports.auth = async (req, res) => {
   try {
     console.log("Augustine");
@@ -383,26 +378,24 @@ module.exports.resortPage = async (req, res) => {
     // const{ id }=req.params;
     const id = req.query.id;
     console.log("sahrdya");
-    const resortData=await resort
+    const resortData = await resort
       .findOne({ $and: [{ _id: id }, { verify: true }] })
-      .populate({ path: "location", populate: "district" })
-     const bookedData=await booked.find({resortId:id})
-     console.log(bookedData,"BD");
-      
-        // const districtId=response.location.district
-        // console.log(districtId);
-        // const district=await Location.findById({_id:districtId})
-        // console.log(district,"the dis");
-        // console.log(response,"responn");
-        res.json({
-          status: true,
-          message: "successfully done",
-          resort: resortData,
-          booked:bookedData
+      .populate({ path: "location", populate: "district" });
+    const bookedData = await booked.find({ resortId: id });
+    console.log(bookedData, "BD");
 
-        });
-        //
-      
+    // const districtId=response.location.district
+    // console.log(districtId);
+    // const district=await Location.findById({_id:districtId})
+    // console.log(district,"the dis");
+    // console.log(response,"responn");
+    res.json({
+      status: true,
+      message: "successfully done",
+      resort: resortData,
+      booked: bookedData,
+    });
+    //
   } catch (error) {
     console.log(error.message);
   }
@@ -413,21 +406,24 @@ module.exports.categoryPage = async (req, res) => {
     const id = req.params.id;
     console.log(id);
     console.log("params come");
-    const categoreyData=await resort
-      .find({
-        $and: [{ verify: true }, { is_delete: false }, { category: id },{verify:true}],
-      })
-      const serviceData=await services.find({is_delete:false})
-      console.log(serviceData,"SDR");
-      
-        // console.log(response, "rp");
-        res.json({
-          status: true,
-          message: "successfully done it",
-          category: categoreyData,
-          services:serviceData
-        });
-     
+    const categoreyData = await resort.find({
+      $and: [
+        { verify: true },
+        { is_delete: false },
+        { category: id },
+        { verify: true },
+      ],
+    });
+    const serviceData = await services.find({ is_delete: false });
+    console.log(serviceData, "SDR");
+
+    // console.log(response, "rp");
+    res.json({
+      status: true,
+      message: "successfully done it",
+      category: categoreyData,
+      services: serviceData,
+    });
   } catch (error) {
     console.log(error.message);
   }

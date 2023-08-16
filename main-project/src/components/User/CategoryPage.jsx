@@ -5,15 +5,14 @@ import { UserApi } from "../../utils/user/axiosUser";
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../Footer/UserFooter";
 
-
 function CategoryPage() {
   const { id } = useParams();
   const server_url = process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
   const [category, setCategory] = useState([{}]);
   const [search, setSearch] = useState("");
-  const [filter,setFilter]=useState([])
-  const[services,setServices]=useState([{}])
+  const [filter, setFilter] = useState([]);
+  const [services, setServices] = useState([{}]);
 
   useEffect(() => {
     if (id) {
@@ -25,7 +24,7 @@ function CategoryPage() {
           console.log(response.data.category);
 
           setCategory([...response.data.category]);
-          setServices([...response.data.services])
+          setServices([...response.data.services]);
         }
       });
     }
@@ -35,7 +34,6 @@ function CategoryPage() {
     // alert(search);
     UserApi.get(`/searchService/${id}?search=${search}`).then((response) => {
       if (response.data.status) {
-        
         setCategory([...response.data.search]);
         console.log(response.data.search);
       } else {
@@ -58,20 +56,19 @@ function CategoryPage() {
   //     if(service.checked) newFilter.push(service.title)
   //   })
 
-    // const{value}=e.target
+  // const{value}=e.target
 
-    // const data=filter.indexOf(value)
+  // const data=filter.indexOf(value)
 
-    // if(data>=0){
-    //   setFilter((prev)=>[...prev.filter((obj)=> obj!==value)])
-    // }
-    // else{
-    //   setFilter((prev)=>[...prev,value]) 
-    // }
-    // let newFilter = [...filter,value]
-    
+  // if(data>=0){
+  //   setFilter((prev)=>[...prev.filter((obj)=> obj!==value)])
+  // }
+  // else{
+  //   setFilter((prev)=>[...prev,value])
+  // }
+  // let newFilter = [...filter,value]
+
   //   UserApi.get(`/searchService/${id}?service=[${newFilter}]`).then((response)=>{
-
 
   //     if(response.data.status){
   //       setCategory([...response.data.search])
@@ -84,31 +81,30 @@ function CategoryPage() {
     setServices((prev) => {
       return prev.map((service, index1) => {
         if (index === index1) {
-          service['checked'] = !service['checked'];
+          service["checked"] = !service["checked"];
         }
         return { ...service };
       });
     });
-  
+
     setTimeout(() => {
       let newFilter = [];
-  
+
       services.forEach((service) => {
         if (service.checked) {
           newFilter.push(service.title);
         }
       });
-  
-      UserApi.get(`/searchService/${id}?service=[${newFilter}]`).then((response) => {
-        if (response.data.status) {
-          setCategory([...response.data.search]);
+
+      UserApi.get(`/searchService/${id}?service=[${newFilter}]`).then(
+        (response) => {
+          if (response.data.status) {
+            setCategory([...response.data.search]);
+          }
         }
-      });
+      );
     }, 0);
   };
-  
-  
-  
 
   return (
     <div className="">
@@ -116,18 +112,12 @@ function CategoryPage() {
         <Navbar />
       </div>
 
-      <div className=' w-full flex h-28  justify-center items-center overflow-hidden bg-[url(https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-63452.jpg?w=1480&t=st=1692072928~exp=1692073528~hmac=00f9f78c35cdb7bbd2f8c745eab4ac739fbdddd69fb02704833d60ed27ef6874)]'>
-      <h3 className=" z-10  text-3xl text-black font-serif">
-              Choose
-            </h3>
-            <h1 className=" z-10  text-4xl text-blue-800 font-serif ms-4">
-             Your Stay
-            </h1>
+      <div className=" w-full flex h-28  justify-center items-center overflow-hidden bg-[url(https://img.freepik.com/free-photo/abstract-luxury-gradient-blue-background-smooth-dark-blue-with-black-vignette-studio-banner_1258-63452.jpg?w=1480&t=st=1692072928~exp=1692073528~hmac=00f9f78c35cdb7bbd2f8c745eab4ac739fbdddd69fb02704833d60ed27ef6874)]">
+        <h3 className=" z-10  text-3xl text-black font-serif">Choose</h3>
+        <h1 className=" z-10  text-4xl text-blue-800 font-serif ms-4">
+          Your Stay
+        </h1>
       </div>
-
-      
-
-      
 
       {/* <div className="flex justify-center">
         <p className="text-2xl font-serif">Choose Your Stay</p>
@@ -135,25 +125,23 @@ function CategoryPage() {
 
       <div className="w-[99vw] min-h-[60rem]  pb-20 flex">
         <div className="w-[80%] h-full shadow-black shadow-sm rounded-xl m-5 ">
-
-
-        <div className="w-full h-full flex justify-center items-center ">
-        <input
-          type="text"
-          placeholder="please search "
-          className="p-4 mt-5 text-black shadow-lg rounded-lg w-1/3 bg-slate-100 h-12  "
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          className="btn join-item mx-10 mt-3 bg-slate-100"
-          onClick={() => {
-            handleSearch();
-          }}
-        >
-          Search
-        </button>
-      </div>
+          <div className="w-full h-full flex justify-center items-center ">
+            <input
+              type="text"
+              placeholder="please search "
+              className="p-4 mt-5 text-black shadow-lg rounded-lg w-1/3 bg-slate-100 h-12  "
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button
+              className="btn join-item mx-10 mt-3 bg-slate-100"
+              onClick={() => {
+                handleSearch();
+              }}
+            >
+              Search
+            </button>
+          </div>
 
           <div className="flex  flex-wrap pb-10 gap-16 mt-12 ps-6 ">
             {category?.map((data) => {
@@ -185,24 +173,28 @@ function CategoryPage() {
           </div>
         </div>
 
-
         <div className="w-[20%] min-h-[60rem] pb-20 flex justify-center pt-5 ">
           <div className=" bg-[#a0e4fb] shadow-black shadow-md w-[90%] h-[40rem] rounded-lg">
             <div className="w-full h-[10%] bg-transparent flex justify-center items-center">
               <p className="text-2xl font-serif ">Filter</p>
             </div>
             <div className="bg-transparent w-full h-[90%]">
-              {services?.map((data,index)=>{
-                return(
-              <div className="w-full h-10  flex justify-start items-center ps-2">
-                <input type="checkbox" className="w-5 me-4"  name="service"  onChange={(e)=>handleFilter(e,index)} value={data.title}/>
-                <p>{data?.title}</p>
-              </div>
-              );
-            })}
+              {services?.map((data, index) => {
+                return (
+                  <div className="w-full h-10  flex justify-start items-center ps-2">
+                    <input
+                      type="checkbox"
+                      className="w-5 me-4"
+                      name="service"
+                      onChange={(e) => handleFilter(e, index)}
+                      value={data.title}
+                    />
+                    <p>{data?.title}</p>
+                  </div>
+                );
+              })}
             </div>
-            </div>
-                
+          </div>
         </div>
       </div>
 

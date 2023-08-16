@@ -41,40 +41,51 @@ const ResortBooking = () => {
     }
   }, [id]);
 
-      const handlebookingHotel =async()=>{
-          alert('offline')
-        UserApi.post('/payment',{resortId:resort._id,users:users.id,checkInDate,checkOutDate,paymentt}).then((response)=>{
-          if(response.data.status){
-            alert('hi')
-        localStorage.removeItem('checkinDate')
-        localStorage.removeItem('checkoutDate')
-        navigate('/successPage')
-
-          }
-        }) 
-
+  const handlebookingHotel = async () => {
+    alert("offline");
+    UserApi.post("/payment", {
+      resortId: resort._id,
+      users: users.id,
+      checkInDate,
+      checkOutDate,
+      paymentt,
+    }).then((response) => {
+      if (response.data.status) {
+        alert("hi");
+        localStorage.removeItem("checkinDate");
+        localStorage.removeItem("checkoutDate");
+        navigate("/successPage");
       }
+    });
+  };
 
-
-
-        const handleOnlinePayment=async ()=>{
-alert("online")
-            UserApi.post('/create-checkout-session',{resortId:resort._id}).then((response)=>{
-              if(response.data.status){
-                // alert('hello')
-                // localStorage.removeItem('checkinDate')
-                // localStorage.removeItem('checkoutDate')
-                // window.location.href(response.data.url)
-                alert('success')
-                window.location.href = response.data.url
-                
-              }
-            })
+  const handleOnlinePayment = async () => {
+    alert("online");
+    UserApi.post("/create-checkout-session", {
+      resortId: resort._id,
+      paymentt,
+      userId: users.id,
+      checkInDate,
+      checkOutDate,
+    })
+      .then((response) => {
+        if (response.data.status) {
+          // alert('hello')
+          // localStorage.removeItem('checkinDate')
+          // localStorage.removeItem('checkoutDate')
+          // window.location.href(response.data.url)
+          if (response.data.payMethod === "wallet") navigate("/successPage");
+          else {
+            alert("success");
+            window.location.href = response.data.url;
+          }
         }
-
-
-
-
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error.response.data.message);
+      });
+  };
 
   //   const location = useLocation();
   //   const timeDifference = checkOutDate?.getTime() - checkInDate?.getTime();
@@ -193,8 +204,6 @@ alert("online")
   //   };
 
   useEffect(() => {
-    
-
     const checkInDateFromStorage = localStorage.getItem("checkinDate");
     // setCheckInDate(checkInDateFromStorage)
     const checkOutDateFromStorage = localStorage.getItem("checkoutDate");
@@ -209,10 +218,6 @@ alert("online")
       setCheckOutDate(new Date(checkOutDateFromStorage));
     }
   }, []);
-
-
-
-  
 
   // console.log(resortdata,"resort")
   return (
@@ -266,7 +271,7 @@ alert("online")
               </div>
             </form>
           </div>
-          
+
           <div className="max-w-[900px] bg-gray-100 p-4 mt-5 rounded-lg">
             <h2 className="font-semibold">{resort?.resortname}</h2>
             <h2 className="font-semibold flex items-center">
@@ -333,7 +338,22 @@ alert("online")
                   Online Payment
                 </label>
               </div>
+
+              <div>
+                <input
+                  type="radio"
+                  id="online"
+                  value="wallet"
+                  checked={paymentt === "wallet"}
+                  onChange={(e) => setPaymentt(e.target.value)}
+                  required
+                />
+                <label htmlFor="online" className="ml-2">
+                  Wallet
+                </label>
+              </div>
             </div>
+
             <button
               disabled={!checkInDate || !checkOutDate || paymentt === "cod"}
               onClick={() => handleOnlinePayment()}
@@ -343,14 +363,18 @@ alert("online")
             </button>
 
             <button
-              disabled={!checkInDate || !checkOutDate || paymentt === "online"}
+              disabled={
+                !checkInDate ||
+                !checkOutDate ||
+                paymentt === "online" ||
+                paymentt === "wallet"
+              }
               onClick={() => handlebookingHotel()}
               className="btn btn-success"
             >
               Pay Hotel
             </button>
           </div>
-
         </div>
       </div>
       <ToastContainer />

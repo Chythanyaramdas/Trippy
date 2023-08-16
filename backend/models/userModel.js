@@ -50,6 +50,10 @@ status:{
 
     type:String,
     default:"unbanned"
+},
+wallet:{
+    type:Number,
+    default:0
 }
 },{
     timestamps:true

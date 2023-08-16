@@ -1,6 +1,7 @@
 const book = require("../models/bookingModel");
 const resort = require("../models/resortModel");
 const { checkout } = require("../routers/Route");
+const User=require('../models/userModel')
 const dotenv = require("dotenv");
 dotenv.config();
 const{STRIPE_KEY}=process.env;
@@ -177,37 +178,83 @@ res.json({
 }
 module.exports.paymentStripe=async(req,res)=>{
   try {
-    const{resortId}=req.body
+    const{resortId,paymentt,userId,checkInDate,checkOutDate}=req.body
     console.log(resortId,"RID");
+    console.log(paymentt,"RIP");
+    console.log(userId,"USD");
+    console.log(checkInDate,"CK");
+    console.log(checkOutDate,"Cd");
     const resortData=await resort.findById({_id:resortId})
+
     console.log(resortData,"RD");
     let resortPrice = resortData.price
     console.log(resortPrice);
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: 'INR',
-            product_data: {
-              name: `${resortData.resortname}`,
+    if(paymentt==='online'){
+
+      const session = await stripe.checkout.sessions.create({
+        line_items: [
+          {
+            price_data: {
+              currency: 'INR',
+              product_data: {
+                name: `${resortData.resortname}`,
+              },
+              unit_amount: resortPrice*100 ,
             },
-            unit_amount: resortPrice ,
+            quantity: 1,
           },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `http://localhost:3000/successPage?session_id={CHECKOUT_SESSION_ID}&resortId=${resortData._id}`,
-      cancel_url: 'http://localhost:3000/cancel',
-    });
+        ],
+        mode: 'payment',
+        success_url: `http://localhost:3000/successPage?session_id={CHECKOUT_SESSION_ID}&resortId=${resortData._id}`,
+        cancel_url: 'http://localhost:3000/cancel',
+      });
+      
+      res.json({
+        status:true,
+        url:session.url
+      })
+
+    }
+    else if(paymentt==='wallet'){
+
+      const userData=await User.findById(userId)
+      console.log(userData,"usr");
+      if(userData.wallet>=resortData.price){
+
+        let Booking = new book({
+          resortId: resortId,
+          userId: userId,
+          fromDate: checkInDate,
+          toDate: checkOutDate,
+          payment: {
+            payment_amount: resortData.price,
+            payment_method: paymentt,
+          },
+        });
+        await Booking.save();
+
+        res.json({
+          status:true,
+          message:"success",
+          payMethod:paymentt
+        })
+
+      }
+      else{
+
+        const error=new Error('Not enough balance in wallet')
+        error.status =400
+        throw error
+      }
+
+
+    }
     
-    res.json({
-      status:true,
-      url:session.url
-    })
   } catch (error) {
 
     console.log(error.message);
+    res.status(error.status).json({message:error.message})
+    
     
   }
 }
@@ -278,16 +325,30 @@ module.exports.cancelBooking=async(req,res)=>{
 
     const id=req.params.id;
     console.log(id,"idzzz");
+    const {userId}=req.query
+    console.log(userId,"usID");
+    
     const cancelData=await book.findByIdAndUpdate({_id:id}, {
       $set: {
         status:"cancelled"
+
       },
     })
+
+    const cancelledAmount=cancelData.payment.payment_amount
+    console.log(cancelledAmount,"CA---");
+    const userData=await User.findByIdAndUpdate(userId,{
+        $inc:{wallet:cancelledAmount}
+      }
+    )
+    console.log(userData,"----------------data");
     res.json({
       status:true,
       message:"Successfully Cancelled",
       cancel:cancelData
     })
+
+
     
   } catch (error) {
 
