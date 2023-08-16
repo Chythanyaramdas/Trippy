@@ -169,15 +169,15 @@ console.log('----allDates---',allDates);
         <div className="w-[50%] h-full ">
 
           <div className="  w-full flex h-28  items-center ps-16 mt-5">
-            <h3 className=" z-10  text-3xl text-black font-serif">
+            <h3 className=" z-10  text-3xl text-black font-popins">
               Welcome to{" "}
             </h3>
-            <h1 className=" z-10  text-4xl text-blue-800 font-serif ms-4">
+            <h1 className=" z-10  text-4xl text-blue-800 font-popins ms-4">
               {resort.resortname}{" "}
             </h1>
           </div>
           
-        <div className="w-[90%] h-64 ps-14 flex justify-center items-start">
+        <div className="w-[90%] h-64 ps-14 flex justify-center items-start text-lg">
         <div className="w-[60rem]   rounded-md h-64">
             {resort.description}
         </div>
