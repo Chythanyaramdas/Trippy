@@ -4,6 +4,7 @@ const authJWT=require('../middlewares/userAuth')
 const userControllerRegistration = require('../controllers/userController');
 const bookingController=require('../controllers/bookingController')
 const categoryController=require('../controllers/categoreyController')
+const resortController=require('../controllers/resortController')
 
 
 user_route.get('/',userControllerRegistration.landPage);
@@ -29,9 +30,9 @@ user_route.post('/create-checkout-session',bookingController.paymentStripe)
 user_route.post('/payment-succes',bookingController.paymentSuccess)
 user_route.get('/myBooking/:id',bookingController.paymentHistory)
 user_route.get('/searchSingleResort/:checkInDate/:checkOutDate/:resort_id',bookingController.checkSingleResort)
+user_route.post('/reviewSubmit/:resort_id/:users_id/:rating/:comment',resortController.reviews)
 
 user_route.get('/searchService/:id',categoryController.searchService)
-
 user_route.get('/cancelBooking/:id',bookingController.cancelBooking)
 
 

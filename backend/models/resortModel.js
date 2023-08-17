@@ -80,6 +80,31 @@ const resortSchema= mongoose.Schema({
 
     },
 
+    reviews:[{
+
+      userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'userModel'
+      } ,
+      
+      userReview:
+      {
+
+        type:String
+
+      },
+
+      rating:{
+        type:Number
+      },
+
+      createdDate:{
+        type:Date,
+        default:new Date()
+      }
+
+    }],
+
     services:[],
 
     notification:[{

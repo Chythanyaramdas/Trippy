@@ -11,7 +11,7 @@ export const HomeVerification = ({children})=>{
     const navigate=useNavigate()
     const dispatch = useDispatch()
     const jwtToken=localStorage.getItem('userToken')
-    console.log(jwtToken,"jwtHomeVerification");
+    // console.log(jwtToken,"jwtHomeVerificationssssssss");
 
     const [loading,setLoading] = useState(true)
 
@@ -41,7 +41,9 @@ export const HomeVerification = ({children})=>{
                     navigate('/login')
                     
                   })
-            }       
+            } else{
+                setLoading(false)
+            }      
         })()
     },[])
 

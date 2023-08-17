@@ -385,3 +385,52 @@ module.exports.updateResort = async (req, res) => {
     console.log(error.message);
   }
 };
+module.exports.reviews=async(req,res)=>{
+  try {
+
+   const{resort_id,rating,comment,users_id}=req.params; 
+   console.log(resort_id,"rid------------------------------------");
+   console.log(rating);
+   console.log(comment);
+   console.log(users_id);
+  
+  //  const review=await resort.findByIdAndUpdate({_id:resort_id},{
+  //   $set:{
+
+  //     userId:users_id,
+  //     userReview:comment,
+  //     rating:rating,
+  //   }
+  //  })
+
+  const resorts = await resort.findOne({
+    _id: resort_id,
+    reviews: { $elemMatch: { userId: users_id } }
+  });
+  console.log(resorts,"uuuuuuuuuuuuuuuuuuuuuuuuuuu");
+  if(resorts){
+   res.json({
+    status:true,
+    message:"already added"
+   })
+  }else{
+    const review=await resort.findByIdAndUpdate({_id:resort_id},{
+          $push:{
+            reviews:{
+              userId:users_id,
+              userReview:comment,
+              rating:rating,
+            }
+          }
+        }).then(()=>{
+          res.json({
+            status:true,
+            message:"successfully review added"
+          })
+        return
+        })
+  }
+  } catch (error) {
+    console.log(error.message);
+  }
+}

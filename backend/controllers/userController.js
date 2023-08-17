@@ -377,13 +377,24 @@ module.exports.resortPage = async (req, res) => {
   try {
     // const{ id }=req.params;
     const id = req.query.id;
+    const userId=req.query.userId||''
+    console.log(userId,"--------------------------------------------------------------users");
     console.log("sahrdya");
     const resortData = await resort
       .findOne({ $and: [{ _id: id }, { verify: true }] })
-      .populate({ path: "location", populate: "district" });
+      .populate({ path: "location", populate: "district" }).populate({path:"reviews",populate:"userId"});
+
     const bookedData = await booked.find({ resortId: id });
     console.log(bookedData, "BD");
 
+    let bookedCount
+    if(userId){
+      bookedCount = await booked.find({$and:[{resortId:id},{userId:userId}]}).countDocuments()
+let userBook =  await resort.findById(id)
+console.log(userBook);
+    }
+    
+ 
     // const districtId=response.location.district
     // console.log(districtId);
     // const district=await Location.findById({_id:districtId})
@@ -394,6 +405,7 @@ module.exports.resortPage = async (req, res) => {
       message: "successfully done",
       resort: resortData,
       booked: bookedData,
+      bookingCount:bookedCount || 0
     });
     //
   } catch (error) {
