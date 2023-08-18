@@ -389,7 +389,8 @@ module.exports.resortPage = async (req, res) => {
 
     let bookedCount
     if(userId){
-      bookedCount = await booked.find({$and:[{resortId:id},{userId:userId}]}).countDocuments()
+      bookedCount = await booked.find({$and:[{resortId:id},{userId:userId}]}).count()
+      console.log(bookedCount,"bookings");
 let userBook =  await resort.findById(id)
 console.log(userBook);
     }

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import { FaRegStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import{VscAccount}from"react-icons/vsc"
 
 function Resorters() {
   const { id } = useParams();
@@ -34,7 +35,8 @@ function Resorters() {
   const [bookCount, setBookedCount] = useState(null);
   const [reviewCount, setReviewCount] = useState([]);
   const [reviewUpdate, setReviewUpdate] = useState(false);
-
+  const[update,setUpdate]=useState(false)
+console.log(bookCount,"kkkkkkkkk");
   const handlebookedDate = () => {
     let newDates = booked.map((booking) => {
       let dates = [];
@@ -100,15 +102,18 @@ function Resorters() {
         }
       );
     }
-  }, [id, reviewUpdate]);
+  }, [id, reviewUpdate,update]);
+
   useEffect(() => {
+   
+    console.log(reviewCount,'review Count');
     reviewCount.map((review) => {
       console.log(
         review.userId,
         "rrrrrrrrrrrrr--------------------------------------------"
       );
-      if (review.userId === users.id) {
-        console.log("scccccccccccccc");
+      if (review.userId._id === users.id) {
+        console.log("scccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc");
         setButtonDisabale(true);
         return;
       }
@@ -117,6 +122,7 @@ function Resorters() {
 
   const submitReview = () => {
     try {
+     console.log("clicked");
       UserApi.post(
         `/reviewSubmit/${resort._id}/${users.id}/${rating}/${comment}`
       ).then((response) => {
@@ -238,6 +244,21 @@ function Resorters() {
     });
   };
 
+
+  const formatDate = (time) => {
+    let newDate = new Date(time).toLocaleDateString();
+    return newDate;
+  };
+
+  const EditReview=async()=>{
+    console.log("Clickeddd");
+    UserApi.post(`/editReview`,{userId:users.id,resortId:resort._id,rating:rating,comment:comment}).then((response)=>{
+      if(response.data.status){
+
+        setUpdate(pre=>!pre)
+      }
+    })
+  }
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       <div className="w-3/4 h-[50rem] px-10 py-10 ">
@@ -364,7 +385,7 @@ function Resorters() {
         </div>
       </div>
 
-      <div className="mt-16 w-[100%] h-96  flex flex-col gap-4 bg-slate-100 ">
+      <div className="mt-44 w-[100%] h-96  flex flex-col gap-4 bg-slate-100  ">
         <div className="w-full h-[80%] flex justify-between px-16  mt-10 ">
           <div className="w-[50%] h-[100%] bg-sky-100 ">
             {/* <div className="w-full  h-full flex  items-center ps-12 mr-3 "> */}
@@ -429,8 +450,18 @@ function Resorters() {
             />
             <p className=" font-serif text-2xl ">Please Select</p>
           </div>
-          <div className="w-full h-full bg-sky-100 flex  ">
-            <div className="w-full">
+          
+
+
+        </div>
+      </div>
+
+      <div className=" mt-16 w-[100%] h-96  flex flex-col gap-4 bg-slate-100 ">
+          <div className="w-[100%] h-[80%] flex gap-4 justify-between  px-16  mt-10  ">
+
+
+            <div className="w-[50%] h-full bg-sky-100 flex  ">
+            <div className="w-full ">
               <div>
                 <p className=" z-10  text-3xl text-blue-600 font-bold ml-8 mt-6">
                   Rating
@@ -455,77 +486,69 @@ function Resorters() {
                 })}
               </div>
 
-              <div className="flex w-full bg-sky-100 justify-center  h-44  flex-col items-center ">
-                {bookCount ? (
-                  <>
+              <div className="flex w-full bg-sky-100 justify-center  h-36  flex-col items-center ">
+               
+                  
                     <textarea
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
                       className="w-44 bg-slate-300"
                     />
-                    {!buttonDisabale ? (
+                    {bookCount>0?
+                    !buttonDisabale ? (
+                      <button
+                      className="bg-red-900 w-38"
+                      onClick={submitReview}
+                    >
+                      Submit
+                    </button>
+                    ) : (
                       <button
                         className="bg-red-900 w-38"
-                        onClick={submitReview}
+                        onClick={EditReview}
                       >
-                        Submit
+                        Edit
                       </button>
-                    ) : (
-                      ""
-                    )}
-                    {/* <button  className="bg-red-900 w-38"onClick={submitReview}>Submit</button>  */}
-                  </>
-                ) : (
-                  ""
-                )}
+                    ):""}
+                   
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className=" mt-16 w-[100%] h-96  flex flex-col gap-4 bg-slate-100 ">
-          <div className="w-full h-[80%] flex justify-center items-center px-16  mt-10  ">
           <div className="w-[50%] h-[100%] bg-sky-100 ">
-            <h3 className="mt-4 text-2xl font-serif text-center mt-5 underline underline-offset-[9px]">Reviews...</h3>
+            <h3 className="mt-4 text-2xl font-serif text-center  underline underline-offset-[9px]">Reviews...</h3>
           
 
          
 
       {/* <div className="bg-transparent w-full h-[90%]"> */}
       <div className="w-full h-[80%] flex justify-evenly">
-      <div className="w-60 h-[80%] ">
-        {reviewCount?.map((data, index) => {
-          return (
-            <div className="w-full h-10  flex flex-col justify-start items-center ps-2">
-              {/* <input
-                      type="text"
-                      className="w-5 me-4 capitalize"
-                      name="service"
-                      // onChange={(e) => handleFilter(e, index)}
-                      value={data?.comment}
-                    /> */}
-              {/* <p>{data.userId}</p> */}
-              <div className="flex justify-start">
-              <p className="">{data?.userId?.name}</p>
 
-              </div>
-              <div className="flex w-full justify-between">
-              <p className=""> {data?.userReview}</p>
-              <div className="flex gap-3">
+
+
+        
+      <div className="w-[60%] bg-slate-100 h-[80%] overflow-Y-scroll">
+        {reviewCount?.map((data, index) => {
+          return <div className="w-full h-10 flex flex-col justify-start items-center ps-2">
+          <div className="flex justify-start w-full  ">
+          {/* <VscAccount className="text-2xl  mt-2" />  */}
+          <img src="https://pbs.twimg.com/media/FtsxswzaUAAZXJj.jpg:large" alt=""  className="w-10 h-10 rounded-full mt-1"/>
+            <p className="ms-2 mt-3 ml-2 capitalize font-bold">{data?.userId?.name}</p>
+            <p className="mt-3 ms-3">{formatDate(data?.createdDate)}</p>
+          </div>
+          <div className="flex w-full flex-col justify-between items-start mt-5  "> {/* Use flex-col and items-start for neat alignment */}
+            <p className={`${ data?.userReview ? "text-slate-950" : "text-slate-400" } ml-2`}>{data?.userReview ||  'no comment'}</p>
+            <div className="flex justify-end w-full gap-1">
               {Array.from({ length: data?.rating }).map((_, i) => (
-                <img className="w-5"
+                <img
+                  className="w-5 mr-1"
                   key={i}
                   src="https://img.icons8.com/?size=512&id=8ggStxqyboK5&format=png"
                   alt="Star"
                 />
               ))}
-              </div>
-              
-              </div>
-              
             </div>
-          );
+          </div>
+        </div>
         })}
         </div>
         </div>

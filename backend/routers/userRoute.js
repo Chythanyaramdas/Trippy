@@ -31,7 +31,7 @@ user_route.post('/payment-succes',bookingController.paymentSuccess)
 user_route.get('/myBooking/:id',bookingController.paymentHistory)
 user_route.get('/searchSingleResort/:checkInDate/:checkOutDate/:resort_id',bookingController.checkSingleResort)
 user_route.post('/reviewSubmit/:resort_id/:users_id/:rating/:comment',resortController.reviews)
-
+user_route.post('/editReview',resortController.reviewUpdate)
 user_route.get('/searchService/:id',categoryController.searchService)
 user_route.get('/cancelBooking/:id',bookingController.cancelBooking)
 

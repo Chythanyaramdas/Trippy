@@ -3,6 +3,9 @@ const resort = require("../models/resortModel");
 const category = require("../models/categoryModel");
 const services=require("../models/ServicesModel")
 const { response } = require("express");
+const { Long } = require("mongodb");
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
 // const sharp=require('sharp')
 
 // const fs = require('fs')
@@ -385,6 +388,89 @@ module.exports.updateResort = async (req, res) => {
     console.log(error.message);
   }
 };
+// module.exports.reviews=async(req,res)=>{
+//   try {
+
+//    const{resort_id,rating,comment,users_id}=req.params; 
+//    console.log(resort_id,"rid------------------------------------");
+//    console.log(rating);
+//    console.log(comment);
+//    console.log(users_id);
+  
+  //  const review=await resort.findByIdAndUpdate({_id:resort_id},{
+  //   $set:{
+
+  //     userId:users_id,
+  //     userReview:comment,
+  //     rating:rating,
+  //   }
+  //  })
+
+  // const resorts = await resort.findOne({
+  //   _id: resort_id,
+  //   reviews: { $elemMatch: { userId: users_id } }
+  // });
+  // console.log(resorts,"uuuuuuuuuuuuuuuuuuuuuuuuuuu");
+  // // if(resorts){
+  // //  res.json({
+  //   status:true,
+  //   message:"already added"
+  //  })
+  // }else{
+    // try {
+    //   const review = await resort.updateOne(
+    //     {
+    //       _id: resort_id,
+    //       'reviews.userId': users_id,
+    //     },
+    //     {
+    //       $set: {
+    //         'reviews.$.userId': users_id, // Update the specific review's userId
+    //         'reviews.$.userReview': comment, // Update the review text
+    //         'reviews.$.rating': rating, // Update the review rating
+    //         // Add more fields as needed
+    //       },
+    //       $setOnInsert: {
+    //         'reviews.$.userId': users_id, // Update the specific review's userId
+    //         'reviews.$.userReview': comment, // Update the review text
+    //         'reviews.$.rating': rating,
+    //       },
+    //     },
+    //     {
+    //       upsert: true,
+    //     }
+    //   );
+      
+    //   if (review.nModified === 1) {
+    //     console.log('success');
+    //     // The review was added/modified successfully
+    //     res.json({
+    //       status: true,
+    //       message: "Successfully added/modified review",
+    //     });
+    //   } else {
+    //     console.log('error');
+    //     // No modification was made, possibly due to a condition not being met
+    //     res.json({
+    //       status: false,
+    //       message: "Review not added/modified",
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    //   res.json({
+    //     status: false,
+    //     message: "An error occurred while adding/modifying review",
+    //   });
+    // }
+    
+  
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+
+
 module.exports.reviews=async(req,res)=>{
   try {
 
@@ -434,3 +520,139 @@ module.exports.reviews=async(req,res)=>{
     console.log(error.message);
   }
 }
+
+
+// module.exports.reviewUpdate=async(req,res)=>{
+//   try {
+
+//     const {userId,resortId}=req.body
+//     console.log("pppppppppppp",req.body);
+//     const resortData=await resort.find({_id:resortId})
+//     console.log(resortData,"rddddddddddddddddddddddddddddddddddddd");
+//     resortData.reviews.filter((obj)=>{
+//       if(obj.userId===userId){
+//         obj.comment=comment,
+//         obj.rating=rating
+
+//       }
+//     }).resortData.save()
+    
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+// module.exports.reviewUpdate = async (req, res) => {
+//   try {
+//     const { userId, resortId, comment, rating } = req.body;
+//     console.log("pppppppppppp", req.body);
+//     const resortData = await resort.findOne({ _id: resortId }); 
+//     console.log(resortData, "rddddddddddddddddddddddddddddddddddddd");
+    
+   
+//     if (resortData) {
+   
+//       const user_id = new ObjectId(userId)
+//       console.log(user_id);
+//       resortData.reviews.forEach((obj) => {
+//         console.log('Comparing:', obj.userId, user_id); // Add this line for debugging
+//         if (obj.userId === user_id) {
+//           console.log('Entered if');
+//           obj.comment = comment;
+//           obj.rating = rating;
+//           console.log(obj, "Updated Review");
+//         }
+//       });
+      
+//         await resortData.save();
+
+//         res.json({
+//           status: true,
+//           message: "Review updated successfully",
+//         });
+//       } else {
+//         res.json({
+//           status: false,
+//           message: "Review not found for the given userId",
+//         });
+//       }
+//     } 
+//    catch (error) {
+//     console.log(error.message);
+//     res.json({
+//       status: false,
+//       message: "An error occurred while updating the review",
+//     });
+//   }
+// };
+// ----------------------------------------------------------------------------------------------------------------------
+
+// module.exports.reviewUpdate=async(req,res)=>{
+//   try {
+    
+//     const{userId, resortId, comment, rating }=req.body; 
+//        console.log( resortId,"rid------------------------------------");
+//        console.log(rating);
+//        console.log(comment);
+//        console.log(userId);
+      
+//        const review=await resort.findByIdAndUpdate({_id:resortId},{
+//         $set:{
+    
+          
+//           userReview:comment,
+//           rating:rating,
+//         }
+//        }).review.save()
+
+//        res.json({
+//         status:true,
+//         message:"successfully done it "
+//        })
+    
+//   } catch (error) {
+//     console.log(error.message);
+    
+//   }
+// }
+
+
+module.exports.reviewUpdate = async (req, res) => {
+  try {
+    const { userId, resortId, comment, rating } = req.body;
+    console.log("pppppppppppp", req.body);
+    const resortData = await resort.findOne({ _id: resortId }); 
+    console.log(resortData, "rddddddddddddddddddddddddddddddddddddd");
+    let index1;
+    if (resortData) {
+      resortData.reviews.forEach((obj,index) => {
+        const objUserIdString = obj.userId.toString(); // Convert ObjectId to string
+        if (objUserIdString === userId) {
+          index1 = index
+          console.log('Entered if');
+          obj.userReview = comment;
+          obj.rating = rating;
+          console.log(obj, "Updated Review");
+        }
+      });
+      console.log('updated review');
+      console.log(resortData.reviews[index1]);
+      await resortData.save();
+
+      res.json({
+        status: true,
+        message: "Review updated successfully",
+      });
+    } else {
+      res.json({
+        status: false,
+        message: "Review not found for the given userId",
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.json({
+      status: false,
+      message: "An error occurred while updating the review",
+    });
+  }
+};
