@@ -83,6 +83,8 @@ staff_route.post('/resort_ud/:id',upload.array('image',5),resortController.updat
  staff_route.get('/bookingResort/:id',bookingController.bookingResorts)
  staff_route.get('/singlebookingManagement/:id',bookingController.bookingSingleResorts)
 
+ staff_route.get('/dashBoardChart/:id',staffController.dashBoardChart)
+
 // staff_route.post('/resortRegister',upload.array('image',10),resortController.resort);
 // staff_route.post('/resortRegister',upload.single('image2'),resortController.resort);
 module.exports = staff_route;

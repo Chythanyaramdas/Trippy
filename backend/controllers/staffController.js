@@ -1,7 +1,8 @@
 const bcrypt = require('bcryptjs');
 const Staff = require('../models/staffModel');
 const resort=require('../models/resortModel');
-
+const User=require('../models/userModel');
+const book=require('../models/bookingModel')
 const nodemailer = require("nodemailer");
 const config=require('../config/config');
 const randormstring=require("randomstring");
@@ -300,6 +301,44 @@ module.exports.deleteAdventure=async(req,res)=>{
           status:false,
           message:"Can't find the data"
       })
+    
+  }
+}
+module.exports.dashBoardChart=async(req,res)=>{
+  try {
+    const staff=req.params.id
+    console.log(staff,"...............///");
+    const users=req.params.user_id
+    console.log(users,"------------------------------------userssss");
+    
+    const resortCount=await resort.find({$and:[{resortowner:staff},{is_delete:false},{verify:true}]})
+    console.log(resortCount,"-------------------resortData");
+    // const bookingCount=await book.find({$and:[{userId:users},{status:"booked"}]})
+    // console.log(bookingCount,"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+
+    const data=resortCount.map((obj)=>obj._id)
+    console.log(data,"-------------------------------------datacount");
+    const bookings = await book.find({ resortId: { $in: data } }).countDocuments();
+
+    console.log(bookings,"bookingsssssssssssss");
+
+    const resortCounts=await resort.find({$and:[{resortowner:staff},{is_delete:false},{verify:true}]}).countDocuments()
+    console.log(resortCounts);
+
+
+
+
+    // pie charts
+
+      res.json({
+        status:true,
+        message:"submitted",
+        resortCount:resortCounts,
+        bookingCount:bookings
+      })
+    
+  } catch (error) {
+    console.log(error.message);
     
   }
 }

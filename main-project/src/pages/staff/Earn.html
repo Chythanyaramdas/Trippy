@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import AdminNavbar from "../../components/admin/navbar/AdminNavbar";
-import Sidebar from "../../components/admin/sideBar/Sidebar";
-import { AdminApi } from "../../utils/staff/axiosStaff";
+import AdminNavbar from "../../components/navbar/StaffNavbar";
+import Sidebar from "../../components/Sidebar/StaffSidebar";
+import { StaffApi } from "../../utils/staff/axiosStaff";
 import DashBoardComponent from "../../components/Staff/Dashboard";
 import moment from "moment";
 
@@ -9,6 +9,7 @@ function Dashboard() {
   const [userCount, setUser] = useState(null);
   const [doctorCount, setDoctors] = useState(null);
   const [consultationCount, setConsultationCount] = useState(null);
+
   const initialValuesOfDays = ['Sunday','Monday','Tuesday',"Wednesday","Thursday",'Friday','Saturday']
   const [days,setDays] = useState(initialValuesOfDays)
   const [dayWiseSales,setDayWiseSales] = useState([])
@@ -89,7 +90,7 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    AdminApi
+   StaffApi
       .get("/dashBoardChart")
       .then((res) => {
         if (res.data.status) {
