@@ -14,6 +14,7 @@ import ResetEmail from '../pages/Admin/ResetEmail';
 import NewPassword from '../pages/user/NewPassword';
 import SuccessPage from '../pages/user/SuccessPage';
 import Mybooking from '../pages/user/Mybooking';
+import Chat from '../pages/user/Chat';
 import {ProtectedRoute} from"../ProtectedRoute/userProtected";
 import {HomeVerification} from '../ProtectedRoute/HomeVerification';
 
@@ -36,7 +37,7 @@ const UserRoute=()=>{
             <Route exact path='/booking/:id' element={< ProtectedRoute accessBy = {"Authorized"}><Booking/></ ProtectedRoute>}/>
             <Route exact path='/successPage' element={< ProtectedRoute accessBy = {"Authorized"}><SuccessPage/></ ProtectedRoute>}/>
             <Route exact path='/myBooking' element={< ProtectedRoute accessBy = {"Authorized"}><Mybooking/></ ProtectedRoute>}/>
-            
+            <Route exact path='/chat' element={< ProtectedRoute accessBy = {"Authorized"}><Chat/></ ProtectedRoute>}/>
         </Routes>
     )
 }

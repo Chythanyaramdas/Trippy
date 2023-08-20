@@ -329,6 +329,44 @@ module.exports.dashBoardChart=async(req,res)=>{
 
 
     // pie charts
+    console.log(data,"kkkkkkkk");
+
+    const income=await book.aggregate([
+      
+        {
+          $match: {
+            resortId: { $in: data }
+          }
+        },
+       
+
+    {
+      $lookup:{
+        from:"bookings",
+        localField:"resortId",
+        foreignField:"_id",
+        as:"resort"
+      }
+    },
+
+    {
+      $unwind:"$resort"
+    },
+
+    {
+
+      $group:{
+
+        _id:"$resort.resortname",
+        payment:{$sum:"$payment.payment_amount"},
+
+
+      }
+    }
+  
+  ])
+
+  console.log(income,"incomeeee");
 
       res.json({
         status:true,
