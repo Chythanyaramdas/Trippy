@@ -5,6 +5,8 @@ const userControllerRegistration = require('../controllers/userController');
 const bookingController=require('../controllers/bookingController')
 const categoryController=require('../controllers/categoreyController')
 const resortController=require('../controllers/resortController')
+const chatController=require('../controllers/chatController')
+const messageController=require('../controllers/messageController')
 
 
 user_route.get('/',userControllerRegistration.landPage);
@@ -35,7 +37,12 @@ user_route.post('/editReview',resortController.reviewUpdate)
 user_route.get('/searchService/:id',categoryController.searchService)
 user_route.get('/cancelBooking/:id',bookingController.cancelBooking)
 
+user_route.post('/createChat',chatController.createChat)
+user_route.get('/userChat/:id',chatController.userChats)
+user_route.get('/find/:firstId/:secondId',chatController.findChat)
 
+user_route.post('/addMessage',messageController.addMessage)
+user_route.get('/getMessage/:chatId',messageController.getMessage)
 
 module.exports = user_route;
 
