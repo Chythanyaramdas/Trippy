@@ -318,7 +318,14 @@ module.exports.dashBoardChart=async(req,res)=>{
 
     const data=resortCount.map((obj)=>obj._id)
     console.log(data,"-------------------------------------datacount");
-    const bookings = await book.find({ resortId: { $in: data } }).countDocuments();
+
+    // const bookings = await book.find({ resortId: { $in: data } }).countDocuments();
+    const bookings = await book.find({
+      $and: [
+        { resortId: { $in: data } }, // Check if resortId is in data array
+        { status: "booked" } // Check if status is "booked"
+      ]
+    }).countDocuments();
 
     console.log(bookings,"bookingsssssssssssss");
 
@@ -342,7 +349,7 @@ module.exports.dashBoardChart=async(req,res)=>{
 
     {
       $lookup:{
-        from:"bookings",
+        from:"resorts",
         localField:"resortId",
         foreignField:"_id",
         as:"resort"
@@ -368,11 +375,58 @@ module.exports.dashBoardChart=async(req,res)=>{
 
   console.log(income,"incomeeee");
 
+
+  
+  const weeklySalesReport = await book.aggregate([
+    {
+      $match: {
+        resortId: { $in: data },
+        status: "booked"
+      }
+    },
+    {
+      $addFields: {
+    
+        fromDate: {
+          $dateFromString: {
+            dateString: "$fromDate" 
+          }
+        }
+      }
+    },
+    {
+      $group: {
+        _id: {
+          year: { $isoWeekYear: "$fromDate"},
+          week: { $isoWeek: "$fromDate"}
+        },
+        totalSales: { $sum: "$payment.payment_amount"}
+      }
+    },
+    {
+      $sort: {
+        "_id.year": 1,
+        "_id.week": 1
+      }
+    }
+  ]);
+  
+  ;
+  console.log(weeklySalesReport);
+
+  
+  
+  
+
+
       res.json({
         status:true,
         message:"submitted",
         resortCount:resortCounts,
-        bookingCount:bookings
+        bookingCount:bookings,
+        income:income,
+       weeklySalesReport:weeklySalesReport
+        
       })
     
   } catch (error) {

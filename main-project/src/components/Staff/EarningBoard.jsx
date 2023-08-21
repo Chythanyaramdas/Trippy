@@ -12,22 +12,32 @@ function EarningBoard({
   userCount,
   resortCount,
   bookingCount,
-  pieChartOptionsDoctor,
-  pieChartSeriesDoctor,
-  pieChartSeriesAdmin,
-  pieChartOptionsAdmin,
+  pieChartOptionsResort,
+  pieChartSeriesResort,
+
+  // pieChartSeriesAdmin,
+  // pieChartOptionsAdmin,
+  lineChartData,
   linechartOptionsInitial,
   lineChartSeries,
-  lineChartFrom,
-  lineChartTo,
-  setLineChartFrom,
-  setLineChartTo
-}) {
+ 
+
+  // lineChartFrom,
+  // lineChartTo,
+  // setLineChartFrom,
+  // setLineChartTo
+}) 
+
+
+{
   // const [fromDate, setFromDate] = useState(new Date(lineChartFrom));
   // const [toDate,setToDate] = useState(new Date(lineChartTo))
   // const handleCalendarClose = () => console.log("Calendar closed");
   // const handleCalendarOpen = () => console.log("Calendar opened");
   // console.log(lineChartTo,'lineChartSeries');
+  // console.log(lineChartData);
+console.log(linechartOptionsInitial);
+console.log(lineChartSeries);
   return (
     <div className="w-full h-auto px-5 py-5 dashboard">
       <div className="w-fll  grid grid-cols-2 h-44">
@@ -83,17 +93,17 @@ function EarningBoard({
         <p className="text-lg font-bold ml-4 underline underline-offset-8 text-center my-5">
           Earning Wise
         </p>
-        <div className="w-full h-[50vh]  grid grid-cols-2 items-center  ">
+        <div className="w-full h-[50vh]   items-center  ">
           <div className=" flex flex-col items-center justify-center bg-white w-[80%] mx-auto h-[90%] rounded-2xl">
             <ReactApexChart
-              options={pieChartOptionsDoctor}
-              series={pieChartSeriesDoctor}
+              options={pieChartOptionsResort}
+              series={pieChartSeriesResort}
               type="pie"
               width={380}
             />
             <p>Resorts</p>
           </div>
-          <div className="flex flex-col items-center justify-center bg-white w-[80%] mx-auto h-[90%] rounded-2xl">
+          {/* <div className="flex flex-col items-center justify-center bg-white w-[80%] mx-auto h-[90%] rounded-2xl">
             <ReactApexChart
               options={pieChartOptionsAdmin}
               series={pieChartSeriesAdmin}
@@ -101,7 +111,7 @@ function EarningBoard({
               width={380}
             />
             <p>Admin</p>
-          </div>
+          </div> */}
         </div>
       </section>
       <section className="my-10">
@@ -118,6 +128,8 @@ function EarningBoard({
       onCalendarClose={handleCalendarClose}
       onCalendarOpen={handleCalendarOpen}
     />` */}
+
+    
         </div>
         <ReactApexChart
           options={linechartOptionsInitial}
@@ -125,6 +137,8 @@ function EarningBoard({
           type="line"
           height={350}
         />
+
+
       </section>
     </div>
   );
