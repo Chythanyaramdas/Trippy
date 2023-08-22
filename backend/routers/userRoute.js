@@ -38,7 +38,7 @@ user_route.get('/searchService/:id',categoryController.searchService)
 user_route.get('/cancelBooking/:id',bookingController.cancelBooking)
 
 user_route.post('/createChat',chatController.createChat)
-user_route.get('/userChat/:id',chatController.userChats)
+user_route.get('/userChats/:id',chatController.userChats)
 user_route.get('/find/:firstId/:secondId',chatController.findChat)
 
 user_route.post('/addMessage',messageController.addMessage)

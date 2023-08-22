@@ -26,9 +26,11 @@ module.exports.userChats=async(req,res)=>{
     try {
 
         const chat=await Chat.find({
-            members:{$in:[req.params.userId]}
+            members:{$in:[req.params.id]}
         })
-        res.status({
+        console.log(req.params.id);
+        console.log(chat);
+        res.json({
             status:true,
             message:"successfully",
             chat:chat

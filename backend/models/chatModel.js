@@ -7,8 +7,6 @@ const ChatSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-      
-    
   }
 );
 
