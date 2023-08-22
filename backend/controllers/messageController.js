@@ -23,16 +23,16 @@ module.exports.addMessage=async(req,res)=>{
 }
 
 module.exports.getMessage=async(req,res)=>{
-    const{chatId}=req.params;
 
+        
     try {
-
+      const chatId=req.params.chatId
+        console.log(chatId,"ch");
         const result=await Message.find({chatId})
-        res.json({
-            status:true,
-            message:"successfully",
-            result:result
-        })
+        console.log(result,"result");
+        
+        
+        res.status(200).json(result)
         
     } catch (error) {
 

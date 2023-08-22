@@ -36,13 +36,14 @@ user_route.post('/reviewSubmit/:resort_id/:users_id/:rating/:comment',resortCont
 user_route.post('/editReview',resortController.reviewUpdate)
 user_route.get('/searchService/:id',categoryController.searchService)
 user_route.get('/cancelBooking/:id',bookingController.cancelBooking)
-
+console.log("koo");
 user_route.post('/createChat',chatController.createChat)
 user_route.get('/userChats/:id',chatController.userChats)
+user_route.get('/user/:id',userControllerRegistration.getUser)
 user_route.get('/find/:firstId/:secondId',chatController.findChat)
 
 user_route.post('/addMessage',messageController.addMessage)
-user_route.get('/getMessage/:chatId',messageController.getMessage)
-
+user_route.get('/message/:chatId',messageController.getMessage)
+ 
 module.exports = user_route;
 

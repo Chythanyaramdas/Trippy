@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const services = require("../models/ServicesModel");
+const staff=require("../models/staffModel")
 const banner = require("../models/bannerModel");
 const nodemailer = require("nodemailer");
 const config = require("../config/config");
@@ -502,3 +503,24 @@ module.exports.destinationResort = async (req, res) => {
     console.log(error.message);
   }
 };
+module.exports.getUser=async(req,res)=>{
+  const id = req.params.id;
+  console.log(id,'   kkkkkkkkkk');
+
+  try {
+    const user = await staff.findOne({_id:id});
+    console.log(user);
+    if (user) {
+      console.log(user);
+      const { password, ...otherDetails } = user;
+console.log(otherDetails);
+      res.status(200).json(otherDetails);
+    } else {
+      res.status(404).json("No such User");
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+    
+  
+}
