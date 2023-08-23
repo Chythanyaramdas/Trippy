@@ -6,6 +6,7 @@ backend/node_modules
 main-project/node_modules
 backend/.env
 main-project/.env
+
 # .vscode
 
 
