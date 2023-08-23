@@ -42,7 +42,7 @@ user_route.get('/userChats/:id',chatController.userChats)
 user_route.get('/user/:id',userControllerRegistration.getUser)
 user_route.get('/find/:firstId/:secondId',chatController.findChat)
 
-user_route.post('/addMessage',messageController.addMessage)
+user_route.post('/message',messageController.addMessage)
 user_route.get('/message/:chatId',messageController.getMessage)
  
 module.exports = user_route;

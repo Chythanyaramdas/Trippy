@@ -1,0 +1,72 @@
+/* ChatBox.css */
+.ChatBox-container {
+    background: var(--cardColor);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+ 
+  
+  .chat-body {
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .message {
+    background: linear-gradient(98.63deg, #24e4f0 0%, #358ff9 100%);
+    padding: 1rem;
+    border-radius: 1rem;
+    max-width: 60%;
+    align-self: flex-start; /* Messages align to the left by default */
+  }
+  
+  .own {
+    background: linear-gradient(98.63deg, #ff6b6b 0%, #ffcc5c 100%);
+
+    align-self: flex-end; /* Align user's own messages to the right */
+  }
+  
+  .message .text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .message .text-sm {
+    font-size: 0.8rem;
+    color: var(--textColor);
+    align-self: flex-end; /* Align timestamp to the right */
+  }
+  
+  .chat-sender {
+    /* background: rgb(93, 90, 90); */
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    border-radius: 1rem;
+  }
+  
+  .chat-sender .input-emoji {
+    flex-grow: 1;
+    height: 2rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 0.5rem;
+    background-color: white; /* Input box background color */
+    color: black; /* Input box text color */
+  }
+  
+  .chat-sender .send-button {
+    margin-left: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+  }
+  

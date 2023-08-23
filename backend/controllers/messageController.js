@@ -10,11 +10,7 @@ module.exports.addMessage=async(req,res)=>{
     })
     try {
         const result=await message.save();
-        res.json({
-            status:true,
-            message:"successfully",
-            result:result
-        })
+        res.status(200).json(result)
         
     } catch (error) {
         console.log(error.Message);

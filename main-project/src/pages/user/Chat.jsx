@@ -7,11 +7,17 @@ import { UilSetting } from "@iconscout/react-unicons";
 import ChatBox from "../../components/ChatBox/ChatBox";
 import { Link } from "react-router-dom";
 import { UseSelector, useSelector } from "react-redux";
+import { io } from "socket.io-client";
+import { useRef } from "react";
+
 function Chat() {
   const [chats, setChats] = useState([]);
-  const[currentChat,setCurrentChat]=useState(null)
+  const [currentChat, setCurrentChat] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const [sendMessage, setSendMessage] = useState(null);
+  const [recieveMessage, setRecieveMessage] = useState(null);
   const users = useSelector((store) => store.user);
-  console.log(users);
+  const socket = useRef();
 
   useEffect(() => {
     if (users) {
@@ -29,23 +35,50 @@ function Chat() {
       getChats();
     }
   }, [users]);
+
+  // useEffect(()=>{
+
+  //   if(sendMessage!==null){
+  //     socket.current.emit('send-message',sendMessage)
+  //   }
+
+  // },[sendMessage])
+
+  useEffect(() => {
+    socket.current = io("http://localhost:3009");
+    socket.current.emit("new-user-add", users.id);
+    socket.current.on("get-users", (users) => {
+      setOnlineUsers(users);
+      // console.log(onlineUsers,"kkkii");
+    });
+  }, [users]);
+
+  console.log(users);
+
+  useEffect(() => {
+    if (sendMessage !== null) {
+      socket.current.emit("send-message", sendMessage);
+    }
+  }, [sendMessage]);
+
+  useEffect(() => {
+    socket.current.on("receive-message", (data) => {
+      console.log("Data Received in parent Chat.jsx", data);
+      setRecieveMessage(data);
+    });
+  }, []);
+
   return (
-    <div className="Chat w-[100vw] flex flex-col h-[100vh]">
-      <div className="w-full h-[10vh]  flex justify-between  items-center">
-        {" "}
-        <div>Chat</div>
-        <div className="">
-          <UilSetting />
-        </div>
-      </div>
-      <div className="w-full grid grid-cols-[2fr_8fr] gap-5 h-[90vh] ">
-        <div className="Left-side-chat ml-5 h-[88%] shadow-lg ">
-          <div className="Chat-container ">
-            <h1 className="text-black">Chats</h1>
+    <div className="Chat w-full flex flex-col m-0 p-0">
+      <div className="w-full   flex justify-between  items-center"></div>
+      <div className="w-full grid grid-cols-[2fr_8fr] gap-5 ">
+        <div className="Left-side-chat ml-5  shadow-lg ">
+          <div className="Chat-container overflow-y-scroll ">
+            <h1 className="text-black"></h1>
             <div className="Chat-list">
               {chats.map((chat) => (
-                <div onClick={()=>setCurrentChat(chat)}>
-                  <Conversation data={chat} currentUserId={users.id} />
+                <div onClick={() => setCurrentChat(chat)}>
+                  <Conversation data={chat} currentUser={users.id} />
                 </div>
               ))}
             </div>
@@ -54,8 +87,14 @@ function Chat() {
 
         {/* Right Side */}
 
-        <div className="Right-side-chat ">
-          <div style={{ width: "20rem", alignSelf: "flex-end" }}>
+        <div className="Right-side-chat">
+          {/* <div className='w-32 h-32 overflow-hidden rounded-full  '>
+            
+            <img src="https://img.freepik.com/premium-vector/businessman-profile-cartoon_18591-58479.jpg?w=2000" alt=""  className='w-full h-full '/>
+    
+            </div> */}
+
+          <div className="">
             <div className="navIcons">
               <Link to="../home">
                 <img src="" alt="" />
@@ -66,10 +105,14 @@ function Chat() {
               <div></div>
             </div>
 
-            <ChatBox chat={currentChat} currentUser={users.id}/>
+            <ChatBox
+              chat={currentChat}
+              currentUser={users.id}
+              setSendMessage={setSendMessage}
+              recieveMessage={recieveMessage}
+            />
           </div>
         </div>
-       
       </div>
       {/* Left Side */}
     </div>
