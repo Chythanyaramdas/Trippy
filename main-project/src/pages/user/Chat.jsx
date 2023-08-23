@@ -49,8 +49,10 @@ function Chat() {
     socket.current.emit("new-user-add", users.id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
-      // console.log(onlineUsers,"kkkii");
+      
+      console.log(onlineUsers,"kkkii");
     });
+    
   }, [users]);
 
   console.log(users);
