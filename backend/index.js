@@ -63,32 +63,7 @@ const storage =multer.diskStorage({
 
 
 
-// const multer = require('multer');
 
-// const storage = multer.diskStorage({
-//   destination: async function(req, file, cb) {
-//     const name = Date.now() + '-' + file.originalname;
-//     const path = path.join(__dirname, '../public/images', name);
-
-//     cb(null, path);
-//   },
-//   filename: function(req, file, cb) {
-//     const name = Date.now() + '-' + file.originalname;
-//     cb(null, name);
-//   },
-// });
-
-// const fileFilter = async (req, file, cb) => {
-//   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' ||
-//     file.mimetype === 'image/jpeg' || file.mimetype === 'image/webp' ||
-//     file.mimetype === 'image/gif') {
-//     cb(null, true);
-//   } else {
-//     cb(null, false);
-//   }
-// };
-
-// const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 const session=require("express-session")
 
@@ -98,7 +73,13 @@ app.use(session({
   saveUninitialized: false
 }));
 
-//=======================routes=============================
+const server=app.listen(3001, function () {
+  console.log('Server running on port 3001');
+});
+
+
+
+//=======================routes===============================================
 
 
 app.use('/',require('./routers/userRoute'))
@@ -108,8 +89,46 @@ app.use('/staff',require('./routers/staffRoute'));
 app.use('/admin',require('./routers/Route'));
 // app.use('/admin',adminRoute);
 
+// ===============================socket====================================
+
+const io=require('socket.io')(server,{
+  cors:{
+      origin:"http://localhost:3000"
+  }
+})
+let activeUsers=[]
+io.on("connection",(socket)=>{
+    socket.on('new-user-add',(newUserId)=>{
+        if(!activeUsers.some((user)=>user.userId===newUserId)){
+            activeUsers.push({
+                userId:newUserId,
+                socketId:socket.id
+            })
+        }
+        console.log("connected users",activeUsers);
+        io.emit('get-users',activeUsers)
+    })
+
+    
+
+    socket.on("disconnect",()=>{
+        activeUsers=activeUsers.filter((user)=>user.socketId!==socket.id)
+        console.log("User disconnected",activeUsers);
+        io.emit('get-users',activeUsers)
+    })
 
 
-app.listen(3001, function () {
-    console.log('Server running on port 3001');
-});
+    socket.on("send-message",(data)=>{
+        const{receiverId}=data;
+        const user=activeUsers.find((user)=>user.userId===receiverId)
+        console.log("sending from socket to:",receiverId)
+        console.log(data,"Data");
+        if(user){
+            io.to(user.socketId).emit("receive-message",data)
+        }
+    })
+})
+
+
+
+

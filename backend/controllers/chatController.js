@@ -62,3 +62,27 @@ module.exports.findChat=async(req,res)=>{
         
     }
 }
+module.exports.StaffChats = async (req, res) => {
+    try {
+      const chat = await Chat.find({
+        members: { $in: [req.params.staffId] },
+      });
+      console.log(chat,"iiii")
+      res.status(200).json(chat);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  };
+  module.exports.findstaffchat=async(req,res)=>{
+    console.log("finding...")
+    try {
+        const staffChat=await Chat.findOne({
+            members:{$all:[req.params.firstId,req.params.secondId]}
+        })
+        console.log(staffChat,"stagggg")
+        res.status(200).json(staffChat)
+    } catch (error) {
+        res.status(500).json(error)
+        
+    }
+  }

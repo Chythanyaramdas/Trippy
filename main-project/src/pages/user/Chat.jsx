@@ -45,7 +45,7 @@ function Chat() {
   // },[sendMessage])
 
   useEffect(() => {
-    socket.current = io("http://localhost:3009");
+    socket.current = io("http://localhost:3001");
     socket.current.emit("new-user-add", users.id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
