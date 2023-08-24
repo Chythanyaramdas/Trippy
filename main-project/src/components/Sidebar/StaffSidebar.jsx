@@ -25,6 +25,14 @@ function Sidebar() {
           <p className="hidden md:block  ">Earnings</p>
         </div>
 
+
+        <div className="h-14 flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"onClick={() => navigate('/staff/chat')}>
+          
+          <GiTatteredBanner className="mr-1 "/>
+
+          <p className="hidden md:block  ">Chat</p>
+        </div>
+
         <div className="h-14  flex items-center justify-center pl-4 md:justify-start text-sm lg:text-lg hover:bg-[#FFFFFF]"onClick={() => navigate('/staff/resortRegister')}>
           
           <GiTatteredBanner className="mr-1 "/>

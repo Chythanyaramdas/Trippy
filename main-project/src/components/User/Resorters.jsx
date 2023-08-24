@@ -265,7 +265,7 @@ console.log(bookCount,"kkkkkkkkk");
   const handleChat=()=>{
     alert("findChat")
 
-    UserApi.get(`/findChat/${resort.resortowner}/${users.id}`).then((response)=>{
+    UserApi.get(`/findChat/${resort.resortowner._id}/${users.id}`).then((response)=>{
       if(response.data.status){
         alert("vann chat")
         navigate('/chat')
@@ -461,7 +461,7 @@ console.log(bookCount,"kkkkkkkkk");
               alt="image"
               className="w-[80%] h-[60%] m-0"
             />
-            <p className=" font-serif text-2xl "> Do you have any queries? </p>
+            <p className=" font-serif text-2xl "> Do you have any queries?{resort?.resortowner?.name} </p>
             <button
                 className="bg-blue-600 m-0 w-36 h-10 text-sm font-serif p-3"
                 onClick={()=>{

@@ -102,11 +102,11 @@ const ChatBox = ({ chat, currentUser, setSendMessage, recieveMessage }) => {
                         ? "message own"
                         : "message"
                     } 
-                    flex flex-col w-auto h-auto p-4 rounded-lg mr-3
+                    flex flex-col w-auto h-auto rounded-lg 
                   `}
               key={message.id} // Add a unique key if messages have unique IDs
             >
-              <span className="text-2xl text-white">{message.text}</span>
+              <span className="text-xl font-popins text-white">{message.text}</span>
               <span className="text-sm text-white">
                 {format(message.createdAt)}
               </span>

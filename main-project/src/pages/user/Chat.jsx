@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import Chats from '../../components/User/Chat'
 import "./Chat.css";
-import Conversation from "../../components/Conversation/Conversation";
+import Conversation from "../../components/Conversation/ConversationUser";
 import { userChats } from "../../api/ChatRequests";
 import { UilSetting } from "@iconscout/react-unicons";
 import ChatBox from "../../components/ChatBox/ChatBox";
@@ -16,6 +16,7 @@ function Chat() {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [sendMessage, setSendMessage] = useState(null);
   const [recieveMessage, setRecieveMessage] = useState(null);
+  const [staffs,setStaffs] = useState([])
   const users = useSelector((store) => store.user);
   const socket = useRef();
 
@@ -26,6 +27,7 @@ function Chat() {
         try {
           const { data } = await userChats(users.id);
           setChats(data.chat);
+          setStaffs(data.chatCompanyData)
           console.log("kjhgfds");
           console.log(data, "data");
         } catch (error) {
@@ -43,6 +45,20 @@ function Chat() {
   //   }
 
   // },[sendMessage])
+
+  const handleChat = (index,chat)=>{
+    
+    const newChat = chats.map((chat,index1)=>{
+      if(index1 === index){
+        chat.active = true
+      }else{
+        chat.active = false
+      }
+      return {...chat}
+    })
+    setChats(newChat)
+    setCurrentChat(chat)
+  }
 
   useEffect(() => {
     socket.current = io("http://localhost:3001");
@@ -75,12 +91,13 @@ function Chat() {
       <div className="w-full   flex justify-between  items-center"></div>
       <div className="w-full grid grid-cols-[2fr_8fr] gap-5 ">
         <div className="Left-side-chat ml-5  shadow-lg ">
-          <div className="Chat-container overflow-y-scroll ">
+          <div className="Chat-container h-full overflow-y-scroll ">
             <h1 className="text-black"></h1>
-            <div className="Chat-list">
-              {chats.map((chat) => (
-                <div onClick={() => setCurrentChat(chat)}>
-                  <Conversation data={chat} currentUser={users.id} />
+            <div className="Chat-list ">
+              {console.log(chats+'hjghgj')}
+              {chats.map((chat,index) => (
+                <div onClick={() => handleChat(index,chat)}>
+                  <Conversation data={chat} currentUser={users.id} staffs={staffs} index={index} />
                 </div>
               ))}
             </div>

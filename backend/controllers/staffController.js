@@ -328,7 +328,7 @@ module.exports.dashBoardChart=async(req,res)=>{
       ]
     }).countDocuments();
 
-    console.log(bookings,"bookingsssssssssssss");
+    // console.log(bookings,"bookingsssssssssssss");
 
     const resortCounts=await resort.find({$and:[{resortowner:staff},{is_delete:false},{verify:true}]}).countDocuments()
     console.log(resortCounts);
@@ -337,7 +337,7 @@ module.exports.dashBoardChart=async(req,res)=>{
 
 
     // pie charts
-    console.log(data,"kkkkkkkk");
+    // console.log(data,"kkkkkkkk");
 
     const income=await book.aggregate([
       
@@ -438,15 +438,15 @@ module.exports.dashBoardChart=async(req,res)=>{
 
 module.exports.getStaff=async(req,res)=>{
   const id = req.params.id;
-  console.log(id,'   kkkkkkkkkk');
+  // console.log(id,'   kkkkkkkkkk');
 
   try {
     const user = await Staff.findOne({_id:id});
-    console.log(user);
+    // console.log(user);
     if (user) {
       console.log(user);
       const { password, ...otherDetails } = user;
-console.log(otherDetails);
+// console.log(otherDetails);
       res.status(200).json(otherDetails);
     } else {
       res.status(404).json("No such User");

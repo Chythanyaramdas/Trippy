@@ -1,6 +1,7 @@
 
 
 const Chat=require('../models/chatModel')
+const Staff = require('../models/staffModel')
 
 module.exports.createChat=async(req,res)=>{
     const newChat=new Chat({
@@ -25,15 +26,38 @@ module.exports.createChat=async(req,res)=>{
 module.exports.userChats=async(req,res)=>{
     try {
 
-        const chat=await Chat.find({
+        const chats=await Chat.find({
             members:{$in:[req.params.id]}
         })
+        
+        // const chats = await Chat.find({
+        //     participants: {
+        //         $elemMatch: {
+        //             $in: [userId]
+        //         }
+        //     }
+        // }).sort({ timestamp: -1 })
+
+        // console.log(chats);
         console.log(req.params.id);
-        console.log(chat);
+        const chatCompanyData = await Promise.all(chats.map(async (chat) => {
+            // console.log(chat);
+            const receiverId = await chat.members.filter(member =>member !== req.params.id);
+            
+            console.log(receiverId[0]);
+            const staff = await Staff.findById(receiverId[0]);
+            console.log(staff,"staffDataon is ");
+           
+            
+            return {staffId: staff._id, staff: {  email: staff.email, staffName: staff.name }, chatId: chat._id }
+        }))
+        console.log(chatCompanyData,"00000000000000000");
+        console.log(chatCompanyData);
         res.json({
             status:true,
             message:"successfully",
-            chat:chat
+            chat:chats,
+             chatCompanyData
         })
         
     } catch (error) {

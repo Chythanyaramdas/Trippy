@@ -16,6 +16,7 @@ function Chat() {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [sendMessage, setSendMessage] = useState(null);
   const [recieveMessage, setRecieveMessage] = useState(null);
+  const[staffs,setStaffs]=useState(null)
   const users = useSelector((store) => store.user);
   const socket = useRef();
 
@@ -25,7 +26,9 @@ function Chat() {
         console.log("come");
         try {
           const { data } = await userChats(users.id);
+          console.log(data.chatCompanyData[0],);
           setChats(data.chat);
+          setStaffs(data.chatCompanyData[0])
           console.log("kjhgfds");
           console.log(data, "data");
         } catch (error) {
@@ -80,7 +83,7 @@ function Chat() {
             <div className="Chat-list">
               {chats.map((chat) => (
                 <div onClick={() => setCurrentChat(chat)}>
-                  <Conversation data={chat} currentUser={users.id} />
+                  <Conversation data={chat} currentUser={users.id} staffs={staffs} />
                 </div>
               ))}
             </div>

@@ -383,7 +383,7 @@ module.exports.resortPage = async (req, res) => {
     console.log("sahrdya");
     const resortData = await resort
       .findOne({ $and: [{ _id: id }, { verify: true }] })
-      .populate({ path: "location", populate: "district" }).populate({path:"reviews",populate:"userId"});
+      .populate({ path: "location", populate: "district" }).populate({path:"reviews",populate:"userId"}).populate('resortowner');
 
     const bookedData = await booked.find({ resortId: id });
     console.log(bookedData, "BD");

@@ -681,7 +681,7 @@ module.exports.reviewUpdate = async (req, res) => {
 
 module.exports.createChat = async (req, res) => {
   try {
-      
+      console.log(req.params.resort_id,req.params.users_id,'kklklk');
     console.log('create chat');
       const chatData = await Chat.find({
          members: {
