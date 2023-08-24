@@ -141,7 +141,7 @@ console.log(bookCount,"kkkkkkkkk");
 
   console.log("----allDates---", allDates);
   const handleCheckInDateChange = (date) => {
-   
+    alert(date);
     setCheckInDate(date);
   };
 
