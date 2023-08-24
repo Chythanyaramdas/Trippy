@@ -3,6 +3,8 @@ const resort = require("../models/resortModel");
 const category = require("../models/categoryModel");
 const services=require("../models/ServicesModel")
 const { response } = require("express");
+
+const Chat=require('../models/chatModel')
 const { Long } = require("mongodb");
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
@@ -656,3 +658,66 @@ module.exports.reviewUpdate = async (req, res) => {
     });
   }
 };
+// module.exports.createChat=async(req,res)=>{
+//   ;
+//   const newChat=new Chat({
+//       members:[req.params.resort_id,req.params.users_id]
+//   })
+//   try {
+
+//       const result=await newChat.save()
+//       res.json({
+//           status:true,
+//           message:"success",
+//           result:result
+//       })
+      
+//   } catch (error) {
+
+//       console.log(error.message);
+      
+//   }
+// }
+
+module.exports.createChat = async (req, res) => {
+  try {
+      
+    console.log('create chat');
+      const chatData = await Chat.find({
+         members: {
+              $all: [req.params.resort_id,req.params.users_id]
+          }
+      })
+      console.log(chatData+'this is chatddata');
+
+      if (chatData.length > 0) {
+          console.log(chatData[0]._id);
+
+          return res.status(200).json({
+              status: true,
+              messege: 'success',
+              chatId: chatData[0]._id
+          })
+      } else {
+        console.log('chy');
+          const chat = new Chat({
+              members: [req.params.resort_id,req.params.users_id],
+          })
+          const chatData = await chat.save()
+
+          return res.status(200).json({
+              success: true,
+              messege: 'success',
+              chatId: chatData._id
+          })
+      }
+
+  } catch (error) {
+    console.log('error');
+      return res.status(400).json({
+          success: false,
+          messege: 'Something Wrong',
+          error
+      })
+  }
+}

@@ -2,7 +2,9 @@ const express = require('express');
 const staff_route = express.Router();
 const authJWT=require('../middlewares/staffAuth')
 const bookingController=require('../controllers/bookingController')
-
+const userControllerRegistration = require('../controllers/userController');
+const chatController=require('../controllers/chatController')
+const messageController=require('../controllers/messageController')
 const multer=require('multer')
 const path=require('path')
 
@@ -87,4 +89,11 @@ staff_route.post('/resort_ud/:id',upload.array('image',5),resortController.updat
 
 // staff_route.post('/resortRegister',upload.array('image',10),resortController.resort);
 // staff_route.post('/resortRegister',upload.single('image2'),resortController.resort);
+
+staff_route.get('/staffChats/:id',chatController.staffChats)
+staff_route.get('/staff/:id',staffController.getStaff)
+staff_route.get('/find/:firstId/:secondId',chatController.findChat)
+
+staff_route.post('/message',staffController.addMessage)
+staff_route.get('/message/:chatId',staffController.getMessage)
 module.exports = staff_route;

@@ -44,6 +44,6 @@ user_route.get('/find/:firstId/:secondId',chatController.findChat)
 
 user_route.post('/message',messageController.addMessage)
 user_route.get('/message/:chatId',messageController.getMessage)
- 
+ user_route.get('/findChat/:resort_id/:users_id',resortController.createChat)
 module.exports = user_route;
 

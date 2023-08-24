@@ -6,6 +6,7 @@ const book=require('../models/bookingModel')
 const nodemailer = require("nodemailer");
 const config=require('../config/config');
 const randormstring=require("randomstring");
+const Message=require('../models/messageModel');
 const express=require("express");
 const session=require("express-session");
 const jwt=require('jsonwebtoken');
@@ -432,5 +433,65 @@ module.exports.dashBoardChart=async(req,res)=>{
   } catch (error) {
     console.log(error.message);
     
+  }
+}
+
+module.exports.getStaff=async(req,res)=>{
+  const id = req.params.id;
+  console.log(id,'   kkkkkkkkkk');
+
+  try {
+    const user = await Staff.findOne({_id:id});
+    console.log(user);
+    if (user) {
+      console.log(user);
+      const { password, ...otherDetails } = user;
+console.log(otherDetails);
+      res.status(200).json(otherDetails);
+    } else {
+      res.status(404).json("No such User");
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+    
+  
+}
+
+
+module.exports.addMessage=async(req,res)=>{
+
+  const{chatId,senderId,text}=req.body
+  const message=new Message({
+      chatId,
+      senderId,
+      text
+  })
+  try {
+      const result=await message.save();
+      res.status(200).json(result)
+      
+  } catch (error) {
+      console.log(error.Message);
+      
+  }
+}
+
+module.exports.getMessage=async(req,res)=>{
+
+      
+  try {
+    const chatId=req.params.chatId
+      console.log(chatId,"ch");
+      const result=await Message.find({chatId})
+      console.log(result,"result");
+      
+      
+      res.status(200).json(result)
+      
+  } catch (error) {
+
+      console.log(error.message);
+      
   }
 }

@@ -14,6 +14,7 @@ import { FaRegStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import{VscAccount}from"react-icons/vsc"
 
+
 function Resorters() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -259,6 +260,18 @@ console.log(bookCount,"kkkkkkkkk");
       }
     })
   }
+
+
+  const handleChat=()=>{
+    alert("findChat")
+
+    UserApi.get(`/findChat/${resort.resortowner}/${users.id}`).then((response)=>{
+      if(response.data.status){
+        alert("vann chat")
+        navigate('/chat')
+      }
+    })
+  }
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       <div className="w-3/4 h-[50rem] px-10 py-10 ">
@@ -448,7 +461,15 @@ console.log(bookCount,"kkkkkkkkk");
               alt="image"
               className="w-[80%] h-[60%] m-0"
             />
-            <p className=" font-serif text-2xl ">Please Select</p>
+            <p className=" font-serif text-2xl "> Do you have any queries? </p>
+            <button
+                className="bg-blue-600 m-0 w-36 h-10 text-sm font-serif p-3"
+                onClick={()=>{
+                  handleChat()
+                }}
+              >
+               Chat Now..
+              </button>
           </div>
           
 

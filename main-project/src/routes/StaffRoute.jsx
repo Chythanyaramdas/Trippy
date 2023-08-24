@@ -11,6 +11,7 @@ import Resorts from"../pages/staff/ResortManagement";
 import BookingManagement from '../pages/staff/BookingManagement';
 import BookedResorts from '../pages/staff/BookedResorts';
 import EarningBoard from"../pages/staff/EarningBoard";
+import StaffChat from"../pages/staff/Chat";
 import BookedSingleResorts from '../pages/staff/BookedSingleResorts';
 import  ProtectedRoute from '../ProtectedRoute/staffProtected';
 
@@ -34,6 +35,7 @@ const StaffRoute=()=>{
           <Route exact path='/bookingSingleResorts/:id' element={<ProtectedRoute accessBy ={ 'Authorized'}><BookedSingleResorts/></ProtectedRoute>}/>
           {/* <Route exact path='/staffDashboard' element={<ProtectedRoute accessBy ={ 'Authorized'}><Dashboard/></ProtectedRoute>}/> */}
            <Route exact path='/Earnings' element={<ProtectedRoute accessBy ={ 'Authorized'}><EarningBoard/></ProtectedRoute>}/>
+           <Route exact path='/chat' element={<ProtectedRoute accessBy ={ 'Authorized'}><StaffChat/></ProtectedRoute>}/>
        </Routes>
     )
 }

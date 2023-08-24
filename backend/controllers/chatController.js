@@ -86,3 +86,37 @@ module.exports.StaffChats = async (req, res) => {
         
     }
   }
+
+  module.exports.staffChats=async(req,res)=>{
+    try {
+        
+        // const chat=await Chat.find({
+        //     members:{$in:[req.params.id]}
+        // })
+
+        // ----
+        console.log(req.params.id);
+        const chat = await Chat.find({
+            members: {
+                $elemMatch: {
+                    $in: [req.params.id]
+                }
+            }
+        })
+
+
+
+        
+        console.log(chat +'jjjkjkjkjkl');
+        res.json({
+            status:true,
+            message:"successfully",
+            chat:chat
+        })
+        
+    } catch (error) {
+
+        console.log(error.message);
+        
+    }
+}
