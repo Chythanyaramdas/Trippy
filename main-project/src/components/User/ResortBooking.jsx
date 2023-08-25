@@ -203,6 +203,10 @@ const ResortBooking = () => {
   //     rzp1.open();
   //   };
 
+
+
+  
+
   useEffect(() => {
     const checkInDateFromStorage = localStorage.getItem("checkinDate");
     // setCheckInDate(checkInDateFromStorage)

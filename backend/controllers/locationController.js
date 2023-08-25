@@ -1,21 +1,7 @@
 const Location = require("../models/locationModel");
 module.exports.locationCreation = async (req, res) => {
   try {
-    // const LocationData = [
-    //     {
-    //         district:district,
-    //         places:fields
-    //     },
-    //     {
-    //         district:"another district",
-    //         places:["place1","place2"]
-    //     }
-    // ];
-    // await Location.insertMany(LocationData);
-    // res.json({
-    //     status:true,
-    //     message:'successfully created'
-    // });
+    
     try {
       const { district, places } = req.body;
 
@@ -28,22 +14,7 @@ module.exports.locationCreation = async (req, res) => {
         image: req.file.filename,
       });
       LocationData.save().then(() => console.log("hhh"));
-      // Location.insertOne({district:district,places:fields},function(err,result){
-
-      //     if(err){
-      //         console.log(err);
-      //     }
-      //     else{
-      //         console.log("success");
-      //     }
-      // })
-
-      // if(LocationData){
-      //     res.json({
-      //         status:true,
-      //         message:'successfully created'
-      //     })
-      // }
+      
     } catch (error) {
       console.log(error.message);
     }

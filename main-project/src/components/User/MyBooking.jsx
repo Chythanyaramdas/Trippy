@@ -10,41 +10,42 @@ function MyBooking() {
   const [booked, setBooked] = useState([{}]);
   const [cancel, setCancel] = useState(false);
   const users = useSelector((store) => store.user);
-  const [filteredBooking,setFilteredBooking] = useState([])
+  const [filteredBooking, setFilteredBooking] = useState([]);
 
-  const buttons=[
+  const buttons = [
     {
-      name:"Upcoming",
-      active:true
+      name: "Upcoming",
+      active: true,
     },
 
     {
-      name:"All booking",
-      active:false
+      name: "All booking",
+      active: false,
     },
-  ]
+  ];
 
-
-
-  const[activeButton,setActiveButton]=useState(buttons)
+  const [activeButton, setActiveButton] = useState(buttons);
 
   const formatDate = (time) => {
     let newDate = new Date(time).toLocaleDateString();
     return newDate;
   };
 
-  const handleAll = ()=>{
-    setFilteredBooking([...booked])
-  }
+  const handleAll = () => {
+    setFilteredBooking([...booked]);
+  };
 
   useEffect(() => {
     if (users.id) {
       UserApi.get(`/myBooking/${users.id}`).then((response) => {
         if (response.data.status) {
           setBooked([...response.data.booked]);
-          let currentDate = new Date()
-          let upComing = response.data.booked.filter((obj)=> new Date(obj.fromDate)>=currentDate)
-          setFilteredBooking([...upComing])
+          let currentDate = new Date();
+          alert(currentDate);
+          let upComing = response.data.booked.filter(
+            (obj) => new Date(obj.fromDate) >= currentDate
+          );
+          setFilteredBooking([...upComing]);
         }
       });
     }
@@ -59,22 +60,25 @@ function MyBooking() {
     });
   };
 
-  const handleUpcoming =(index)=>{
-  
-    setActiveButton(pre=>{
-        return [...pre?.map((button,ind)=>{
-         return {...button,['active']:index===ind}
-        })]
-    })
-    if(index===0) {
-      let currentDate = new Date()
-      let upComing = booked.filter((obj)=> new Date(obj.fromDate)>=currentDate)
-      setFilteredBooking([...upComing])
-    }else setFilteredBooking([...booked])
-   
-  }
-
-  
+  const handleUpcoming = (index) => {
+    setActiveButton((pre) => {
+      return [
+        ...pre?.map((button, ind) => {
+          return { ...button, ["active"]: index === ind };
+        }),
+      ];
+    });
+    if (index === 0) {
+      let currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0); // Set time to midnight
+      let upComing = booked.filter((obj) => {
+        let fromDate = new Date(obj.fromDate);
+        fromDate.setHours(0, 0, 0, 0); // Set time to midnight for each fromDate
+        return fromDate >= currentDate;
+      });
+      setFilteredBooking([...upComing]);
+    } else setFilteredBooking([...booked]);
+  };
 
   return (
     <div>
@@ -82,23 +86,29 @@ function MyBooking() {
         <Navbar />
       </div>
       <div className="flex justify-start w-full  gap-8  max-w-screen-2xl mx-auto mt-6">
-
-        {activeButton?.map((button,index)=>{
-          return(<button className={`${button.active?'bg-red-900':'bg-red-300' }  px-3 w-48 m-0 rounded-lg font-mono`} onClick={()=>handleUpcoming(index)}>{button.name}</button>)
-
+        {activeButton?.map((button, index) => {
+          return (
+            <button
+              className={`${
+                button.active ? "bg-red-900" : "bg-red-300"
+              }  px-3 w-48 m-0 rounded-lg font-mono`}
+              onClick={() => handleUpcoming(index)}
+            >
+              {button.name}
+            </button>
+          );
         })}
 
-      {/* <button className="bg-red-500  px-3 w-60 m-0 rounded-lg" onClick={handleUpcoming}>Upcoming...</button>
+        {/* <button className="bg-red-500  px-3 w-60 m-0 rounded-lg" onClick={handleUpcoming}>Upcoming...</button>
 
         <button className="bg-red-500 px-3 w-60 m-0 rounded-lg" onClick={handleAll}>All booking</button> */}
-        </div>
+      </div>
 
       <div className="mx-auto max-w-screen-2xl">
         <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
           My Booking Details
         </h1>
-        
-        
+
         {booked.length === 0 ? (
           <div className="flex flex-col items-center mt-5">
             <h6 className="bg-red-500 text-white w-full text-center p-3 rounded-lg">
@@ -119,46 +129,58 @@ function MyBooking() {
             >
               <div className="card-body flex ">
                 <div className="flex justify-between">
-                <div>
-                  <h2 className="card-title text-3xl font-popins ">
-                    {resort?.resortId?.resortname}
-                  </h2>
-                  <p className="text-xl mt-2 font-popins">
-                    Location : {resort?.resortId?.location?.district?.district}
-                  </p>
-                  <p className="gap-4 mt-2 mb-3 text-xl font-popins ">
-                    Checkin : {formatDate(resort?.fromDate)} Checkout : 
-                    {formatDate(resort?.toDate)}
-                  </p>
+                  <div>
+                    <h2 className="card-title text-3xl font-popins ">
+                      {resort?.resortId?.resortname}
+                    </h2>
+                    <p className="text-xl mt-2 font-popins">
+                      Location :{" "}
+                      {resort?.resortId?.location?.district?.district}
+                    </p>
+                    <p className="gap-4 mt-2 mb-3 text-xl font-popins ">
+                      Checkin : {formatDate(resort?.fromDate)} Checkout :
+                      {formatDate(resort?.toDate)}
+                    </p>
 
-                  
-                  {/* {<span className="text-xl bg-green-500 px-3 text-white py-1 rounded-lg capitalize">{resort.status}</span>} */}
-                  <span className={`text-xl px-3 py-1 rounded-lg capitalize ${resort.status === 'cancelled' ? 'bg-red-500 text-white' : 'bg-green-500 text-white'}`}>
-                 {resort.status}
-                </span>
+                    {/* {<span className="text-xl bg-green-500 px-3 text-white py-1 rounded-lg capitalize">{resort.status}</span>} */}
+                    <span
+                      className={`text-xl px-3 py-1 rounded-lg capitalize ${
+                        resort.status === "cancelled"
+                          ? "bg-red-500 text-white"
+                          : "bg-green-500 text-white"
+                      }`}
+                    >
+                      {resort.status}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-mono">
+                      ₹{resort?.payment?.payment_amount}
+                    </p>
 
-                </div>
-                <div>
-                  <p className="text-3xl font-mono">₹{resort?.payment?.payment_amount}</p>
-                  
-                  <p className="text-xl mt-2 mb-3 capitalize font-popins">Payment Method: {resort?.payment?.payment_method}</p>
-                  <div className="card-actions justify-end ">
-                    {resort.status === "booked" ? (
-                      <button
-                        className="btn w-60 mt-2 btn-error font-popins"
-                        onClick={() => CancelBooking(resort._id)}
-                      >
-                        Cancel
-                      </button>
-                    ) : (
-                      <p className="btn w-60 mt-2 btn-error font-popins" disabled>
-                        Cancelled
-                      </p>
-                    )}
-                    <div className="card-actions w-full flex justify-center bg-slate-500"></div>
+                    <p className="text-xl mt-2 mb-3 capitalize font-popins">
+                      Payment Method: {resort?.payment?.payment_method}
+                    </p>
+                    <div className="card-actions justify-end ">
+                      {resort.status === "booked" ? (
+                        <button
+                          className="btn w-60 mt-2 btn-error font-popins"
+                          onClick={() => CancelBooking(resort._id)}
+                        >
+                          Cancel
+                        </button>
+                      ) : (
+                        <p
+                          className="btn w-60 mt-2 btn-error font-popins"
+                          disabled
+                        >
+                          Cancelled
+                        </p>
+                      )}
+                      <div className="card-actions w-full flex justify-center bg-slate-500"></div>
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
             </div>
           ))

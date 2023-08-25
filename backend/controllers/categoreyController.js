@@ -23,7 +23,7 @@ module.exports.categoreyManagement = async (req, res) => {
     console.log("categorey");
 
     const categoreyData = await Categorey.find({ is_delete: false });
-    // console.log(categoreyData);
+    
     res.json({
       status: true,
       Categorys: categoreyData,
@@ -141,9 +141,8 @@ module.exports.searchService = async (req, res) => {
         .split(",") // Split the remaining string by commas
         .filter((service) => service.trim());
       console.log(servicesArray);
-      if(servicesArray.length) query["services"] = { $all: servicesArray };
-      
-      
+      if (servicesArray.length) query["services"] = { $all: servicesArray };
+
       console.log(query, "filter");
     }
 
@@ -151,7 +150,7 @@ module.exports.searchService = async (req, res) => {
     //   category:categoryId}]})
     const resortData = await resort.find(query);
 
-    console.log(resortData,"rdssss");
+    console.log(resortData, "rdssss");
 
     if (resortData) {
       res.json({
@@ -163,4 +162,3 @@ module.exports.searchService = async (req, res) => {
     console.log(error.message);
   }
 };
-

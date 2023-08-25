@@ -1,23 +1,38 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import { Fragment } from 'react'
+import { useDispatch,useSelector} from "react-redux";
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-
+import{userLogout} from "../../redux/userSlice"
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Destination', href: '/destination', current: false },
   { name: 'Availabilty', href: '/avalibility', current: false },
-  { name: 'About', href: '#', current: false },
+  { name: 'Bookings', href: '/myBooking', current: false },
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
- function navbar() {
+ function Navbar() {
+  const navigate  = useNavigate()
+  const { name,id } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
+
+  const handleSignout = ()=>{
+    const expires = "expires=" + 'Thu, 01 Jan 1970 00:00:01 GMT';
+    // Thu, 01 Jan 1970 00:00:01 GMT
+    // document.cookie =
+    //     "userToken=Bearer "+";" + expires + "; path=/";
+    localStorage.removeItem("userToken")
+   dispatch(userLogout());
+    navigate("/login");
+  }
+  
   return (
     <Disclosure as="nav" 
     // className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% gap-6">
@@ -122,7 +137,7 @@ function classNames(...classes) {
                           </a>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
+                      {!id&&<Menu.Item>
                         {({ active }) => (
                           <a
                             href="/login"
@@ -131,7 +146,19 @@ function classNames(...classes) {
                             Login
                           </a>
                         )}
-                      </Menu.Item>
+                      </Menu.Item>}
+                     { id&&<Menu.Item>
+                        {({ active }) => (
+                          <a
+                            onClick={()=>{
+                              handleSignout()
+                            }}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                           Logout
+                          </a>
+                        )}
+                      </Menu.Item>}
                     </Menu.Items>
                   </Transition>
                 </Menu>
@@ -163,4 +190,4 @@ function classNames(...classes) {
   )
 }
 
-export default navbar;
+export default Navbar;

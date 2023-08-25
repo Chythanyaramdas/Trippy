@@ -15,6 +15,7 @@ import NewPassword from '../pages/user/NewPassword';
 import SuccessPage from '../pages/user/SuccessPage';
 import Mybooking from '../pages/user/Mybooking';
 import Chat from '../pages/user/Chat';
+import Error from"../pages/user/ErrorPage";
 import {ProtectedRoute} from"../ProtectedRoute/userProtected";
 import {HomeVerification} from '../ProtectedRoute/HomeVerification';
 
@@ -38,6 +39,7 @@ const UserRoute=()=>{
             <Route exact path='/successPage' element={< ProtectedRoute accessBy = {"Authorized"}><SuccessPage/></ ProtectedRoute>}/>
             <Route exact path='/myBooking' element={< ProtectedRoute accessBy = {"Authorized"}><Mybooking/></ ProtectedRoute>}/>
             <Route exact path='/chat' element={< ProtectedRoute accessBy = {"Authorized"}><Chat/></ ProtectedRoute>}/>
+            <Route exact path='/*' element={<Error/>}/>
         </Routes>
     )
 }

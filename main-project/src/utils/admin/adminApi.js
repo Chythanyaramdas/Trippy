@@ -1,13 +1,17 @@
 import axios from 'axios'
 
 
- export const AdminApi = axios.create({
-    baseURL: 'http://localhost:3001/admin/',
- })
+//  export const AdminApi = axios.create({
+//     baseURL: 'http://localhost:3001/admin/',
+//  })
+
+export const AdminApi = axios.create({
+  baseURL:process.env.REACT_APP_ADMIN_URL,
+})
 
  AdminApi.interceptors.request.use(
    function (config) {
-      let token=localStorage.getItem("adminToken")
+      const token=localStorage.getItem("adminToken")
       console.log(token);
       config.headers.Authorization=`Bearer ${token}`
       // Do something before request is sent

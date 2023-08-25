@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const services = require("../models/ServicesModel");
-const staff=require("../models/staffModel")
+const staff = require("../models/staffModel");
 const banner = require("../models/bannerModel");
 const nodemailer = require("nodemailer");
 const config = require("../config/config");
@@ -39,10 +39,7 @@ var otp = Math.floor(Math.random() * (max - min + 1)) + min;
 exports.otp = async (req, res, next) => {
   try {
     console.log("haiiiiii", req.body);
-    // req.session.name = req.body.name;
-    // req.session.email = req.body.email;
-    // req.session.mno = req.body.mobile;
-    // req.session.password = req.body.password;
+    
     const Email = req.body.email;
     console.log(req.body.email);
 
@@ -151,9 +148,7 @@ exports.verification = async (req, res) => {
       console.log(newUser, "userDatas");
       newUser.save().then((data) => {
         console.log(data, "oooo");
-        // req.session.useremail = req.session.email;
-        // req.session.userlogged = true;
-        // req.session.user = newUser;
+        
         res.status(200).json({ message: "Authenticated" });
       });
     } else {
@@ -295,7 +290,7 @@ module.exports.newPassword = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // console.log(formValues.password);
+    
     const hashPassword = await bcrypt.hash(password, 10);
     const data = await User.updateOne(
       { email: email },
@@ -344,70 +339,44 @@ module.exports.auth = async (req, res) => {
   }
 };
 
-// module.exports.resortPage=async(req,res)=>{
-//   try {
 
-//     // const{ id }=req.params;
-//     const id=req.query.id;
-//     console.log("sahrdya");
-//    await resort.findOne({$and:[{_id:id},{verify:true}]}).populate({path:'location',populate:'district'}).then(async(response)=>{
-//     const districtId=response.location.district
-//     console.log(districtId);
-//     const district=await Location.findById({_id:districtId})
-//     // console.log(district,"the dis");
-//     // console.log(response,"responn");
-//     res.json({
-//       status:true,
-//       message:"successfully done",
-//       resort:response,
-
-//     })
-//     .catch((err)=>{
-//       console.log(err.message);
-//     });
-//    });
-
-//   } catch (error) {
-
-//     console.log(error.message);
-
-//   }
-// }
 
 module.exports.resortPage = async (req, res) => {
   try {
-    // const{ id }=req.params;
+ 
     const id = req.query.id;
-    const userId=req.query.userId||''
-    console.log(userId,"--------------------------------------------------------------users");
-    console.log("sahrdya");
+    const userId = req.query.userId || "";
+    console.log(
+      userId,
+      "--------------------------------------------------------------users"
+    );
+    
     const resortData = await resort
       .findOne({ $and: [{ _id: id }, { verify: true }] })
-      .populate({ path: "location", populate: "district" }).populate({path:"reviews",populate:"userId"}).populate('resortowner');
+      .populate({ path: "location", populate: "district" })
+      .populate({ path: "reviews", populate: "userId" })
+      .populate("resortowner");
 
     const bookedData = await booked.find({ resortId: id });
-    console.log(bookedData, "BD");
+   
 
-    let bookedCount
-    if(userId){
-      bookedCount = await booked.find({$and:[{resortId:id},{userId:userId}]}).count()
-      console.log(bookedCount,"bookings");
-let userBook =  await resort.findById(id)
-console.log(userBook);
+    let bookedCount;
+    if (userId) {
+      bookedCount = await booked
+        .find({ $and: [{ resortId: id }, { userId: userId }] })
+        .count();
+      console.log(bookedCount, "bookings");
+      let userBook = await resort.findById(id);
+      console.log(userBook);
     }
+
     
- 
-    // const districtId=response.location.district
-    // console.log(districtId);
-    // const district=await Location.findById({_id:districtId})
-    // console.log(district,"the dis");
-    // console.log(response,"responn");
     res.json({
       status: true,
       message: "successfully done",
       resort: resortData,
       booked: bookedData,
-      bookingCount:bookedCount || 0
+      bookingCount: bookedCount || 0,
     });
     //
   } catch (error) {
@@ -431,7 +400,7 @@ module.exports.categoryPage = async (req, res) => {
     const serviceData = await services.find({ is_delete: false });
     console.log(serviceData, "SDR");
 
-    // console.log(response, "rp");
+    
     res.json({
       status: true,
       message: "successfully done it",
@@ -503,17 +472,17 @@ module.exports.destinationResort = async (req, res) => {
     console.log(error.message);
   }
 };
-module.exports.getUser=async(req,res)=>{
+module.exports.getUser = async (req, res) => {
   const id = req.params.id;
-  console.log(id,'   kkkkkkkkkk');
+  console.log(id, "   kkkkkkkkkk");
 
   try {
-    const user = await staff.findOne({_id:id});
+    const user = await staff.findOne({ _id: id });
     console.log(user);
     if (user) {
       console.log(user);
       const { password, ...otherDetails } = user;
-console.log(otherDetails);
+      console.log(otherDetails);
       res.status(200).json(otherDetails);
     } else {
       res.status(404).json("No such User");
@@ -521,6 +490,4 @@ console.log(otherDetails);
   } catch (error) {
     res.status(500).json(error);
   }
-    
-  
-}
+};

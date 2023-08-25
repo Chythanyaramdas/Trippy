@@ -140,15 +140,30 @@ console.log(bookCount,"kkkkkkkkk");
   };
 
   console.log("----allDates---", allDates);
+  // const handleCheckInDateChange = (date) => {
+  //   alert(date);
+  //   setCheckInDate(date);
+  // };
+
+  // const handleCheckOutDateChange = (date) => {
+  //   if (date < checkInDate) {
+  //     setCheckOutDate(checkInDate);
+  //   } else {
+  //     setCheckOutDate(date);
+  //   }
+  // };
+
+
   const handleCheckInDateChange = (date) => {
-    alert(date);
-    setCheckInDate(date);
+    if (checkOutDate && date >= checkOutDate) {
+      alert('select a valid date')
+    }else{
+      setCheckInDate(date);
+    }
   };
 
   const handleCheckOutDateChange = (date) => {
-    if (date < checkInDate) {
-      setCheckOutDate(checkInDate);
-    } else {
+    if (date >= checkInDate) {
       setCheckOutDate(date);
     }
   };
@@ -271,6 +286,20 @@ console.log(bookCount,"kkkkkkkkk");
         navigate('/chat')
       }
     })
+  }
+
+
+
+  const handleBook=()=>{
+    if(users.id){
+
+      navigate(`/booking/${resort._id}`)
+      
+    }
+
+    else{
+      navigate('/login')
+    }
   }
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
@@ -407,7 +436,7 @@ console.log(bookCount,"kkkkkkkkk");
                 Book your stay
               </p>
             </div>
-
+            {/*  */}
             <div className="w-full h-20 bg-transparent flex items-center justify-evenly mt-10">
               <div className="ml-2">
                 <DatePicker
@@ -443,10 +472,12 @@ console.log(bookCount,"kkkkkkkkk");
               </button>
             </div>
 
+            {/*  */}
+
             <div className="w-full h-[8.7rem] bg-transparent flex justify-end items-end pe-20 pb-5">
               <button
                 className="bg-blue-600 m-0 w-28 h-10 text-sm font-serif"
-                onClick={() => navigate(`/booking/${resort._id}`)}
+                onClick={() => handleBook()}
               >
                 Book
               </button>

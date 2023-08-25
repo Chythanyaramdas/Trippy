@@ -1,12 +1,12 @@
 const book = require("../models/bookingModel");
 const resort = require("../models/resortModel");
 const { checkout } = require("../routers/Route");
-const User=require('../models/userModel')
+const User = require("../models/userModel");
 const dotenv = require("dotenv");
 dotenv.config();
-const{STRIPE_KEY}=process.env;
+const { STRIPE_KEY } = process.env;
 
-const stripe = require('stripe')(STRIPE_KEY)
+const stripe = require("stripe")(STRIPE_KEY);
 
 module.exports.searchDate = async (req, res) => {
   const { selectedPlace, checkInDate, checkOutDate } = req.body;
@@ -33,7 +33,6 @@ module.exports.searchDate = async (req, res) => {
   console.log(bookedData, "bd");
 
   const resorts = bookedData.filter((booking) => {
-   
     if (
       (new Date(checkInDate) >= new Date(booking.fromDate) &&
         new Date(checkInDate) <= new Date(booking.toDate)) ||
@@ -45,16 +44,16 @@ module.exports.searchDate = async (req, res) => {
   });
 
   console.log("------------------resorts-----------", resorts);
-  const resortIds = resorts.map((resort)=>{
-    return resort.resortId
-  })
-  console.log('--------------resortIDs------',resortIds);
+  const resortIds = resorts.map((resort) => {
+    return resort.resortId;
+  });
+  console.log("--------------resortIDs------", resortIds);
   const dateData = await resort
     .find({
       $and: [
         { _id: { $nin: resortIds } },
         { "location.district": selectedPlace },
-        {is_delete:false}
+        { is_delete: false },
       ],
     })
     .populate("location.district");
@@ -101,126 +100,114 @@ module.exports.payment = async (req, res) => {
     });
     await Booking.save();
     res.json({
-      status:true,
-      message:"successfull"
-    })
+      status: true,
+      message: "successfull",
+    });
     console.log(Booking, "BOX");
   } catch (error) {
     console.log(error.message);
   }
 };
 
-module.exports.checkSingleResort=async(req,res)=>{
+module.exports.checkSingleResort = async (req, res) => {
   try {
-
-    const {  checkInDate, checkOutDate,resort_id } = req.params;
+    const { checkInDate, checkOutDate, resort_id } = req.params;
     console.log(checkInDate);
     console.log(checkOutDate);
-    const bookedData = await book.find({$and:[{ status: "booked" },{resortId:resort_id}]}); 
+    const bookedData = await book.find({
+      $and: [{ status: "booked" }, { resortId: resort_id }],
+    });
 
-  console.log(bookedData, "bd");
+    console.log(bookedData, "bd");
 
-  const resorts = bookedData.filter((booking) => {
-   
-    if (
-      (new Date(checkInDate) >= new Date(booking.fromDate) &&
-        new Date(checkInDate) <= new Date(booking.toDate)) ||
-      (new Date(checkOutDate) >= new Date(booking.fromDate) &&
-        new Date(checkOutDate) <= new Date(booking.toDate))
-    ) {
-      return booking.resortId;
+    const resorts = bookedData.filter((booking) => {
+      if (
+        (new Date(checkInDate) >= new Date(booking.fromDate) &&
+          new Date(checkInDate) <= new Date(booking.toDate)) ||
+        (new Date(checkOutDate) >= new Date(booking.fromDate) &&
+          new Date(checkOutDate) <= new Date(booking.toDate))
+      ) {
+        return booking.resortId;
+      }
+    });
+
+    console.log("------------------resorts-----------", resorts);
+
+    if (!resorts.length) {
+      res.json({
+        status: true,
+        message: "available",
+      });
+    } else {
+      res.json({
+        status: false,
+        message: "unavailable",
+      });
     }
-  });
-
-  console.log("------------------resorts-----------", resorts);
-
-  if(!resorts.length){
-    res.json({
-      status:true,
-      message:"available"
-    })
-  }
-  else{
-    res.json({
-      status:false,
-      message:"unavailable"
-    })
-  }
-    
   } catch (error) {
     console.log(error.message);
   }
-} 
-module.exports.bookingManagement=async(req,res)=>{
+};
+module.exports.bookingManagement = async (req, res) => {
   try {
     // const users=req.params.id
     // const bookedData=await book.find({$and:[{status:"booked"},{status:"cancelled"}]}).populate('resortId')
-    const bookedData = await book.find({
-      $or: [
-        {},
-        { status: "booked" },
-        { status: "cancelled" }
-      ]
-    }).populate('resortId');
+    const bookedData = await book
+      .find({
+        $or: [{}, { status: "booked" }, { status: "cancelled" }],
+      })
+      .populate("resortId");
 
-    
     console.log(bookedData);
-res.json({
-  status:true,
-  message:"sucessfully done it ",
-  book:bookedData
-
-})
-    
+    res.json({
+      status: true,
+      message: "sucessfully done it ",
+      book: bookedData,
+    });
   } catch (error) {
     console.log(error.message);
   }
-}
-module.exports.paymentStripe=async(req,res)=>{
+};
+module.exports.paymentStripe = async (req, res) => {
   try {
-    const{resortId,paymentt,userId,checkInDate,checkOutDate}=req.body
-    console.log(resortId,"RID");
-    console.log(paymentt,"RIP");
-    console.log(userId,"USD");
-    console.log(checkInDate,"CK");
-    console.log(checkOutDate,"Cd");
-    const resortData=await resort.findById({_id:resortId})
+    const { resortId, paymentt, userId, checkInDate, checkOutDate } = req.body;
+    console.log(resortId, "RID");
+    console.log(paymentt, "RIP");
+    console.log(userId, "USD");
+    console.log(checkInDate, "CK");
+    console.log(checkOutDate, "Cd");
+    const resortData = await resort.findById({ _id: resortId });
 
-    console.log(resortData,"RD");
-    let resortPrice = resortData.price
+    console.log(resortData, "RD");
+    let resortPrice = resortData.price;
     console.log(resortPrice);
-    if(paymentt==='online'){
-
+    if (paymentt === "online") {
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
             price_data: {
-              currency: 'INR',
+              currency: "INR",
               product_data: {
                 name: `${resortData.resortname}`,
               },
-              unit_amount: resortPrice*100 ,
+              unit_amount: resortPrice * 100,
             },
             quantity: 1,
           },
         ],
-        mode: 'payment',
+        mode: "payment",
         success_url: `http://localhost:3000/successPage?session_id={CHECKOUT_SESSION_ID}&resortId=${resortData._id}`,
-        cancel_url: 'http://localhost:3000/cancel',
+        cancel_url: "http://localhost:3000/cancel",
       });
-      
+
       res.json({
-        status:true,
-        url:session.url
-      })
-
-    }
-    else if(paymentt==='wallet'){
-
-      const userData=await User.findById(userId)
-      console.log(userData,"usr");
-      if(userData.wallet>=resortData.price){
-
+        status: true,
+        url: session.url,
+      });
+    } else if (paymentt === "wallet") {
+      const userData = await User.findById(userId);
+      console.log(userData, "usr");
+      if (userData.wallet >= resortData.price) {
         let Booking = new book({
           resortId: resortId,
           userId: userId,
@@ -234,44 +221,32 @@ module.exports.paymentStripe=async(req,res)=>{
         await Booking.save();
 
         res.json({
-          status:true,
-          message:"success",
-          payMethod:paymentt
-        })
-
+          status: true,
+          message: "success",
+          payMethod: paymentt,
+        });
+      } else {
+        const error = new Error("Not enough balance in wallet");
+        error.status = 400;
+        throw error;
       }
-      else{
-
-        const error=new Error('Not enough balance in wallet')
-        error.status =400
-        throw error
-      }
-
-
     }
-    
   } catch (error) {
-
     console.log(error.message);
-    res.status(error.status).json({message:error.message})
-    
-    
+    res.status(error.status).json({ message: error.message });
   }
-}
-module.exports.paymentSuccess=async(req,res)=>{
+};
+module.exports.paymentSuccess = async (req, res) => {
   try {
-
-    const { paymentId,resortId,users,checkInDate,checkOutDate } = req.body;
-    // console.log(req.body,"RB");
-    console.log('-------start------------');
+    const { paymentId, resortId, users, checkInDate, checkOutDate } = req.body;
+   
+    console.log("-------start------------");
     const paymentChecking = await stripe.checkout.sessions.retrieve(paymentId);
-    // console.log(paymentChecking);
-    // console.log(paymentChecking.payment_status);
-    const data=await resort.findById({_id:resortId})
-    // console.log(data,"RDATA");
+    
+    const data = await resort.findById({ _id: resortId });
   
-    if( paymentChecking.payment_status==='paid' ){
 
+    if (paymentChecking.payment_status === "paid") {
       let Booking = new book({
         resortId: resortId,
         userId: users,
@@ -279,119 +254,104 @@ module.exports.paymentSuccess=async(req,res)=>{
         toDate: checkOutDate,
         payment: {
           payment_amount: data.price,
-          payment_method: 'Online',
+          payment_method: "Online",
         },
       });
       await Booking.save();
       res.json({
-        status:true,
-        message:"successfull"
-      })
-      // console.log(Booking, "BOX");
- 
-console.log(1);
+        status: true,
+        message: "successfull",
+      });
+      
+
+      
     }
-    
   } catch (error) {
-
     console.log(error.message);
-    
   }
-}
-module.exports.paymentHistory=async(req,res)=>{
+};
+module.exports.paymentHistory = async (req, res) => {
   try {
+    const users = req.params.id;
+    console.log(req.params, "urd");
+    console.log(users, "urs");
 
-    const users=req.params.id
-    console.log(req.params,"urd");
-    console.log(users,"urs");
-
-    const bookedHistory=await book.find({userId:users}).populate({ path: "resortId", populate: "location.district" })
-    console.log(bookedHistory[0].resortId.location.district,"bH");
+    const bookedHistory = await book
+      .find({ userId: users })
+      .populate({ path: "resortId", populate: "location.district" });
+    console.log(bookedHistory[0].resortId.location.district, "bH");
     res.json({
-      status:true,
-      message:"successfully done it",
-      booked:bookedHistory
-
-    })
-    
+      status: true,
+      message: "successfully done it",
+      booked: bookedHistory,
+    });
   } catch (error) {
-
     console.log(error.message);
-    
   }
-}
-module.exports.cancelBooking=async(req,res)=>{
+};
+module.exports.cancelBooking = async (req, res) => {
   try {
+    const id = req.params.id;
+    console.log(id, "idzzz");
+    const { userId } = req.query;
+    console.log(userId, "usID");
 
-    const id=req.params.id;
-    console.log(id,"idzzz");
-    const {userId}=req.query
-    console.log(userId,"usID");
-    
-    const cancelData=await book.findByIdAndUpdate({_id:id}, {
-      $set: {
-        status:"cancelled"
-
-      },
-    })
-
-    const cancelledAmount=cancelData.payment.payment_amount
-    console.log(cancelledAmount,"CA---");
-    const userData=await User.findByIdAndUpdate(userId,{
-        $inc:{wallet:cancelledAmount}
+    const cancelData = await book.findByIdAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          status: "cancelled",
+        },
       }
-    )
-    console.log(userData,"----------------data");
+    );
+
+    const cancelledAmount = cancelData.payment.payment_amount;
+    console.log(cancelledAmount, "CA---");
+    const userData = await User.findByIdAndUpdate(userId, {
+      $inc: { wallet: cancelledAmount },
+    });
+    console.log(userData, "----------------data");
     res.json({
-      status:true,
-      message:"Successfully Cancelled",
-      cancel:cancelData
-    })
-
-
-    
+      status: true,
+      message: "Successfully Cancelled",
+      cancel: cancelData,
+    });
   } catch (error) {
-
     console.log(error.message);
-    
   }
-}
-module.exports.bookingResorts=async(req,res)=>{
+};
+module.exports.bookingResorts = async (req, res) => {
   try {
-
-    const staff=req.params.id
-    console.log(req.params.id,"staffffs");
-    await resort.find({$and:[{resortowner:staff},{is_delete:false},{verify:true}]}).then((response)=>{
-      res.json({
-        status:true,
-        message:"successs",
-        resort:response
+    const staff = req.params.id;
+    console.log(req.params.id, "staffffs");
+    await resort
+      .find({
+        $and: [{ resortowner: staff }, { is_delete: false }, { verify: true }],
       })
-    })
-
-    
+      .then((response) => {
+        res.json({
+          status: true,
+          message: "successs",
+          resort: response,
+        });
+      });
   } catch (error) {
     console.log(error.message);
-    
   }
-}
+};
 
-module.exports.bookingSingleResorts=async(req,res)=>{
+module.exports.bookingSingleResorts = async (req, res) => {
   try {
-
-    const id=req.params.id
-    console.log(id,"idz");
-    const bookedData=await book.find({resortId:id})
-    console.log(bookedData,"bD");
+    const id = req.params.id;
+    console.log(id, "idz");
+    const bookedData = await book.find({ resortId: id });
+    console.log(bookedData, "bD");
     res.json({
-      status:true,
-      message:"successfully done it",
-      book:bookedData
-
-    })
+      status: true,
+      message: "successfully done it",
+      book: bookedData,
+    });
   } catch (error) {
-
     console.log(error.message);
-    
   }
-}
+};
