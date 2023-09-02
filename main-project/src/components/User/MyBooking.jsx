@@ -106,7 +106,7 @@ function MyBooking() {
 
       <div className="mx-auto max-w-screen-2xl">
         <h1 className="p-5 font-extrabold md:text-2xl text-center  underline-offset-8">
-          My Booking Details
+          {/* My Booking Details */}
         </h1>
 
         {booked.length === 0 ? (
@@ -163,19 +163,42 @@ function MyBooking() {
                     </p>
                     <div className="card-actions justify-end ">
                       {resort.status === "booked" ? (
+                        // <button
+                        //   className="btn w-60 mt-2 btn-error font-popins"
+                        //   onClick={() => CancelBooking(resort._id)}
+                        // >
+                        //   Cancel
+                        // </button>
+
                         <button
-                          className="btn w-60 mt-2 btn-error font-popins"
+                          className="btn w-full mt-2 btn-error font-popins"
+                          style={{
+                            maxWidth: "180px", // Adjust the maximum width for larger screens
+                            margin: "0 auto", // Center-align the button
+                            display: "block", // Ensure it takes the full width on smaller screens
+                          }}
                           onClick={() => CancelBooking(resort._id)}
                         >
                           Cancel
                         </button>
                       ) : (
-                        <p
-                          className="btn w-60 mt-2 btn-error font-popins"
+                        // <p
+                        //   className="btn w-60 mt-2 btn-error font-popins"
+                        //   disabled
+                        // >
+                        //   Cancelled
+                        // </p>
+                        <button
+                          className="btn w-full mt-2 btn-error font-popins"
+                          style={{
+                            maxWidth: "180px", // Adjust the maximum width for larger screens
+                            margin: "0 auto", // Center-align the text
+                            display: "block", // Ensure it takes the full width on smaller screens
+                          }}
                           disabled
                         >
                           Cancelled
-                        </p>
+                        </button>
                       )}
                       <div className="card-actions w-full flex justify-center bg-slate-500"></div>
                     </div>

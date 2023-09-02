@@ -1,8 +1,10 @@
 import React ,{useState} from 'react'
 import { AdminApi }from "../../utils/admin/adminApi";
+import { useNavigate } from 'react-router-dom';
 
 
  const AdminLocation = () => {
+  const navigate=useNavigate();
     const[district,setDistrict]=useState('')
     const [image, setImage] = useState("");
     const [fields, setFields] = useState([{  }]);
@@ -43,7 +45,10 @@ import { AdminApi }from "../../utils/admin/adminApi";
         .then((response) => {
           if (response.data.status) {
             alert(response.data.message)
+            
           }
+
+          navigate('/admin/location')
         });
     
     

@@ -14,6 +14,10 @@ module.exports.locationCreation = async (req, res) => {
         image: req.file.filename,
       });
       LocationData.save().then(() => console.log("hhh"));
+      res.json({
+        status:true,
+        message:"success"
+      })
       
     } catch (error) {
       console.log(error.message);
