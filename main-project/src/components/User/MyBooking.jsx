@@ -4,13 +4,15 @@ import { UserApi } from "../../utils/user/axiosUser";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Navbar from "../navbar/navbar";
-
+import { hideLoading, showLoading } from "../../redux/alertSlice";
+import { useDispatch } from "react-redux";
 function MyBooking() {
   const { id } = useParams();
   const [booked, setBooked] = useState([{}]);
   const [cancel, setCancel] = useState(false);
   const users = useSelector((store) => store.user);
   const [filteredBooking, setFilteredBooking] = useState([]);
+  const dispatch = useDispatch();
 
   const buttons = [
     {
@@ -37,8 +39,10 @@ function MyBooking() {
 
   useEffect(() => {
     if (users.id) {
+      dispatch(showLoading()); 
       UserApi.get(`/myBooking/${users.id}`).then((response) => {
         if (response.data.status) {
+          dispatch(hideLoading());
           setBooked([...response.data.booked]);
           let currentDate = new Date();
           alert(currentDate);

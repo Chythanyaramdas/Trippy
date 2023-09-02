@@ -4,6 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { UserApi } from "../../utils/user/axiosUser";
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../Footer/UserFooter";
+import { hideLoading, showLoading } from "../../redux/alertSlice";
+import { useDispatch } from "react-redux";
 
 function CategoryPage() {
   const { id } = useParams();
@@ -13,20 +15,26 @@ function CategoryPage() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState([]);
   const [services, setServices] = useState([{}]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (id) {
       console.log("categoryPage single");
+      dispatch(showLoading());
       UserApi.get(`/categoryPage/${id}`).then((response) => {
         if (response.data.status) {
           console.log("cat");
 
           console.log(response.data.category);
-
+          dispatch(hideLoading());
           setCategory([...response.data.category]);
           setServices([...response.data.services]);
         }
-      });
+      }).catch((error)=>{
+        if(error.response){
+          console.log("server error");
+        }
+      })
     }
   }, [id]);
 

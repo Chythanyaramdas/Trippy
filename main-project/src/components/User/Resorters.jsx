@@ -13,8 +13,8 @@ import DatePicker from "react-datepicker";
 import { FaRegStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import{VscAccount}from"react-icons/vsc"
-
-
+import { hideLoading, showLoading } from "../../redux/alertSlice";
+import { useDispatch } from "react-redux";
 function Resorters() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ function Resorters() {
   const [booked, setBooked] = useState([]);
   const [allDates, setallDates] = useState([]);
   const [buttonDisabale, setButtonDisabale] = useState(false);
-
+  const dispatch = useDispatch();
   const users = useSelector((store) => store.user);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -53,10 +53,12 @@ console.log(bookCount,"kkkkkkkkk");
 
   useEffect(() => {
     if (id) {
+      dispatch(showLoading());
       console.log("arunnbhai");
       UserApi.get(`/singlePage?id=${id}&userId=${users.id}`).then(
         (response) => {
           if (response.data.status) {
+            dispatch(hideLoading());
             setBookedCount(response.data.bookingCount);
             console.log(
               setBookedCount,

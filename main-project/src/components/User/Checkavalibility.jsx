@@ -6,8 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import{UserApi} from"../../utils/user/axiosUser";
-
-
+import { hideLoading, showLoading } from "../../redux/alertSlice";
+import { useDispatch } from "react-redux";
 
 function Checkavalibility() {
     const server_url = process.env.REACT_APP_BASE_URL;
@@ -19,14 +19,15 @@ function Checkavalibility() {
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState("");
   const [filteredResorts, setFilteredResorts] = useState([]);
-  
+  const dispatch = useDispatch();
 
      
   
     useEffect(()=>{
-
+        dispatch(showLoading());
         UserApi.get('/resortInfo').then((response)=>{
             if(response.data.status){
+              dispatch(hideLoading());
                 setPlace([...response.data.place])
                 setRecord([...response.data.record])
             }
