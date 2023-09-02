@@ -143,12 +143,25 @@ function MyBooking() {
                     </p>
 
                     {/* {<span className="text-xl bg-green-500 px-3 text-white py-1 rounded-lg capitalize">{resort.status}</span>} */}
-                    <span
+                    {/* <span
                       className={`text-xl px-3 py-1 rounded-lg capitalize ${
                         resort.status === "cancelled"
                           ? "bg-red-500 text-white"
                           : "bg-green-500 text-white"
                       }`}
+                    >
+                      {resort.status}
+                    </span> */}
+
+                    <span
+                      className={`text-xl px-3 py-1 rounded-lg capitalize`}
+                      style={{
+                        backgroundColor:
+                          resort.status === "cancelled" ? "#ff0000" : "#00ff00",
+                        color: "#ffffff",
+                        fontSize: "1.5rem", // Adjust the font size for smaller screens
+                        padding: "0.3rem 0.5rem", // Adjust padding for smaller screens
+                      }}
                     >
                       {resort.status}
                     </span>
