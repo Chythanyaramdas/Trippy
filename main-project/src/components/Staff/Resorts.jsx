@@ -17,7 +17,7 @@ function Resorts() {
     const [confirmation,setConfirmation] = useState(false)
       const [bannerId,setBannerId] = useState('')
       const [add,setAdd]=useState(false);
-      const server_url=process.env.REACT_APP_STAFF_URL
+      const server_url=process.env.REACT_APP_BASE_URL
 
       const handleDelete = ()=>{
     
