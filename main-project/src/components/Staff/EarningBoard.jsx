@@ -38,6 +38,7 @@ function EarningBoard({
   // console.log(lineChartData);
 console.log(linechartOptionsInitial);
 console.log(lineChartSeries);
+console.log(resortCount,"llllllllllll");
   return (
     <div className="w-full h-auto px-5 py-5 dashboard">
       <div className="w-fll  grid grid-cols-2 h-44">

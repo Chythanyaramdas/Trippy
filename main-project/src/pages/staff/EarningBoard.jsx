@@ -109,8 +109,10 @@ function Dashboard() {
   });
 
   useEffect(() => {
+    console.log("ppppp");
     StaffApi.get(`/dashBoardChart/${staff._id}`)
       .then((res) => {
+        console.log(res,"oooooo");
         if (res.data.status) {
           setUser(res.data.userCount);
           setResortCount([res.data.resortCount]);

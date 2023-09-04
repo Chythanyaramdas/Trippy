@@ -298,6 +298,41 @@ module.exports.dashBoardChart = async (req, res) => {
 
     console.log(income, "incomeeee");
 
+    // const weeklySalesReport = await book.aggregate([
+    //   {
+    //     $match: {
+    //       resortId: { $in: data },
+    //       status: "booked",
+    //     },
+    //   },
+    //   {
+    //     $addFields: {
+    //       fromDate: {
+    //         $dateFromString: {
+    //           dateString: "$fromDate",
+    //         },
+    //       },
+    //     },
+    //   },
+    //   {
+    //     $group: {
+    //       _id: {
+    //         year: { $isoWeekYear: "$fromDate" },
+    //         week: { $isoWeek: "$fromDate" },
+    //       },
+    //       totalSales: { $sum: "$payment.payment_amount" },
+    //     },
+    //   },
+    //   {
+    //     $sort: {
+    //       "_id.year": 1,
+    //       "_id.week": 1,
+    //     },
+    //   },
+    // ]);
+
+    // console.log(weeklySalesReport);
+
     const weeklySalesReport = await book.aggregate([
       {
         $match: {
@@ -309,7 +344,9 @@ module.exports.dashBoardChart = async (req, res) => {
         $addFields: {
           fromDate: {
             $dateFromString: {
-              dateString: "$fromDate",
+              dateString: {
+                $substr: ["$fromDate", 0, 24], // Extract the first 24 characters (without timezone info)
+              },
             },
           },
         },
@@ -330,8 +367,9 @@ module.exports.dashBoardChart = async (req, res) => {
         },
       },
     ]);
-
+    
     console.log(weeklySalesReport);
+    
 
     res.json({
       status: true,
