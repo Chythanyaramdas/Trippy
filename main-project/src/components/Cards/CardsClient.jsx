@@ -10,7 +10,7 @@ function Cards({ data }) {
   }
 
   return(
-    <div>
+    <div className="bg-slate-100">
 
     {/* <div className="w-full h-full flex flex-col "> */}
 
