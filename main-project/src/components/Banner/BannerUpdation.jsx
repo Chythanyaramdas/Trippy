@@ -13,7 +13,7 @@ function BannerUpdation() {
     const [image,setImage] = useState('')
     const [newImage,setNewImage] = useState("")
     const {id} = useParams()
-
+    const server_url=process.env.REACT_APP_ADMIN_URL
 
     const initialValues = {
         name:"",
@@ -116,7 +116,7 @@ function BannerUpdation() {
         <div className="flex flex-col text-center justify-center border-2 mx-20 h-72 px-10 py-6 ">
         {banner && <img
           className="w-full h-full    rounded-lg  "
-          src={`http://localhost:3001/images/${image}`}
+          src={`${server_url}+images/${data.image}`}
           alt=""
         />}
       {!banner &&
@@ -124,7 +124,7 @@ function BannerUpdation() {
         <p>preview</p>
       <img
           className="w-full h-full    rounded-lg  "
-          src={`http://localhost:3001/images/${image}`}
+          src={`${server_url}+images/${data.image}`}
           alt=""
         /></>)}
         </div>

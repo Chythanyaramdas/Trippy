@@ -15,6 +15,8 @@ const [confirmation,setConfirmation] = useState(false)
   const [bannerId,setBannerId] = useState('')
   const [add,setAdd]=useState(false);
 
+  const server_url=process.env.REACT_APP_ADMIN_URL
+
 
   const handleDelete = ()=>{
     
@@ -82,7 +84,7 @@ return (
               <p></p>
               <img
                 className=" bg-fit rounded-xl"
-                 src={`http://localhost:3001/images/${data.image}`}
+                 src={`${server_url}+images/${data.image}`}
                 alt=""
               />
               <h1>{data.title}</h1>
