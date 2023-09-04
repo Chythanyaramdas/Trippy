@@ -494,7 +494,7 @@ function Resorters() {
                 Search
               </button> */}
               <button
-                className="btn join-item my-1 bg-slate-300 sm:w-full md:w-1/2 lg:w-1/4"
+                className="btn join-item my-1 bg-slate-300 sm:w-full md:w-1/2 lg:w-1/4 h-10"
                 onClick={() => {
                   handleSearch();
                 }}

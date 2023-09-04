@@ -151,7 +151,7 @@ function CategoryPage() {
       <div className="flex flex-wrap pb-10 gap-4 mt-12 md:ps-6 ">
         {category?.map((data) => {
           return (
-            <div className="w-full md:w-1/3 bg-sky-100 border rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex justify-center flex-wrap ">
+            <div className="w-full md:w-1/3 bg-white border rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex justify-center flex-wrap ">
               <div className="w-4/5 h-[50%] mt-6 relative">
                 <img
                   className="rounded-lg overflow-hidden hover:transform transform scale-100 hover:scale-110 transition-transform duration-300 "
