@@ -84,7 +84,7 @@ return (
               <p></p>
               <img
                 className=" bg-fit rounded-xl"
-                 src={`${server_url}+images/${data.image}`}
+                 src={`${server_url}images/${data.image}`}
                 alt=""
               />
               <h1>{data.title}</h1>
