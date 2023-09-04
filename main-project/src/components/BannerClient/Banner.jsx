@@ -3,27 +3,31 @@ import api from "../../helper/axios/userAxios";
 
 function Banner(){
     const [banner,setBanner]=useState({})
-
+    const [image,setImage]=useState(false)
     const server_url=process.env.REACT_APP_BASE_URL;
 
     useEffect(()=>{
-        api.get('/').then((response)=>{
+        if(image===false){
 
-            if(response.data.status){
-
-                setBanner({...response.data.banners[0]})
-
-                console.log("bannerss");
-            }
-        })
-    },[])
-
+            api.get('/').then((response)=>{
+                
+                if(response.data.status){
+                    
+                    setBanner({...response.data.banners[0]})
+                    setImage(true)
+                    console.log("bannerss");
+                }
+            })
+        }
+        },[image==false])
+        
+console.log(banner.image,"iiii");
     return (
         <div className="mt-0 flex justify-center w-full  ">
                 
             
             <div   className=' md:h-auto w-full md:w-full relative h-[70vh]'>
-            <img  src={server_url+'images/'+ banner.image} alt="" className='w-full h-[80vh] object-cover relative' />
+            <img  src={server_url+'images/'+ banner.image} alt="" className='w-full h-[80vh] object-cover relative'/>
             {/* <img  src="https://free4kwallpapers.com/uploads/originals/2017/03/13/beach-resort-wallpaper.jpg"alt="" className='w-full h-[80vh] object-cover relative' /> */}
 
             <div className=' h-full w-full md:w-full flex  justify-center items-center'>
