@@ -116,7 +116,7 @@ function BannerUpdation() {
         <div className="flex flex-col text-center justify-center border-2 mx-20 h-72 px-10 py-6 ">
         {banner && <img
           className="w-full h-full    rounded-lg  "
-          src={`${server_url}+images/${data.image}`}
+          src={`${server_url}+images/${image}`}
           alt=""
         />}
       {!banner &&
@@ -124,7 +124,7 @@ function BannerUpdation() {
         <p>preview</p>
       <img
           className="w-full h-full    rounded-lg  "
-          src={`${server_url}+images/${data.image}`}
+          src={`${server_url}+images/${image}`}
           alt=""
         /></>)}
         </div>
