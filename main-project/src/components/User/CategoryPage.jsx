@@ -128,7 +128,7 @@ function CategoryPage() {
     </h1>
   </div>
 
-  <div className="w-[99vw] min-h-[60rem] pb-20 flex flex-col md:flex-row">
+  <div className="w-[97vw] min-h-[60rem] pb-20 flex flex-col md:flex-row">
     <div className="w-full md:w-4/5 h-full shadow-black shadow-sm rounded-xl m-5">
       <div className="w-full h-full flex justify-center items-center ">
         <input
