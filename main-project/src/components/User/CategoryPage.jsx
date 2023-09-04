@@ -183,13 +183,15 @@ function CategoryPage() {
         <div className="w-full h-[10%] bg-transparent flex justify-center items-center">
           <p className="text-2xl font-serif">Filter</p>
         </div>
-        <div className="bg-transparent w-full h-[90%]">
+        <div className="bg-transparent w-full h-[90%] ">
           {services?.map((data, index) => {
             return (
-              <div className="w-full h-10  flex justify-start items-center ps-2">
+              <div className="w-full h-10  flex justify-start items-center ps-2 ">
                 <input
                   type="checkbox"
-                  className="w-5 me-4 capitalize appearance-none bg-white accent-white"
+                 
+  
+                  className="w-5 me-4 capitalize checkbox-red "
                   name="service"
                   onChange={(e) => handleFilter(e, index)}
                   value={data.title}
@@ -199,6 +201,7 @@ function CategoryPage() {
             );
           })}
         </div>
+        
       </div>
     </div>
   </div>
