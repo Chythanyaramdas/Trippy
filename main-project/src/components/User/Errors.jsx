@@ -6,7 +6,7 @@ function Errors() {
       <>
   {/* Hello world */}
   <section>
-    <div className="bg-black text-white">
+    <div className="bg-yellow-200 text-white">
       <div className="flex h-screen">
         <div className="m-auto text-center">
           <div>
