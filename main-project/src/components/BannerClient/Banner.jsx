@@ -23,8 +23,8 @@ function Banner(){
                 
             
             <div   className=' md:h-auto w-full md:w-full relative h-[70vh]'>
-            <img  src={server_url+'images/'+ banner.image} alt="" className='w-full h-[80vh] object-cover relative' />
-            {/* <img  src="https://free4kwallpapers.com/uploads/originals/2017/03/13/beach-resort-wallpaper.jpg"alt="" className='w-full h-[80vh] object-cover relative' /> */}
+            {/* <img  src={server_url+'images/'+ banner.image} alt="" className='w-full h-[80vh] object-cover relative' /> */}
+            <img  src="https://free4kwallpapers.com/uploads/originals/2017/03/13/beach-resort-wallpaper.jpg"alt="" className='w-full h-[80vh] object-cover relative' />
 
             <div className=' h-full w-full md:w-full flex  justify-center items-center'>
 
