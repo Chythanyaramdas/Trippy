@@ -7,6 +7,7 @@ import { AdminApi } from '../../utils/admin/adminApi';
 
 function Card({ data , updatePath,deleteClick  }) {
   const navigate = useNavigate();
+  const server_url=process.env.REACT_APP_STAFF_URL
   
   const truncateString = (string,length)=>{
     if(string.length <= length){
@@ -48,7 +49,7 @@ function Card({ data , updatePath,deleteClick  }) {
       <div className="rounded-xl h-25 bg-white w-full  p-2 shadow-lg flex flex-col ">
         <img
           className=" bg-fit rounded-xl h-full object-cover "
-          src={`http://localhost:3001/images/${data.image}`}
+          src={`${server_url}images/${data.image}`}
           alt=""
         />
 
