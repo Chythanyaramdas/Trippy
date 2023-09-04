@@ -189,7 +189,7 @@ function CategoryPage() {
               <div className="w-full h-10  flex justify-start items-center ps-2">
                 <input
                   type="checkbox"
-                  className="w-5 me-4 capitalize bg-white"
+                  className="w-5 me-4 capitalize  accent-white"
                   name="service"
                   onChange={(e) => handleFilter(e, index)}
                   value={data.title}
