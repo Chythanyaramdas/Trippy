@@ -102,16 +102,16 @@ alert(checkInDate)
       <div className="mx-auto max-w-screen-2xl">
         <div className="px-[30px] py-4 w-full  mx-auto flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-md rounded-lg ">
           <select
-            className="w-64 h-10 max-w-xs  "
+            className="w-64 h-10 max-w-xs bg-white text-black "
             name="place"
          
             onChange={(e) => setSelectedPlace(e.target.value)} 
           >
-            <option  >
+            <option className="bg-white text-black" >
               Select your Stay
             </option >
             {place.map((places, index) => (
-              <option key={index} value={places._id} className="bg-white text-black">{places.district} </option>
+              <option key={index} value={places._id} >{places.district} </option>
             ))}
           </select>
 
@@ -148,7 +148,7 @@ alert(checkInDate)
           </button>
         </div>
 
-        <div className='flex gap-4'>
+        <div className='flex gap-4 w-full overflow-hidden'>
               {checkInDate && checkOutDate && selectedPlace ?  filteredResorts.length > 0 ? (
         filteredResorts.map((item) => (
           <div
