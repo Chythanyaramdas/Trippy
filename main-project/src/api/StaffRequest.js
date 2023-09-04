@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API = axios.create({baseURL: 'http://localhost:3001/staff' })
+const API = axios.create({baseURL: process.env.REACT_APP_STAFF_URL })
 export const getStaff = (staffId) => API.get(`/staff/${staffId}`);
 
 export const updateUser = (id, formData) =>  API.put(`/user/${id}`, formData);
