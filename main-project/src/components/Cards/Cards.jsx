@@ -7,7 +7,7 @@ import { AdminApi } from '../../utils/admin/adminApi';
 
 function Card({ data , updatePath,deleteClick  }) {
   const navigate = useNavigate();
-  const server_url=process.env.REACT_APP_STAFF_URL
+  const server_url=process.env.REACT_APP_BASE_URL
   
   const truncateString = (string,length)=>{
     if(string.length <= length){
