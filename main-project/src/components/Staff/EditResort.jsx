@@ -27,6 +27,7 @@ function EditResort() {
     };
 
     const[formValues,setFormValues]=useState(initialValues);
+    const server_url=process.env.REACT_APP_STAFF_URL
 
     useEffect(()=>{
         if(id){
@@ -177,7 +178,7 @@ function EditResort() {
         <div className="flex flex-col text-center justify-center border-2 mx-20 h-72 px-10 py-6 ">
         {banner && <img
           className="w-full h-full    rounded-lg  "
-          src={`http://localhost:3001/images/${image[0]}`}
+          src={`${server_url}images/${image[0]}`}
           alt=""
         />}
       {!banner &&
@@ -185,7 +186,7 @@ function EditResort() {
         <p>preview</p>
       <img
           className="w-full h-full    rounded-lg  "
-          src={`http://localhost:3001/images/${image[0]}`}
+          src={`${server_url}images/${image[0]}`}
           alt=""
         /></>)}
         </div>

@@ -263,7 +263,7 @@ module.exports.dashBoardChart = async (req, res) => {
         $and: [{ resortowner: staff }, { is_delete: false }, { verify: true }],
       })
       .countDocuments();
-    console.log(resortCounts);
+    console.log(resortCounts,"ooooooooooooooooooooooooohhhhhhhhhhhhhhhhhhhhhhhhhh");
 
     // pie charts
     // console.log(data,"kkkkkkkk");
