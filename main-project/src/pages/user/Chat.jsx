@@ -20,6 +20,8 @@ function Chat() {
   const users = useSelector((store) => store.user);
   const socket = useRef();
 
+  const server_url=process.env.REACT_APP_BASE_URL
+
   useEffect(() => {
     if (users) {
       const getChats = async () => {
@@ -61,7 +63,7 @@ function Chat() {
   }
 
   useEffect(() => {
-    socket.current = io("http://localhost:3001");
+    socket.current = io(server_url);
     socket.current.emit("new-user-add", users.id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
