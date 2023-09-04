@@ -17,7 +17,7 @@ function Resorts() {
     const [confirmation,setConfirmation] = useState(false)
       const [bannerId,setBannerId] = useState('')
       const [add,setAdd]=useState(false);
-
+      const server_url=process.env.REACT_APP_STAFF_URL
 
       const handleDelete = ()=>{
     
@@ -73,7 +73,7 @@ function Resorts() {
         <p></p>
         <img
           className=" bg-fit rounded-xl"
-           src={`http://localhost:3001/images/${data?.image[0]}`}
+           src={`${server_url}images/${data?.image[0]}`}
           alt=""
         />
         <h1>{data?.title}</h1>
