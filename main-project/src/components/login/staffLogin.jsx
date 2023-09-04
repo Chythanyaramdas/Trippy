@@ -93,13 +93,13 @@ return (
 
 <div className="relative flex flex-col justify-center h-screen overflow-hidden bg-[url(https://i.pinimg.com/originals/d8/22/20/d822205ab35e56560a848a76b0d33a58.jpg)]">
     <div className="w-full p-6 m-auto bg-transparent backdrop-blur-md rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-lg">
-      <h1 className="text-3xl font-semibold text-center text-gray-700">
+      <h1 className="text-3xl font-semibold text-center text-white">
         Trippy
       </h1>
       <form  onSubmit={handleSubmit}className="space-y-4">
         <div>
           <label className="label">
-            <span className="text-base label-text">Email</span>
+            <span className="text-base label-text text-white">Email</span>
           </label>
           <input
             type="email"
@@ -113,7 +113,7 @@ return (
         </div>
         <div>
           <label className="label">
-            <span className="text-base label-text">Password</span>
+            <span className="text-base label-text text-white">Password</span>
           </label>
           <input 
             type="password"
@@ -128,7 +128,7 @@ return (
           href="/register"
           className="text-xs text-gray-600 hover:underline hover:text-blue-600"
         >
-                      <span className="text-base label-text">Not a member? Sign up now</span>
+                      <span className="text-base label-text text-white">Not a member? Sign up now</span>
         </a>
         <div>
           <button className="btn btn-block">Login</button>

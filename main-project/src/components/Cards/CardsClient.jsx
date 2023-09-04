@@ -10,7 +10,7 @@ function Cards({ data }) {
   }
 
   return(
-    <div className="bg-slate-100">
+    <div className="bg-slate-100 py-6">
 
     {/* <div className="w-full h-full flex flex-col "> */}
 
@@ -27,7 +27,7 @@ function Cards({ data }) {
         
             {data.map((datas) => (
               <div
-                className="bg-white shadow-2xl p-4  w-full max-w-[352px]  mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
+                className="bg-white shadow-2xl p-4  w-full max-w-[352px]   mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
                 key={datas.resortname}
               >
                 <figure>

@@ -316,7 +316,7 @@ console.log(form.get('services'));
                   name="district"
                   onChange={(e) => placeFinding(e)}
                   id=""
-                  className="border-2 p-1 mb-2  w-60"
+                  className="border-2 p-1 mb-2  w-60 bg-white"
                 >
                   <option value="">Location</option>
                   {place.map((Location, index) => {
@@ -338,7 +338,7 @@ console.log(form.get('services'));
                     name="place"
                     onChange={(e) => filterFinding(e)}
                     id=""
-                    className="border-2 p-1 mb-2 w-60 "
+                    className="border-2 p-1 mb-2 w-60 bg-white "
                   >
                     <option value="place">Place</option>
                     {store.map((places, index) => {
@@ -362,7 +362,7 @@ console.log(form.get('services'));
                   name="category"
                   onChange={(e) => inputChange(e)}
                   id=""
-                  className="border-2 p-1 mb-2 w-60 "
+                  className="border-2 p-1 mb-2 w-60 bg-white"
                   required
                 >
                   <option value="">Category</option>
