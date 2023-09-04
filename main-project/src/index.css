@@ -14,3 +14,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+:root, [data-theme] {
+  background-color: #fff; /* This sets the background color to white */
+  background-color: hsl(var(--b1)/var(--tw-bg-opacity,1));
+  color: #1f2937;
+  color: hsl(var(--bc)/var(--tw-text-opacity,1)); 
+}
