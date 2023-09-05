@@ -199,8 +199,8 @@ module.exports.paymentStripe = async (req, res) => {
         mode: "payment",
         // success_url: `http://localhost:3000/successPage?session_id={CHECKOUT_SESSION_ID}&resortId=${resortData._id}`,
         // cancel_url: "http://localhost:3000/cancel",
-        success_url: `${server_url}successPage?session_id={CHECKOUT_SESSION_ID}&resortId=${resortData._id}`,
-         cancel_url: `${server_url}cancel`,
+        success_url: `${server_url}/successPage?session_id={CHECKOUT_SESSION_ID}&resortId=${resortData._id}`,
+         cancel_url: `${server_url}/cancel`,
 
       });
 
