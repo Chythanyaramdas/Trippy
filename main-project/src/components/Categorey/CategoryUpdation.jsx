@@ -15,6 +15,9 @@ function CategoryUpdation() {
         description:"",
         image:"",
     }
+
+    const server_url=process.env.REACT_APP_BASE_URL
+
     useEffect(()=>{
       AdminApi.get(`/categoryManagement_u/${id}`).then((response)=>{
           if(response.data.status){
@@ -107,7 +110,8 @@ function CategoryUpdation() {
         <div className="flex flex-col text-center justify-center border-2 mx-20 h-72 px-10 py-6 ">
         {banner && <img
           className="w-full h-full    rounded-lg  "
-          src={`http://localhost:3001/images/${image}`}
+          // src={`http://localhost:3001/images/${image}`}
+          src={`${server_url}images/${image}`}
           alt=""
         />}
       {!banner &&
@@ -115,7 +119,8 @@ function CategoryUpdation() {
         <p>preview</p>
       <img
           className="w-full h-full    rounded-lg  "
-          src={`http://localhost:3001/images/${image}`}
+          // src={`http://localhost:3001/images/${image}`}
+           src={`${server_url}images/${image}`}
           alt=""
         /></>)}
         </div>
