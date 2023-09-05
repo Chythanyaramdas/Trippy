@@ -148,11 +148,11 @@ alert(checkInDate)
           </button>
         </div>
 
-        <div className='flex gap-4 w-full overflow-hidden'>
+        <div className='gap-4 w-full sm:flex '>
               {checkInDate && checkOutDate && selectedPlace ?  filteredResorts.length > 0 ? (
         filteredResorts.map((item) => (
           <div
-            className="bg-white shadow-1 p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
+            className="bg-white shadow-1 flex-col  md:flex p-5 rounded-tl-[20px] w-full max-w-[352px] mx-auto cursor-pointer hover:shadow-2xl transition hover:scale-105"
             key={item.resortname}
           >
             <figure className="w-full">

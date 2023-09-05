@@ -93,7 +93,6 @@ app.use('/admin',require('./routers/Route'));
 
 const io=require('socket.io')(server,{
   cors:{
-     
       origin:process.env.CLIENT_URL
   }
 })

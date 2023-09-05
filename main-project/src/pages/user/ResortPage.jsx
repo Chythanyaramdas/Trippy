@@ -15,12 +15,14 @@ function ResortPage() {
   return (
 
 
-    <div>
+    <div className='w-full'>
 
 <Navbar/>
 
-
+<div className='w-full'>
 <Resorters/>
+
+</div>
 
 
 
