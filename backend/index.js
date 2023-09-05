@@ -93,7 +93,7 @@ app.use('/admin',require('./routers/Route'));
 
 const io=require('socket.io')(server,{
   cors:{
-      // origin:"http://localhost:3000"
+     
       origin:process.env.CLIENT_URL
   }
 })
