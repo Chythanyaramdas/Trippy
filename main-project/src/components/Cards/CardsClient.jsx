@@ -20,10 +20,11 @@ function Cards({ data }) {
 
       </div> */}
 
-      <div class="mt-8 md:ml-20 md:flex">
-        <p class="text-2xl text-black font-serif md:mt-1">Choose</p>
-        <p class="text-3xl text-blue-800 font-serif md:ml-3">your Stay</p>
-      </div>
+<div class="mt-8 md:ml-20 md:flex md:items-center">
+    <p class="text-2xl text-black font-serif md:mt-0">Choose</p>
+    <p class="text-3xl text-blue-800 font-serif md:ml-3">your Stay</p>
+</div>
+
 
       <div className="flex flex-wrap mt-4">
         {data.map((datas) => (
