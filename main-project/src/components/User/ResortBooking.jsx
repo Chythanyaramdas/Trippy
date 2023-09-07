@@ -42,7 +42,7 @@ const ResortBooking = () => {
   }, [id]);
 
   const handlebookingHotel = async () => {
-    alert("offline");
+    // alert("offline");
     UserApi.post("/payment", {
       resortId: resort._id,
       users: users.id,
@@ -51,7 +51,7 @@ const ResortBooking = () => {
       paymentt,
     }).then((response) => {
       if (response.data.status) {
-        alert("hi");
+        // alert("hi");
         localStorage.removeItem("checkinDate");
         localStorage.removeItem("checkoutDate");
         navigate("/successPage");
@@ -60,7 +60,7 @@ const ResortBooking = () => {
   };
 
   const handleOnlinePayment = async () => {
-    alert("online");
+    // alert("online");
     UserApi.post("/create-checkout-session", {
       resortId: resort._id,
       paymentt,
@@ -76,7 +76,7 @@ const ResortBooking = () => {
           // window.location.href(response.data.url)
           if (response.data.payMethod === "wallet") navigate("/successPage");
           else {
-            alert("success");
+            // alert("success");
             window.location.href = response.data.url;
           }
         }
@@ -202,10 +202,6 @@ const ResortBooking = () => {
   //     const rzp1 = new window.Razorpay(options);
   //     rzp1.open();
   //   };
-
-
-
-  
 
   useEffect(() => {
     const checkInDateFromStorage = localStorage.getItem("checkinDate");

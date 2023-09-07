@@ -45,7 +45,7 @@ function MyBooking() {
           dispatch(hideLoading());
           setBooked([...response.data.booked]);
           let currentDate = new Date();
-          alert(currentDate);
+          // alert(currentDate);
           let upComing = response.data.booked.filter(
             (obj) => new Date(obj.fromDate) >= currentDate
           );

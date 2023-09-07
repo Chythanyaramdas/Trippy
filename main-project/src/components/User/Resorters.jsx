@@ -181,7 +181,7 @@ function Resorters() {
   };
 
   const handleSearch = () => {
-    alert(checkInDate);
+    // alert(checkInDate);
     UserApi.get(
       `/searchSingleResort/${checkInDate}/${checkOutDate}/${resort._id}`
     ).then((response) => {
@@ -283,12 +283,12 @@ function Resorters() {
   };
 
   const handleChat = () => {
-    alert("findChat");
+    // alert("findChat");
 
     UserApi.get(`/findChat/${resort.resortowner._id}/${users.id}`).then(
       (response) => {
         if (response.data.status) {
-          alert("vann chat");
+          // alert("vann chat");
           navigate("/chat");
         }
       }
@@ -547,271 +547,270 @@ function Resorters() {
         </div>
     </div>
     </div> */}
-    <div class="flex flex-col justify-center items-center mt-10 mb-6 ">
-  
-  <h1 class="text-4xl text-blue-800 font-popins mt-4">
-    {resort.resortname}
-  </h1>
+        <div class="flex flex-col justify-center items-center mt-10 mb-6 ">
+          <h1 class="text-4xl text-blue-800 font-popins mt-4">
+            {resort.resortname}
+          </h1>
 
- 
-  <div class=" flex justify-center items-center mt-4 mb-6 w-3/4 ">
-    <div class="bg-white rounded-md shadow-2xl p-6">
-      {resort.description}
-    </div>
-  </div>
-
- 
-</div>
-
+          <div class=" flex justify-center items-center mt-4 mb-6 w-3/4 ">
+            <div class="bg-white rounded-md shadow-2xl p-6">
+              {resort.description}
+            </div>
+          </div>
+        </div>
 
         <div class="w-full flex justify-center mt-12 ">
           <h3 class="text-2xl font-serif mb-4">Our stay...</h3>
         </div>
 
         <div class="w-full  mt-4 flex flex-wrap justify-center">
-        
           <div className="w-[45rem] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-
-         
-          <div class="w-60 h-80 mx-auto">
-            <div className="flex flex-wrap mt-4  ">
-              <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64  rounded-lg  mx-auto cursor-pointer  ">
-                <figure className="h-[90%]">
-                  <img
-                    src="https://img.freepik.com/free-vector/indian-rupee-money-bag_23-2147996715.jpg?w=2000"
-                    className="mb-1 h-full "
-                    alt="Movie"
-                  />
-                </figure>
-                <div className="flex flex-col">
-                  <div className="flex items-center">
-                    <FaRupeeSign className="text-sm" />
-                    <div className="text-lg font-semibold">{resort.price}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="w-60 h-80 mx-auto">
-            <div className="flex flex-wrap mt-4 ">
-              <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64  rounded-lg mx-auto cursor-pointer  ">
-                <figure className="h-[90%] overflow-hidden">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkfj5k9-h0cIcNaOwBLOFNlOLpuO72zh7YDJ1z_tT_MCMyTnpuaXYUhGRgPG7FUEIYOS4&usqp=CAU"
-                    className="mb-1  h-full"
-                    alt="Movie"
-                  />
-                </figure>
-                <div className="flex flex-col">
-                  <div className="flex items-center">
-                    <MdReduceCapacity className="text-sm" />
-
-                    <div className="text-lg font-semibold">
-                      {resort.capacity}
+            <div class="w-60 h-80 mx-auto">
+              <div className="flex flex-wrap mt-4  ">
+                <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64  rounded-lg  mx-auto cursor-pointer  ">
+                  <figure className="h-[90%]">
+                    <img
+                      src="https://img.freepik.com/free-vector/indian-rupee-money-bag_23-2147996715.jpg?w=2000"
+                      className="mb-1 h-full "
+                      alt="Movie"
+                    />
+                  </figure>
+                  <div className="flex flex-col">
+                    <div className="flex items-center">
+                      <FaRupeeSign className="text-sm" />
+                      <div className="text-lg font-semibold">
+                        {resort.price}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="w-60 h-80 mx-auto">
-            <div className="flex flex-wrap mt-4 ">
-              <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64 rounded-lg  mx-auto cursor-pointer  ">
-                <figure className="h-[90%] overflow-hidden">
-                  <img
-                    src="https://www.shutterstock.com/shutterstock/videos/1039519187/thumb/9.jpg?ip=x480"
-                    className="mb-1  h-full object-cover"
-                    alt="Movie"
-                  />
-                </figure>
-                <div className="flex flex-col">
-                  <div className="flex items-center">
-                    <MdPlace className="text-sm" />
+            <div class="w-60 h-80 mx-auto">
+              <div className="flex flex-wrap mt-4 ">
+                <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64  rounded-lg mx-auto cursor-pointer  ">
+                  <figure className="h-[90%] overflow-hidden">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkfj5k9-h0cIcNaOwBLOFNlOLpuO72zh7YDJ1z_tT_MCMyTnpuaXYUhGRgPG7FUEIYOS4&usqp=CAU"
+                      className="mb-1  h-full"
+                      alt="Movie"
+                    />
+                  </figure>
+                  <div className="flex flex-col">
+                    <div className="flex items-center">
+                      <MdReduceCapacity className="text-sm" />
 
-                    <div className="text-lg font-semibold">
-                      {resort?.location?.district?.district},
-                      {getPlace(resort?.location?.place)}
+                      <div className="text-lg font-semibold">
+                        {resort.capacity}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+
+            <div class="w-60 h-80 mx-auto">
+              <div className="flex flex-wrap mt-4 ">
+                <div className="bg-white shadow-2xl p-4  w-full max-w-[300px] h-64 rounded-lg  mx-auto cursor-pointer  ">
+                  <figure className="h-[90%] overflow-hidden">
+                    <img
+                      src="https://www.shutterstock.com/shutterstock/videos/1039519187/thumb/9.jpg?ip=x480"
+                      className="mb-1  h-full object-cover"
+                      alt="Movie"
+                    />
+                  </figure>
+                  <div className="flex flex-col">
+                    <div className="flex items-center">
+                      <MdPlace className="text-sm" />
+
+                      <div className="text-lg font-semibold">
+                        {resort?.location?.district?.district},
+                        {getPlace(resort?.location?.place)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="mt-5 sm:mt-10 w-full h-auto sm:h-96 flex-col gap-4 hidden md:flex bg-slate-100">
-  <div className="w-full h-80 sm:h-[80%] flex flex-col sm:flex-row justify-between px-4 sm:px-16 mt-4 sm:mt-10">
-    <div className="w-full sm:w-1/2 h-auto bg-sky-100 flex flex-col">
-      <div className="w-full h-15 sm:h-20 bg-transparent mt-3 sm:mt-0 ps-4 sm:ps-10">
-        <p className="text-3xl sm:text-4xl text-blue-600 font-bold">
-          Book your stay
-        </p>
-      </div>
-      <div className="w-full h-20 sm:h-auto flex justify-evenly flex-wrap items-center mt-4 sm:mt-10">
-        <div className="flex justify-between gap-x-10 items-center flex-wrap">
-          <DatePicker
-            selected={checkInDate}
-            dateFormat="dd MMMM yyyy"
-            onChange={handleCheckInDateChange}
-            placeholderText="Check-in"
-            className="w-full h-10 max-w-xs  bg-slate-300"
-            minDate={today}
-            excludeDates={allDates?.map((date) => new Date(date))}
-          />
-          <DatePicker
-            selected={checkOutDate}
-            dateFormat="dd MMMM yyyy"
-            onChange={handleCheckOutDateChange}
-            placeholderText="Check-out"
-            className="w-full h-10 max-w-xs bg-slate-300"
-            minDate={checkInDate ? new Date(checkInDate) : null}
-            excludeDates={allDates?.map((date) => new Date(date))}
-          />
-        </div>
-        <div className="">
-        <button
-          className="btn join-item m-1 px-10 bg-slate-300 "
-          onClick={() => {
-            handleSearch();
-          }}
-        >
-          Search
-        </button>
-        </div><div className="w-full h-8.7rem sm:h-auto bg-transparent flex justify-center items-center mt-5 pe-4 sm:pe-20">
-        <button
-          className="bg-blue-600 m-0 w-28 sm:w-36 h-10 text-sm font-serif"
-          onClick={() => handleBook()}
-        >
-          Book
-        </button>
-      </div>
-      </div>
-      
-    </div>
-    <div className="w-full sm:w-1/2 h-auto  hidden md:flex flex-col gap-5 justify-center items-center">
-      <img
-        src="https://book.zostel.com/static/media/gray-zobu.018014d9.svg"
-        alt="image"
-        className="w-80 sm:w-[80%] h-60 sm:h-[60%] m-0"
-      />
-      <p className="font-serif text-2xl">
-        Do you have any queries? {resort?.resortowner?.name}
-      </p>
-      <button
-        className="bg-blue-600 m-0 w-36 h-10 text-sm font-serif p-3"
-        onClick={() => {
-          handleChat();
-        }}
-      >
-        Chat Now..
-      </button>
-    </div>
-  </div>
-</div>
-
-<div className="mt-16 w-[100%] h-auto sm:h-96 flex flex-col gap-4 bg-slate-100">
-  <div className="w-full h-[80%] flex flex-col sm:flex-row justify-between px-4 sm:px-16 mt-10">
-    <div className="w-full sm:w-1/2 h-auto bg-sky-100">
-      <div className="w-full">
-        <p className="text-3xl sm:text-4xl text-blue-600 font-bold ml-8 mt-6">
-          Rating
-        </p>
-      </div>
-      <div className="flex w-full bg-sky-100 justify-center items-center h-20 sm:h-auto">
-        {stars.map((star, index) => {
-          return (
-            <div
-              className="w-auto h-auto"
-              key={index}
-              onClick={() => handleStarClick(index)}
-            >
-              {" "}
-              <span
-                className={`${
-                  star.active ? "text-yellow-500 " : "text-gray-500"
-                } fa fa-star text-2xl mx-1 `}
-              ></span>
+        <div className="w-full h-80 sm:h-[80%] flex flex-col sm:flex-row justify-between px-4 sm:px-16 mt-4 sm:mt-10">
+          <div className="w-full sm:w-1/2 h-auto bg-sky-100 flex flex-col">
+            <div className="w-full h-15 sm:h-20 bg-transparent mt-3 sm:mt-0 ps-4 sm:ps-10">
+              <p className="text-3xl sm:text-4xl text-blue-600 font-bold">
+                Book your stay
+              </p>
             </div>
-          );
-        })}
-      </div>
-      <div className="flex w-full bg-sky-100 justify-center h-36 flex-col items-center">
-        <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          className="w-44 bg-slate-300"
-        />
-        {bookCount > 0 ? (
-          !buttonDisabale ? (
-            <button className="bg-red-900 w-38" onClick={submitReview}>
-              Submit
-            </button>
-          ) : (
-            <button className="bg-red-900 w-38" onClick={EditReview}>
-              Edit
-            </button>
-          )
-        ) : (
-          ""
-        )}
-      </div>
-    </div>
-    <div className="w-full sm:w-1/2 h-auto bg-sky-100">
-      <h3 className="mt-4 text-2xl font-serif text-center underline underline-offset-[9px]">
-        Reviews...
-      </h3>
-      <div className="w-full h-[80%] flex justify-evenly">
-        <div className="w-[60%] bg-slate-100 h-[80%] ">
-          {reviewCount?.map((data, index) => {
-            return (
-              <div className="w-full h-10 flex-col justify-start hidden md:flex items-center ps-2" key={index}>
-                <div className="flex justify-start w-full">
-                  <img
-                    src="https://pbs.twimg.com/media/FtsxswzaUAAZXJj.jpg:large"
-                    alt=""
-                    className="w-10 h-10 rounded-full mt-1"
-                  />
-                  <p className="ms-2 mt-3 ml-2 capitalize font-bold">
-                    {data?.userId?.name}
-                  </p>
-                  <p className="mt-3 ms-3">
-                    {formatDate(data?.createdDate)}
-                  </p>
-                </div>
-                <div className="flex w-full flex-col justify-between items-start mt-5">
-                  {" "}
-                  {/* Use flex-col and items-start for neat alignment */}
-                  <p
-                    className={`${
-                      data?.userReview ? "text-slate-950" : "text-slate-400"
-                    } ml-2`}
-                  >
-                    {data?.userReview || "no comment"}
-                  </p>
-                  <div className="flex justify-end w-full gap-1">
-                    {Array.from({ length: data?.rating }).map((_, i) => (
-                      <img
-                        className="w-5 mr-1"
-                        key={i}
-                        src="https://img.icons8.com/?size=512&id=8ggStxqyboK5&format=png"
-                        alt="Star"
-                      />
-                    ))}
-                  </div>
-                </div>
+            <div className="w-full h-20 sm:h-auto flex justify-evenly flex-wrap items-center mt-4 sm:mt-10">
+              <div className="flex justify-between gap-x-10 items-center flex-wrap">
+                <DatePicker
+                  selected={checkInDate}
+                  dateFormat="dd MMMM yyyy"
+                  onChange={handleCheckInDateChange}
+                  placeholderText="Check-in"
+                  className="w-full h-10 max-w-xs  bg-slate-300"
+                  minDate={today}
+                  excludeDates={allDates?.map((date) => new Date(date))}
+                />
+                <DatePicker
+                  selected={checkOutDate}
+                  dateFormat="dd MMMM yyyy"
+                  onChange={handleCheckOutDateChange}
+                  placeholderText="Check-out"
+                  className="w-full h-10 max-w-xs bg-slate-300"
+                  minDate={checkInDate ? new Date(checkInDate) : null}
+                  excludeDates={allDates?.map((date) => new Date(date))}
+                />
               </div>
-            );
-          })}
+              <div className="">
+                <button
+                  className="btn join-item m-1 px-10 bg-slate-300 "
+                  onClick={() => {
+                    handleSearch();
+                  }}
+                >
+                  Search
+                </button>
+              </div>
+              <div className="w-full h-8.7rem sm:h-auto bg-transparent flex justify-center items-center mt-5 pe-4 sm:pe-20">
+                <button
+                  className="bg-blue-600 m-0 w-28 sm:w-36 h-10 text-sm font-serif"
+                  onClick={() => handleBook()}
+                >
+                  Book
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="w-full sm:w-1/2 h-auto  hidden md:flex flex-col gap-5 justify-center items-center">
+            <img
+              src="https://book.zostel.com/static/media/gray-zobu.018014d9.svg"
+              alt="image"
+              className="w-80 sm:w-[80%] h-60 sm:h-[60%] m-0"
+            />
+            <p className="font-serif text-2xl">
+              Do you have any queries? {resort?.resortowner?.name}
+            </p>
+            <button
+              className="bg-blue-600 m-0 w-36 h-10 text-sm font-serif p-3"
+              onClick={() => {
+                handleChat();
+              }}
+            >
+              Chat Now..
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-16 w-[100%] h-auto sm:h-96 flex flex-col gap-4 bg-slate-100">
+        <div className="w-full h-[80%] flex flex-col sm:flex-row justify-between px-4 sm:px-16 mt-10">
+          <div className="w-full sm:w-1/2 h-auto bg-sky-100">
+            <div className="w-full">
+              <p className="text-3xl sm:text-4xl text-blue-600 font-bold ml-8 mt-6">
+                Rating
+              </p>
+            </div>
+            <div className="flex w-full bg-sky-100 justify-center items-center h-20 sm:h-auto">
+              {stars.map((star, index) => {
+                return (
+                  <div
+                    className="w-auto h-auto"
+                    key={index}
+                    onClick={() => handleStarClick(index)}
+                  >
+                    {" "}
+                    <span
+                      className={`${
+                        star.active ? "text-yellow-500 " : "text-gray-500"
+                      } fa fa-star text-2xl mx-1 `}
+                    ></span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex w-full bg-sky-100 justify-center h-36 flex-col items-center">
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className="w-44 bg-slate-300"
+              />
+              {bookCount > 0 ? (
+                !buttonDisabale ? (
+                  <button className="bg-red-900 w-38" onClick={submitReview}>
+                    Submit
+                  </button>
+                ) : (
+                  <button className="bg-red-900 w-38" onClick={EditReview}>
+                    Edit
+                  </button>
+                )
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+          <div className="w-full sm:w-1/2 h-auto bg-sky-100">
+            <h3 className="mt-4 text-2xl font-serif text-center underline underline-offset-[9px]">
+              Reviews...
+            </h3>
+            <div className="w-full h-[80%] flex justify-evenly">
+              <div className="w-[60%] bg-slate-100 h-[80%] ">
+                {reviewCount?.map((data, index) => {
+                  return (
+                    <div
+                      className="w-full h-10 flex-col justify-start hidden md:flex items-center ps-2"
+                      key={index}
+                    >
+                      <div className="flex justify-start w-full">
+                        <img
+                          src="https://pbs.twimg.com/media/FtsxswzaUAAZXJj.jpg:large"
+                          alt=""
+                          className="w-10 h-10 rounded-full mt-1"
+                        />
+                        <p className="ms-2 mt-3 ml-2 capitalize font-bold">
+                          {data?.userId?.name}
+                        </p>
+                        <p className="mt-3 ms-3">
+                          {formatDate(data?.createdDate)}
+                        </p>
+                      </div>
+                      <div className="flex w-full flex-col justify-between items-start mt-5">
+                        {" "}
+                        {/* Use flex-col and items-start for neat alignment */}
+                        <p
+                          className={`${
+                            data?.userReview
+                              ? "text-slate-950"
+                              : "text-slate-400"
+                          } ml-2`}
+                        >
+                          {data?.userReview || "no comment"}
+                        </p>
+                        <div className="flex justify-end w-full gap-1">
+                          {Array.from({ length: data?.rating }).map((_, i) => (
+                            <img
+                              className="w-5 mr-1"
+                              key={i}
+                              src="https://img.icons8.com/?size=512&id=8ggStxqyboK5&format=png"
+                              alt="Star"
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
   );
 }
 export default Resorters;
