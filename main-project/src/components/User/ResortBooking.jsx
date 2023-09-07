@@ -292,9 +292,7 @@ const ResortBooking = () => {
             />
 
             <h2 className="font-semibold flex items-center">
-              {/* <FaBed className="text-sm" /> */}
-              {/* Selected Room: */}
-              {/* <span className="ml-2">{count_room}</span> */}
+              
             </h2>
             <h2 className="font-semibold flex items-center">
               <MdPlace className="text-sm" />
