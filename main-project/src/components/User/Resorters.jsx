@@ -303,7 +303,7 @@ function Resorters() {
     }
   };
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full overflow-x-hidden h-full flex flex-col justify-center items-center">
       <div className=" w-full md:w-3/4 h-[20rem] md:h-[50rem] px-10 py-10  ">
         <div className=" w-full grid grid-rows-3 grid-flow-col gap-4 rounded-xl overflow-hidden">
           <div className=" w-full row-span-3 col-span-2 h-full overflow-hidden">
